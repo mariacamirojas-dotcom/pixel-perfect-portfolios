@@ -129,7 +129,7 @@ function Portfolio() {
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
-                src={camila}
+                src={headshotAsset.url}
                 alt="Camila Rojas"
                 width={288}
                 height={288}
@@ -237,8 +237,8 @@ function Portfolio() {
                 </div>
               </dl>
               <div>
-                <div className={`aspect-[16/10] rounded-lg bg-gradient-to-br ${activeProject.tint} grid place-items-center`}>
-                  <span className="text-7xl font-black text-white/90 drop-shadow-lg">{activeProject.label}</span>
+                <div className="aspect-[16/10] rounded-lg overflow-hidden bg-card border border-border">
+                  <img src={activeProject.image} alt={activeProject.name} className="w-full h-full object-cover" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{activeProject.description}</p>
@@ -267,8 +267,8 @@ function Portfolio() {
                   onClick={() => setActiveProject(p)}
                   className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition"
                 >
-                  <div className={`aspect-[4/3] bg-gradient-to-br ${p.tint} grid place-items-center relative`}>
-                    <span className="text-5xl font-black text-white/90 drop-shadow-lg">{p.label}</span>
+                  <div className="aspect-[4/3] relative overflow-hidden bg-card">
+                    <img src={p.image} alt={p.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     <span className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
                   </div>
                   <div className="flex items-center justify-between px-4 py-3">
