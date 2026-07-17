@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Mail, Phone, Download } from "lucide-react";
+import { Menu, X, Mail, Phone, Download, ArrowLeft } from "lucide-react";
 import camila from "@/assets/camila.jpg";
 
 export const Route = createFileRoute("/")({
@@ -39,23 +39,39 @@ const experience = [
   },
 ];
 
-const projects = [
-  { name: "DentalDrive", tag: "UI Design", cat: "UI Design", tint: "from-emerald-500/60 to-emerald-900/40", label: "DD" },
-  { name: "Proficensor", tag: "UI Design", cat: "UI Design", tint: "from-indigo-500/50 to-slate-900/60", label: "PC" },
-  { name: "DentXR", tag: "UI & Graphic Design", cat: "Brand System Design", tint: "from-fuchsia-500/60 to-blue-700/50", label: "DX" },
-  { name: "uNext", tag: "UI Design", cat: "UI Design", tint: "from-sky-500/50 to-indigo-900/60", label: "uN" },
-  { name: "DDShared", tag: "UI Design", cat: "UI Design", tint: "from-orange-500/60 to-zinc-900/60", label: "DS" },
-  { name: "DDSMag", tag: "UI Design", cat: "Brand System Design", tint: "from-red-500/60 to-zinc-900/60", label: "DM" },
-  { name: "DDSFix", tag: "Brand System Design", cat: "Brand System Design", tint: "from-violet-600/60 to-zinc-900/70", label: "DF" },
-  { name: "Dicom Share", tag: "Brand System Design", cat: "Brand System Design", tint: "from-cyan-500/50 to-slate-900/60", label: "DC" },
-  { name: "London & Paris Fashion", tag: "Brand System Design", cat: "Logo Design", tint: "from-stone-200/70 to-stone-600/60", label: "LP" },
+type Project = {
+  name: string;
+  tag: string;
+  cat: string;
+  tint: string;
+  label: string;
+  client: string;
+  role: string;
+  year: string;
+  tools: string;
+  scope: string;
+  description: string;
+};
+
+const projects: Project[] = [
+  { name: "DentalDrive", tag: "UI Design", cat: "UI Design", tint: "from-emerald-500/60 to-emerald-900/40", label: "DD", client: "CyberTouch Solutions", role: "UI Designer", year: "2022", tools: "Figma, Adobe XD", scope: "Web App UI", description: "DentalDrive is a dental practice management platform designed to streamline daily workflows for clinics. The UI focuses on clarity, quick access to patient records and a consistent visual language across every module of the product." },
+  { name: "Proficensor", tag: "UI Design", cat: "UI Design", tint: "from-indigo-500/50 to-slate-900/60", label: "PC", client: "Proficensor Inc.", role: "UI Designer", year: "2022", tools: "Figma", scope: "SaaS Dashboard", description: "Proficensor is a monitoring dashboard for professional exams. The interface highlights data density with a calm, focused layout, giving proctors the tools they need without noise." },
+  { name: "DentXR", tag: "UI & Graphic Design", cat: "Brand System Design", tint: "from-fuchsia-500/60 to-blue-700/50", label: "DX", client: "DentXR", role: "UI & Brand", year: "2023", tools: "Figma, Illustrator", scope: "Brand & Product UI", description: "DentXR blends dental imaging with immersive XR experiences. The visual system merges a bold gradient identity with a precise product UI, connecting brand and interface." },
+  { name: "uNext", tag: "UI Design", cat: "UI Design", tint: "from-sky-500/50 to-indigo-900/60", label: "uN", client: "uNext", role: "UI Designer", year: "2023", tools: "Figma", scope: "Mobile & Web UI", description: "uNext is a learning platform focused on continuous education. The UI proposes a light, editorial feel across mobile and desktop, keeping content the main character." },
+  { name: "DDShared", tag: "UI Design", cat: "UI Design", tint: "from-orange-500/60 to-zinc-900/60", label: "DS", client: "DentalDrive", role: "UI Designer", year: "2023", tools: "Figma", scope: "Web App UI", description: "DDShared extends the DentalDrive ecosystem with collaboration features. The UI emphasises shared workspaces and a fast, keyboard-friendly navigation." },
+  { name: "DDSMag", tag: "UI Design", cat: "Brand System Design", tint: "from-red-500/60 to-zinc-900/60", label: "DM", client: "DDS Magazine", role: "Brand & UI", year: "2024", tools: "Illustrator, Figma", scope: "Editorial Brand", description: "DDSMag is an editorial brand for the dental industry. The system combines strong typography with a bold red accent, applied consistently across print and digital pieces." },
+  { name: "DDSFix", tag: "Brand System Design", cat: "Brand System Design", tint: "from-violet-600/60 to-zinc-900/70", label: "DF", client: "DDSFix", role: "Brand Designer", year: "2024", tools: "Illustrator, Photoshop", scope: "Brand System", description: "DDSFix is a repair and maintenance service. The identity leans on a violet palette with confident marks, applied across stationery, apparel and digital touchpoints." },
+  { name: "Dicom Share", tag: "Brand System Design", cat: "Brand System Design", tint: "from-cyan-500/50 to-slate-900/60", label: "DC", client: "Dicom Share", role: "Brand Designer", year: "2024", tools: "Illustrator", scope: "Brand System", description: "Dicom Share is a medical imaging exchange service. The brand system relies on a clean geometric mark and a cool palette that translates trust and precision." },
+  { name: "London & Paris Fashion", tag: "Brand System Design", cat: "Logo Design", tint: "from-stone-200/70 to-stone-600/60", label: "LP", client: "London & Paris Fashion", role: "Logo Designer", year: "2025", tools: "Illustrator", scope: "Logo & Wordmark", description: "A refined logo exploration for a fashion label bridging London and Paris. The wordmark balances editorial serif details with a modern, restrained rhythm." },
 ];
 
 const filters = ["All", "UI Design", "Brand System Design", "Logo Design"];
 
+
 function Portfolio() {
   const [filter, setFilter] = useState("All");
   const [open, setOpen] = useState(false);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
   const visible = projects.filter((p) => filter === "All" || p.cat === filter);
 
   return (
@@ -175,33 +191,87 @@ function Portfolio() {
 
       <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">Portfolio</h2>
-        <div className="mt-8 flex flex-wrap justify-center gap-2">
-          {filters.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-4 py-1.5 rounded-md text-sm transition ${
-                filter === f ? "text-white bg-gradient-brand shadow-glow" : "text-muted-foreground border border-border hover:bg-muted"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {visible.map((p) => (
-            <article key={p.name} className="group rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition">
-              <div className={`aspect-[4/3] bg-gradient-to-br ${p.tint} grid place-items-center relative`}>
-                <span className="text-5xl font-black text-white/90 drop-shadow-lg">{p.label}</span>
-                <span className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
+
+        {activeProject ? (
+          <div className="mt-8 rounded-xl bg-card border border-border p-5 sm:p-8">
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <button
+                onClick={() => setActiveProject(null)}
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition"
+              >
+                <ArrowLeft size={16} /> Back
+              </button>
+              <span className="text-xs px-3 py-1 rounded-md text-white bg-gradient-brand shadow-glow">
+                {activeProject.cat}
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8">
+              <dl className="space-y-4 text-sm">
+                <div>
+                  <dt className="text-muted-foreground">Client</dt>
+                  <dd className="font-medium mt-1">{activeProject.client}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Role</dt>
+                  <dd className="font-medium mt-1">{activeProject.role}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Year</dt>
+                  <dd className="font-medium mt-1">{activeProject.year}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Tools</dt>
+                  <dd className="font-medium mt-1">{activeProject.tools}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Scope</dt>
+                  <dd className="font-medium mt-1">{activeProject.scope}</dd>
+                </div>
+              </dl>
+              <div>
+                <div className={`aspect-[16/10] rounded-lg bg-gradient-to-br ${activeProject.tint} grid place-items-center`}>
+                  <span className="text-7xl font-black text-white/90 drop-shadow-lg">{activeProject.label}</span>
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{activeProject.description}</p>
               </div>
-              <div className="flex items-center justify-between px-4 py-3">
-                <p className="text-sm font-medium">{p.name}</p>
-                <p className="text-xs text-muted-foreground">{p.tag}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="mt-8 flex flex-wrap justify-center gap-2">
+              {filters.map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  className={`px-4 py-1.5 rounded-md text-sm transition ${
+                    filter === f ? "text-white bg-gradient-brand shadow-glow" : "text-muted-foreground border border-border hover:bg-muted"
+                  }`}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {visible.map((p) => (
+                <button
+                  key={p.name}
+                  onClick={() => setActiveProject(p)}
+                  className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition"
+                >
+                  <div className={`aspect-[4/3] bg-gradient-to-br ${p.tint} grid place-items-center relative`}>
+                    <span className="text-5xl font-black text-white/90 drop-shadow-lg">{p.label}</span>
+                    <span className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-3">
+                    <p className="text-sm font-medium">{p.name}</p>
+                    <p className="text-xs text-muted-foreground">{p.tag}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </section>
 
       <section id="contact" className="mx-auto max-w-3xl px-5 sm:px-8 pb-24">
