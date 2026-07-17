@@ -71,6 +71,7 @@ const filters = ["All", "UI Design", "Brand System Design", "Logo Design"];
 function Portfolio() {
   const [filter, setFilter] = useState("All");
   const [open, setOpen] = useState(false);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
   const visible = projects.filter((p) => filter === "All" || p.cat === filter);
 
   return (
