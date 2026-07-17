@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Mail, Phone, Download } from "lucide-react";
+import { Menu, X, Mail, Phone, Download, ArrowLeft } from "lucide-react";
 import camila from "@/assets/camila.jpg";
 
 export const Route = createFileRoute("/")({
