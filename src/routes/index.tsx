@@ -39,19 +39,34 @@ const experience = [
   },
 ];
 
-const projects = [
-  { name: "DentalDrive", tag: "UI Design", cat: "UI Design", tint: "from-emerald-500/60 to-emerald-900/40", label: "DD" },
-  { name: "Proficensor", tag: "UI Design", cat: "UI Design", tint: "from-indigo-500/50 to-slate-900/60", label: "PC" },
-  { name: "DentXR", tag: "UI & Graphic Design", cat: "Brand System Design", tint: "from-fuchsia-500/60 to-blue-700/50", label: "DX" },
-  { name: "uNext", tag: "UI Design", cat: "UI Design", tint: "from-sky-500/50 to-indigo-900/60", label: "uN" },
-  { name: "DDShared", tag: "UI Design", cat: "UI Design", tint: "from-orange-500/60 to-zinc-900/60", label: "DS" },
-  { name: "DDSMag", tag: "UI Design", cat: "Brand System Design", tint: "from-red-500/60 to-zinc-900/60", label: "DM" },
-  { name: "DDSFix", tag: "Brand System Design", cat: "Brand System Design", tint: "from-violet-600/60 to-zinc-900/70", label: "DF" },
-  { name: "Dicom Share", tag: "Brand System Design", cat: "Brand System Design", tint: "from-cyan-500/50 to-slate-900/60", label: "DC" },
-  { name: "London & Paris Fashion", tag: "Brand System Design", cat: "Logo Design", tint: "from-stone-200/70 to-stone-600/60", label: "LP" },
+type Project = {
+  name: string;
+  tag: string;
+  cat: string;
+  tint: string;
+  label: string;
+  client: string;
+  role: string;
+  year: string;
+  tools: string;
+  scope: string;
+  description: string;
+};
+
+const projects: Project[] = [
+  { name: "DentalDrive", tag: "UI Design", cat: "UI Design", tint: "from-emerald-500/60 to-emerald-900/40", label: "DD", client: "CyberTouch Solutions", role: "UI Designer", year: "2022", tools: "Figma, Adobe XD", scope: "Web App UI", description: "DentalDrive is a dental practice management platform designed to streamline daily workflows for clinics. The UI focuses on clarity, quick access to patient records and a consistent visual language across every module of the product." },
+  { name: "Proficensor", tag: "UI Design", cat: "UI Design", tint: "from-indigo-500/50 to-slate-900/60", label: "PC", client: "Proficensor Inc.", role: "UI Designer", year: "2022", tools: "Figma", scope: "SaaS Dashboard", description: "Proficensor is a monitoring dashboard for professional exams. The interface highlights data density with a calm, focused layout, giving proctors the tools they need without noise." },
+  { name: "DentXR", tag: "UI & Graphic Design", cat: "Brand System Design", tint: "from-fuchsia-500/60 to-blue-700/50", label: "DX", client: "DentXR", role: "UI & Brand", year: "2023", tools: "Figma, Illustrator", scope: "Brand & Product UI", description: "DentXR blends dental imaging with immersive XR experiences. The visual system merges a bold gradient identity with a precise product UI, connecting brand and interface." },
+  { name: "uNext", tag: "UI Design", cat: "UI Design", tint: "from-sky-500/50 to-indigo-900/60", label: "uN", client: "uNext", role: "UI Designer", year: "2023", tools: "Figma", scope: "Mobile & Web UI", description: "uNext is a learning platform focused on continuous education. The UI proposes a light, editorial feel across mobile and desktop, keeping content the main character." },
+  { name: "DDShared", tag: "UI Design", cat: "UI Design", tint: "from-orange-500/60 to-zinc-900/60", label: "DS", client: "DentalDrive", role: "UI Designer", year: "2023", tools: "Figma", scope: "Web App UI", description: "DDShared extends the DentalDrive ecosystem with collaboration features. The UI emphasises shared workspaces and a fast, keyboard-friendly navigation." },
+  { name: "DDSMag", tag: "UI Design", cat: "Brand System Design", tint: "from-red-500/60 to-zinc-900/60", label: "DM", client: "DDS Magazine", role: "Brand & UI", year: "2024", tools: "Illustrator, Figma", scope: "Editorial Brand", description: "DDSMag is an editorial brand for the dental industry. The system combines strong typography with a bold red accent, applied consistently across print and digital pieces." },
+  { name: "DDSFix", tag: "Brand System Design", cat: "Brand System Design", tint: "from-violet-600/60 to-zinc-900/70", label: "DF", client: "DDSFix", role: "Brand Designer", year: "2024", tools: "Illustrator, Photoshop", scope: "Brand System", description: "DDSFix is a repair and maintenance service. The identity leans on a violet palette with confident marks, applied across stationery, apparel and digital touchpoints." },
+  { name: "Dicom Share", tag: "Brand System Design", cat: "Brand System Design", tint: "from-cyan-500/50 to-slate-900/60", label: "DC", client: "Dicom Share", role: "Brand Designer", year: "2024", tools: "Illustrator", scope: "Brand System", description: "Dicom Share is a medical imaging exchange service. The brand system relies on a clean geometric mark and a cool palette that translates trust and precision." },
+  { name: "London & Paris Fashion", tag: "Brand System Design", cat: "Logo Design", tint: "from-stone-200/70 to-stone-600/60", label: "LP", client: "London & Paris Fashion", role: "Logo Designer", year: "2025", tools: "Illustrator", scope: "Logo & Wordmark", description: "A refined logo exploration for a fashion label bridging London and Paris. The wordmark balances editorial serif details with a modern, restrained rhythm." },
 ];
 
 const filters = ["All", "UI Design", "Brand System Design", "Logo Design"];
+
 
 function Portfolio() {
   const [filter, setFilter] = useState("All");
