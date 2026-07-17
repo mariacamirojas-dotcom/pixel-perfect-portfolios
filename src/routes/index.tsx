@@ -1,7 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft } from "lucide-react";
-import camila from "@/assets/camila.jpg";
+import headshotAsset from "@/assets/portfolio/headshot.png.asset.json";
+import dentalDriveAsset from "@/assets/portfolio/dentaldrive.png.asset.json";
+import proficensorAsset from "@/assets/portfolio/proficensor.png.asset.json";
+import dentxrAsset from "@/assets/portfolio/dentxr.png.asset.json";
+import unextAsset from "@/assets/portfolio/unext.png.asset.json";
+import ddsharedAsset from "@/assets/portfolio/ddshared.png.asset.json";
+import ddsmagAsset from "@/assets/portfolio/ddsmag.png.asset.json";
+import ddsfixAsset from "@/assets/portfolio/ddsfix.png.asset.json";
+import dicomshareAsset from "@/assets/portfolio/dicomshare.png.asset.json";
+import londonParisAsset from "@/assets/portfolio/londonparis.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -43,8 +52,7 @@ type Project = {
   name: string;
   tag: string;
   cat: string;
-  tint: string;
-  label: string;
+  image: string;
   client: string;
   role: string;
   year: string;
@@ -54,15 +62,15 @@ type Project = {
 };
 
 const projects: Project[] = [
-  { name: "DentalDrive", tag: "UI Design", cat: "UI Design", tint: "from-emerald-500/60 to-emerald-900/40", label: "DD", client: "CyberTouch Solutions", role: "UI Designer", year: "2022", tools: "Figma, Adobe XD", scope: "Web App UI", description: "DentalDrive is a dental practice management platform designed to streamline daily workflows for clinics. The UI focuses on clarity, quick access to patient records and a consistent visual language across every module of the product." },
-  { name: "Proficensor", tag: "UI Design", cat: "UI Design", tint: "from-indigo-500/50 to-slate-900/60", label: "PC", client: "Proficensor Inc.", role: "UI Designer", year: "2022", tools: "Figma", scope: "SaaS Dashboard", description: "Proficensor is a monitoring dashboard for professional exams. The interface highlights data density with a calm, focused layout, giving proctors the tools they need without noise." },
-  { name: "DentXR", tag: "UI & Graphic Design", cat: "Brand System Design", tint: "from-fuchsia-500/60 to-blue-700/50", label: "DX", client: "DentXR", role: "UI & Brand", year: "2023", tools: "Figma, Illustrator", scope: "Brand & Product UI", description: "DentXR blends dental imaging with immersive XR experiences. The visual system merges a bold gradient identity with a precise product UI, connecting brand and interface." },
-  { name: "uNext", tag: "UI Design", cat: "UI Design", tint: "from-sky-500/50 to-indigo-900/60", label: "uN", client: "uNext", role: "UI Designer", year: "2023", tools: "Figma", scope: "Mobile & Web UI", description: "uNext is a learning platform focused on continuous education. The UI proposes a light, editorial feel across mobile and desktop, keeping content the main character." },
-  { name: "DDShared", tag: "UI Design", cat: "UI Design", tint: "from-orange-500/60 to-zinc-900/60", label: "DS", client: "DentalDrive", role: "UI Designer", year: "2023", tools: "Figma", scope: "Web App UI", description: "DDShared extends the DentalDrive ecosystem with collaboration features. The UI emphasises shared workspaces and a fast, keyboard-friendly navigation." },
-  { name: "DDSMag", tag: "UI Design", cat: "Brand System Design", tint: "from-red-500/60 to-zinc-900/60", label: "DM", client: "DDS Magazine", role: "Brand & UI", year: "2024", tools: "Illustrator, Figma", scope: "Editorial Brand", description: "DDSMag is an editorial brand for the dental industry. The system combines strong typography with a bold red accent, applied consistently across print and digital pieces." },
-  { name: "DDSFix", tag: "Brand System Design", cat: "Brand System Design", tint: "from-violet-600/60 to-zinc-900/70", label: "DF", client: "DDSFix", role: "Brand Designer", year: "2024", tools: "Illustrator, Photoshop", scope: "Brand System", description: "DDSFix is a repair and maintenance service. The identity leans on a violet palette with confident marks, applied across stationery, apparel and digital touchpoints." },
-  { name: "Dicom Share", tag: "Brand System Design", cat: "Brand System Design", tint: "from-cyan-500/50 to-slate-900/60", label: "DC", client: "Dicom Share", role: "Brand Designer", year: "2024", tools: "Illustrator", scope: "Brand System", description: "Dicom Share is a medical imaging exchange service. The brand system relies on a clean geometric mark and a cool palette that translates trust and precision." },
-  { name: "London & Paris Fashion", tag: "Brand System Design", cat: "Logo Design", tint: "from-stone-200/70 to-stone-600/60", label: "LP", client: "London & Paris Fashion", role: "Logo Designer", year: "2025", tools: "Illustrator", scope: "Logo & Wordmark", description: "A refined logo exploration for a fashion label bridging London and Paris. The wordmark balances editorial serif details with a modern, restrained rhythm." },
+  { name: "DentalDrive", tag: "UI Design", cat: "UI Design", image: dentalDriveAsset.url, client: "CyberTouch Solutions", role: "UI Designer", year: "2022", tools: "Figma, Adobe XD", scope: "Web App UI", description: "DentalDrive is a dental practice management platform designed to streamline daily workflows for clinics. The UI focuses on clarity, quick access to patient records and a consistent visual language across every module of the product." },
+  { name: "Proficensor", tag: "UI Design", cat: "UI Design", image: proficensorAsset.url, client: "Proficensor Inc.", role: "UI Designer", year: "2022", tools: "Figma", scope: "SaaS Dashboard", description: "Proficensor is a monitoring dashboard for professional exams. The interface highlights data density with a calm, focused layout, giving proctors the tools they need without noise." },
+  { name: "DentXR", tag: "UI & Graphic Design", cat: "Brand System Design", image: dentxrAsset.url, client: "DentXR", role: "UI & Brand", year: "2023", tools: "Figma, Illustrator", scope: "Brand & Product UI", description: "DentXR blends dental imaging with immersive XR experiences. The visual system merges a bold gradient identity with a precise product UI, connecting brand and interface." },
+  { name: "uNext", tag: "UI Design", cat: "UI Design", image: unextAsset.url, client: "uNext", role: "UI Designer", year: "2023", tools: "Figma", scope: "Mobile & Web UI", description: "uNext is a learning platform focused on continuous education. The UI proposes a light, editorial feel across mobile and desktop, keeping content the main character." },
+  { name: "DDShared", tag: "UI Design", cat: "UI Design", image: ddsharedAsset.url, client: "DentalDrive", role: "UI Designer", year: "2023", tools: "Figma", scope: "Web App UI", description: "DDShared extends the DentalDrive ecosystem with collaboration features. The UI emphasises shared workspaces and a fast, keyboard-friendly navigation." },
+  { name: "DDSMag", tag: "UI Design", cat: "Brand System Design", image: ddsmagAsset.url, client: "DDS Magazine", role: "Brand & UI", year: "2024", tools: "Illustrator, Figma", scope: "Editorial Brand", description: "DDSMag is an editorial brand for the dental industry. The system combines strong typography with a bold red accent, applied consistently across print and digital pieces." },
+  { name: "DDSFix", tag: "Brand System Design", cat: "Brand System Design", image: ddsfixAsset.url, client: "DDSFix", role: "Brand Designer", year: "2024", tools: "Illustrator, Photoshop", scope: "Brand System", description: "DDSFix is a repair and maintenance service. The identity leans on a violet palette with confident marks, applied across stationery, apparel and digital touchpoints." },
+  { name: "Dicom Share", tag: "Brand System Design", cat: "Brand System Design", image: dicomshareAsset.url, client: "Dicom Share", role: "Brand Designer", year: "2024", tools: "Illustrator", scope: "Brand System", description: "Dicom Share is a medical imaging exchange service. The brand system relies on a clean geometric mark and a cool palette that translates trust and precision." },
+  { name: "London & Paris Fashion", tag: "Brand System Design", cat: "Logo Design", image: londonParisAsset.url, client: "London & Paris Fashion", role: "Logo Designer", year: "2025", tools: "Illustrator", scope: "Logo & Wordmark", description: "A refined logo exploration for a fashion label bridging London and Paris. The wordmark balances editorial serif details with a modern, restrained rhythm." },
 ];
 
 const filters = ["All", "UI Design", "Brand System Design", "Logo Design"];
@@ -121,7 +129,7 @@ function Portfolio() {
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
-                src={camila}
+                src={headshotAsset.url}
                 alt="Camila Rojas"
                 width={288}
                 height={288}
@@ -229,8 +237,8 @@ function Portfolio() {
                 </div>
               </dl>
               <div>
-                <div className={`aspect-[16/10] rounded-lg bg-gradient-to-br ${activeProject.tint} grid place-items-center`}>
-                  <span className="text-7xl font-black text-white/90 drop-shadow-lg">{activeProject.label}</span>
+                <div className="aspect-[16/10] rounded-lg overflow-hidden bg-card border border-border">
+                  <img src={activeProject.image} alt={activeProject.name} className="w-full h-full object-cover" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{activeProject.description}</p>
@@ -259,8 +267,8 @@ function Portfolio() {
                   onClick={() => setActiveProject(p)}
                   className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition"
                 >
-                  <div className={`aspect-[4/3] bg-gradient-to-br ${p.tint} grid place-items-center relative`}>
-                    <span className="text-5xl font-black text-white/90 drop-shadow-lg">{p.label}</span>
+                  <div className="aspect-[4/3] relative overflow-hidden bg-card">
+                    <img src={p.image} alt={p.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     <span className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
                   </div>
                   <div className="flex items-center justify-between px-4 py-3">
