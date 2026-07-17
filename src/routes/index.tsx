@@ -191,33 +191,87 @@ function Portfolio() {
 
       <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">Portfolio</h2>
-        <div className="mt-8 flex flex-wrap justify-center gap-2">
-          {filters.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={`px-4 py-1.5 rounded-md text-sm transition ${
-                filter === f ? "text-white bg-gradient-brand shadow-glow" : "text-muted-foreground border border-border hover:bg-muted"
-              }`}
-            >
-              {f}
-            </button>
-          ))}
-        </div>
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-          {visible.map((p) => (
-            <article key={p.name} className="group rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition">
-              <div className={`aspect-[4/3] bg-gradient-to-br ${p.tint} grid place-items-center relative`}>
-                <span className="text-5xl font-black text-white/90 drop-shadow-lg">{p.label}</span>
-                <span className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
+
+        {activeProject ? (
+          <div className="mt-8 rounded-xl bg-card border border-border p-5 sm:p-8">
+            <div className="flex items-center justify-between gap-4 mb-6">
+              <button
+                onClick={() => setActiveProject(null)}
+                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition"
+              >
+                <ArrowLeft size={16} /> Back
+              </button>
+              <span className="text-xs px-3 py-1 rounded-md text-white bg-gradient-brand shadow-glow">
+                {activeProject.cat}
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8">
+              <dl className="space-y-4 text-sm">
+                <div>
+                  <dt className="text-muted-foreground">Client</dt>
+                  <dd className="font-medium mt-1">{activeProject.client}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Role</dt>
+                  <dd className="font-medium mt-1">{activeProject.role}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Year</dt>
+                  <dd className="font-medium mt-1">{activeProject.year}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Tools</dt>
+                  <dd className="font-medium mt-1">{activeProject.tools}</dd>
+                </div>
+                <div>
+                  <dt className="text-muted-foreground">Scope</dt>
+                  <dd className="font-medium mt-1">{activeProject.scope}</dd>
+                </div>
+              </dl>
+              <div>
+                <div className={`aspect-[16/10] rounded-lg bg-gradient-to-br ${activeProject.tint} grid place-items-center`}>
+                  <span className="text-7xl font-black text-white/90 drop-shadow-lg">{activeProject.label}</span>
+                </div>
+                <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{activeProject.description}</p>
               </div>
-              <div className="flex items-center justify-between px-4 py-3">
-                <p className="text-sm font-medium">{p.name}</p>
-                <p className="text-xs text-muted-foreground">{p.tag}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="mt-8 flex flex-wrap justify-center gap-2">
+              {filters.map((f) => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  className={`px-4 py-1.5 rounded-md text-sm transition ${
+                    filter === f ? "text-white bg-gradient-brand shadow-glow" : "text-muted-foreground border border-border hover:bg-muted"
+                  }`}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
+              {visible.map((p) => (
+                <button
+                  key={p.name}
+                  onClick={() => setActiveProject(p)}
+                  className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition"
+                >
+                  <div className={`aspect-[4/3] bg-gradient-to-br ${p.tint} grid place-items-center relative`}>
+                    <span className="text-5xl font-black text-white/90 drop-shadow-lg">{p.label}</span>
+                    <span className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
+                  </div>
+                  <div className="flex items-center justify-between px-4 py-3">
+                    <p className="text-sm font-medium">{p.name}</p>
+                    <p className="text-xs text-muted-foreground">{p.tag}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </>
+        )}
       </section>
 
       <section id="contact" className="mx-auto max-w-3xl px-5 sm:px-8 pb-24">
