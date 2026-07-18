@@ -138,32 +138,11 @@ const skills = [
   { name: "Adobe Illustrator", pct: 100, label: "Ai" },
 ];
 
-// 24 individual logo PNGs — served directly from /public (case-sensitive on Vercel)
 const logoImages = [
-  "/20_1b.png",
-  "/21_2b.png",
-  "/22_3b.png",
-  "/23_4b.png",
-  "/24_5b.png",
-  "/25_6b.png",
-  "/26_7b.png",
-  "/27_8b.png",
-  "/28_9b.png",
-  "/29_10b.png",
-  "/30_11b.png",
-  "/31_12.png",
-  "/32_13b.png",
-  "/33_14b.png",
-  "/34_15b.png",
-  "/35_16b.png",
-  "/36_17b.png",
-  "/37_18b.png",
-  "/38_19a.png",
-  "/39_20b.png",
-  "/40_21b.png",
-  "/41_22b.png",
-  "/42_23b.png",
-  "/43_24b.png",
+  "/20_1b.png", "/21_2b.png", "/22_3b.png", "/23_4b.png", "/24_5b.png", "/25_6b.png",
+  "/26_7b.png", "/27_8b.png", "/28_9b.png", "/29_10b.png", "/30_11b.png", "/31_12.png",
+  "/32_13b.png", "/33_14b.png", "/34_15b.png", "/35_16b.png", "/36_17b.png", "/37_18b.png",
+  "/38_19a.png", "/39_20b.png", "/40_21b.png", "/41_22b.png", "/42_23b.png", "/43_24b.png",
 ];
 
 type Cat = "Ui Design" | "Brand System Design";
@@ -180,7 +159,6 @@ type Project = {
   description: { en: string; es: string };
 };
 
-// UI Design: 6 projects — Brand System Design: 3 projects
 const projects: Project[] = [
   {
     name: "DentalDrive",
@@ -310,7 +288,7 @@ const projects: Project[] = [
   },
 ];
 
-function Portfolio() {
+export default function Portfolio() {
   const [lang, setLang] = useState<Lang>("en");
   const [filter, setFilter] = useState<"All" | Cat | "Logo Design">("All");
   const [open, setOpen] = useState(false);
@@ -596,7 +574,6 @@ function Portfolio() {
             </div>
 
             {filter === "Logo Design" ? (
-              /* Clean transparent grid of individual logo PNGs */
               <div className="mt-10 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
                 {logoImages.map((src, i) => (
                   <div
@@ -675,37 +652,20 @@ function Portfolio() {
           <textarea
             placeholder={L.form.details}
             rows={5}
-            className="px-4 py-3 rounded-md bg-input border border-border text-sm outline-none focus:border-ring sm:row-span-2"
+            className="px-4 py-3 rounded-md bg-input border border-border text-sm outline-none focus:border-ring sm:row-span-2 resize-none"
           />
-          <div className="sm:col-span-2 flex justify-end">
-            <button className="px-8 py-2.5 rounded-md text-sm font-medium border border-border hover:bg-muted transition">
-              {L.form.send}
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full sm:col-span-2 py-3 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition"
+          >
+            {L.form.send}
+          </button>
         </form>
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-border/40 py-10">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center">
-          <p className="text-gradient font-bold text-lg">Camila Rojas</p>
-          <nav className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            {nav.map((n) => (
-              <a key={n.key} href={n.href} className="hover:text-foreground transition">
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-2">
-              <Mail size={14} /> mariacamirojas@gmail.com
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Phone size={14} /> +57 3018584572
-            </span>
-          </div>
-          <p className="mt-6 text-xs text-muted-foreground">{L.footer}</p>
-        </div>
+      <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground">
+        <p>{L.footer}</p>
       </footer>
     </div>
   );
