@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
-import camilaPng from "@/assets/camila.png";
  
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -138,32 +137,11 @@ const skills = [
   { name: "Adobe Illustrator", pct: 100, label: "Ai" },
 ];
  
-// 24 individual logo PNGs — served directly from /public (case-sensitive on Vercel)
 const logoImages = [
-  "/20_1b.png",
-  "/21_2b.png",
-  "/22_3b.png",
-  "/23_4b.png",
-  "/24_5b.png",
-  "/25_6b.png",
-  "/26_7b.png",
-  "/27_8b.png",
-  "/28_9b.png",
-  "/29_10b.png",
-  "/30_11b.png",
-  "/31_12.png",
-  "/32_13b.png",
-  "/33_14b.png",
-  "/34_15b.png",
-  "/35_16b.png",
-  "/36_17b.png",
-  "/37_18b.png",
-  "/38_19a.png",
-  "/39_20b.png",
-  "/40_21b.png",
-  "/41_22b.png",
-  "/42_23b.png",
-  "/43_24b.png",
+  "/20_1b.png", "/21_2b.png", "/22_3b.png", "/23_4b.png", "/24_5b.png", "/25_6b.png",
+  "/26_7b.png", "/27_8b.png", "/28_9b.png", "/29_10b.png", "/30_11b.png", "/31_12.png",
+  "/32_13b.png", "/33_14b.png", "/34_15b.png", "/35_16b.png", "/36_17b.png", "/37_18b.png",
+  "/38_19a.png", "/39_20b.png", "/40_21b.png", "/41_22b.png", "/42_23b.png", "/43_24b.png",
 ];
  
 type Cat = "Ui Design" | "Brand System Design";
@@ -171,12 +149,6 @@ type Cat = "Ui Design" | "Brand System Design";
 type Project = {
   name: string;
   cat: Cat;
-  // One or more images from /public for this case study, in display order.
-  // The mosaic below adapts its column/row structure to however many you list
-  // here — 1 image renders as a single card, 2/3/4+ render as the cascade
-  // layouts seen in the Figma case-study captures. Only the FIRST path in
-  // each array below is a filename confirmed to exist in the repo today —
-  // add the rest of each project's real /public filenames as you have them.
   images: string[];
   client: string;
   role: string;
@@ -186,12 +158,11 @@ type Project = {
   description: { en: string; es: string };
 };
  
-// UI Design: 6 projects — Brand System Design: 3 projects
 const projects: Project[] = [
   {
     name: "DentalDrive",
     cat: "Ui Design",
-    images: ["/2_rectangle_21.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/2_rectangle_21.png"],
     client: "CyberTouch Solutions",
     role: "UI Designer",
     year: "2022",
@@ -205,7 +176,7 @@ const projects: Project[] = [
   {
     name: "ProLicensor",
     cat: "Ui Design",
-    images: ["/3_rectangle_26.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/3_rectangle_26.png"],
     client: "ProLicensor Inc.",
     role: "UI Designer",
     year: "2022",
@@ -219,7 +190,7 @@ const projects: Project[] = [
   {
     name: "DentXR",
     cat: "Ui Design",
-    images: ["/4_rectangle_22.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/4_rectangle_22.png"],
     client: "DentXR",
     role: "UI & Brand",
     year: "2023",
@@ -233,7 +204,7 @@ const projects: Project[] = [
   {
     name: "uNext",
     cat: "Ui Design",
-    images: ["/5_rectangle_26.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/5_rectangle_26.png"],
     client: "uNext",
     role: "UI Designer",
     year: "2023",
@@ -247,7 +218,7 @@ const projects: Project[] = [
   {
     name: "DDShared",
     cat: "Ui Design",
-    images: ["/6_rectangle_21.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/6_rectangle_21.png"],
     client: "DDShared",
     role: "UI Designer",
     year: "2023",
@@ -261,7 +232,7 @@ const projects: Project[] = [
   {
     name: "DDSMag",
     cat: "Ui Design",
-    images: ["/7_rectangle_22.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/7_rectangle_22.png"],
     client: "DDSMag",
     role: "Brand & UI",
     year: "2024",
@@ -275,7 +246,7 @@ const projects: Project[] = [
   {
     name: "DDSGroup",
     cat: "Brand System Design",
-    images: ["/8_rectangle_21.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/8_rectangle_21.png"],
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -289,7 +260,7 @@ const projects: Project[] = [
   {
     name: "DicomShare",
     cat: "Brand System Design",
-    images: ["/9_rectangle_22.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/9_rectangle_22.png"],
     client: "DicomShare",
     role: "Brand Designer",
     year: "2024",
@@ -303,7 +274,7 @@ const projects: Project[] = [
   {
     name: "London & Paris",
     cat: "Brand System Design",
-    images: ["/10_rectangle_26.png"], // add more confirmed /public filenames here for the multi-shot cascade
+    images: ["/10_rectangle_26.png"],
     client: "London & Paris",
     role: "Brand Designer",
     year: "2025",
@@ -316,10 +287,6 @@ const projects: Project[] = [
   },
 ];
  
-// Renders a project's case-study images in a cascade that mirrors the Figma
-// captures: a single hero shot, an even split, a main shot with two stacked
-// supporting shots, or a main shot with a small grid — chosen automatically
-// from how many images that project lists.
 function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; alt: string; className?: string }) {
   const imgCls = "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105";
  
@@ -358,7 +325,6 @@ function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; al
     );
   }
  
-  // 4 or more: one hero shot on top, remaining shots in a row underneath
   const rest = images.slice(1, 4);
   return (
     <div className={`aspect-[4/3] grid grid-rows-[2fr_1fr] gap-0.5 bg-card ${className}`}>
@@ -376,7 +342,7 @@ function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; al
   );
 }
  
-function Portfolio() {
+export default function Portfolio() {
   const [lang, setLang] = useState<Lang>("en");
   const [filter, setFilter] = useState<"All" | Cat | "Logo Design">("All");
   const [open, setOpen] = useState(false);
@@ -478,8 +444,6 @@ function Portfolio() {
           <div className="order-2 md:order-1">
             <p className="text-muted-foreground text-lg">{L.hi}</p>
             <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
-            {/* Role heading: bumped up to text-4xl/5xl + font-extrabold to match the
-                visual weight shown in the Figma hero capture */}
             <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold leading-[1.05] tracking-tight text-gradient">
               {L.role}
             </h1>
@@ -502,10 +466,8 @@ function Portfolio() {
           <div className="order-1 md:order-2 justify-self-center md:justify-self-end">
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-25 blur-2xl" />
-              {/* aspect-square + object-cover locked in together so the real photo
-                  always fills the circular frame without stretching or squashing */}
               <img
-                src={camilaPng}
+                src="/camila.png"
                 alt="Camila Rojas"
                 width={320}
                 height={320}
@@ -520,7 +482,6 @@ function Portfolio() {
       <section id="about" className="mx-auto max-w-3xl px-5 sm:px-8 pb-20 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
         <p className="mt-3 text-muted-foreground text-sm">{L.aboutSub}</p>
-        {/* Justified body copy, width capped and centered so line length stays readable */}
         <p className="mt-8 mx-auto max-w-3xl text-muted-foreground leading-[1.9] text-[15px] text-justify">
           {L.aboutBody}
         </p>
@@ -545,9 +506,7 @@ function Portfolio() {
         </div>
       </section>
  
-      {/* EXPERIENCE — minimalist vertical timeline: one thin rail, clean round
-          nodes, generous spacing between milestones. Same layout at every
-          breakpoint so it never has to switch structure on resize. */}
+      {/* EXPERIENCE */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.experienceTitle}</h2>
         <p className="mt-2 font-medium">{L.company}</p>
@@ -660,46 +619,31 @@ function Portfolio() {
             </div>
  
             {filter === "Logo Design" ? (
-              /* Clean transparent grid of individual logo PNGs */
-              <div className="mt-10 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
-                {logoImages.map((src, i) => (
-                  <div
-                    key={src}
-                    className="aspect-square flex items-center justify-center p-3 rounded-xl bg-card/40 hover:bg-card/70 transition-colors"
-                  >
-                    <img
-                      src={src}
-                      alt={`Logo design ${i + 1}`}
-                      loading="lazy"
-                      className="w-full h-full object-contain"
-                    />
+              <div className="mt-12 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6 justify-items-center opacity-85">
+                {logoImages.map((src, idx) => (
+                  <div key={idx} className="w-16 h-16 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
+                    <img src={src} alt={`Logo design shot ${idx + 1}`} className="max-w-full max-h-full object-contain" loading="lazy" />
                   </div>
                 ))}
               </div>
             ) : (
-              /* Dynamic, responsive case-study grid — one card per project,
-                 each pulling its own unique image from /public. auto-rows-fr
-                 keeps every row's cards the same height regardless of count,
-                 so 6 UI Design or 3 Brand System items both lay out cleanly
-                 instead of collapsing into a single stretched tile. */
-              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-5">
+              <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {visible.map((p) => (
-                  <button
+                  <div
                     key={p.name}
                     onClick={() => setActiveProject(p)}
-                    className="group text-left flex flex-col rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition"
+                    className="group cursor-pointer rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg transition-all duration-300"
                   >
-                    <div className="relative">
-                      <CaseStudyMosaic images={p.images} alt={p.name} />
-                      <span className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition pointer-events-none" />
-                    </div>
-                    <div className="flex items-center justify-between px-4 py-3 mt-auto">
-                      <p className="text-sm font-medium">{p.name}</p>
-                      <p className="text-xs text-muted-foreground">
+                    <CaseStudyMosaic images={p.images} alt={p.name} />
+                    <div className="p-5">
+                      <p className="text-xs text-gradient font-medium tracking-wider uppercase">
                         {p.cat === "Ui Design" ? L.filters.ui : L.filters.brand}
                       </p>
+                      <h3 className="text-lg font-semibold mt-1 group-hover:text-gradient transition-colors">
+                        {p.name}
+                      </h3>
                     </div>
-                  </button>
+                  </div>
                 ))}
               </div>
             )}
@@ -709,71 +653,31 @@ function Portfolio() {
  
       {/* CONTACT */}
       <section id="contact" className="mx-auto max-w-3xl px-5 sm:px-8 pb-24">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.contactTitle}</h2>
-        <p className="mt-3 text-center text-sm text-muted-foreground">{L.contactSub}</p>
-        <form
-          className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 font-sans"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <input
-            placeholder={L.form.name}
-            className="px-4 py-3 rounded-md bg-input border border-border text-sm font-sans outline-none focus:border-ring"
-          />
-          <input
-            placeholder={L.form.email}
-            type="email"
-            className="px-4 py-3 rounded-md bg-input border border-border text-sm font-sans outline-none focus:border-ring"
-          />
-          <input
-            placeholder={L.form.phone}
-            className="px-4 py-3 rounded-md bg-input border border-border text-sm font-sans outline-none focus:border-ring"
-          />
-          <select className="px-4 py-3 rounded-md bg-input border border-border text-sm font-sans outline-none focus:border-ring text-muted-foreground">
-            <option>{L.form.service}</option>
-            <option>{L.filters.ui}</option>
-            <option>{L.filters.brand}</option>
-            <option>{L.filters.logo}</option>
-          </select>
-          <input
-            placeholder={L.form.website}
-            className="px-4 py-3 rounded-md bg-input border border-border text-sm font-sans outline-none focus:border-ring"
-          />
-          <textarea
-            placeholder={L.form.details}
-            rows={5}
-            className="px-4 py-3 rounded-md bg-input border border-border text-sm font-sans outline-none focus:border-ring sm:row-span-2"
-          />
-          <div className="sm:col-span-2 flex justify-end">
-            <button className="px-8 py-2.5 rounded-md text-sm font-medium border border-border hover:bg-muted transition">
-              {L.form.send}
-            </button>
+        <div className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold">{L.contactTitle}</h2>
+          <p className="mt-2 text-muted-foreground text-sm">{L.contactSub}</p>
+        </div>
+        <form className="mt-10 space-y-4" onSubmit={(e) => e.preventDefault()}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input type="text" placeholder={L.form.name} required className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
+            <input type="email" placeholder={L.form.email} required className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
           </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input type="tel" placeholder={L.form.phone} className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
+            <input type="text" placeholder={L.form.service} className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
+          </div>
+          <input type="url" placeholder={L.form.website} className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
+          <textarea rows={5} placeholder={L.form.details} required className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring resize-none" />
+          <button type="submit" className="w-full py-3 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition font-sans">
+            {L.form.send}
+          </button>
         </form>
       </section>
  
       {/* FOOTER */}
-      <footer className="border-t border-border/40 py-10">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center">
-          <p className="text-gradient font-bold text-lg">Camila Rojas</p>
-          <nav className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            {nav.map((n) => (
-              <a key={n.key} href={n.href} className="hover:text-foreground transition">
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
-            <span className="inline-flex items-center gap-2">
-              <Mail size={14} /> mariacamirojas@gmail.com
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <Phone size={14} /> +57 3018584572
-            </span>
-          </div>
-          <p className="mt-6 text-xs text-muted-foreground">{L.footer}</p>
-        </div>
+      <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground font-sans">
+        <p>{L.footer}</p>
       </footer>
     </div>
   );
 }
- 
