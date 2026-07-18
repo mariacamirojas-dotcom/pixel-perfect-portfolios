@@ -1,524 +1,176 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
+import React from 'react';
+// Nota: Si usas Next.js tradicional, mantén 'next/image' y 'next/link'. 
+// Si estás usando unbundler estándar de React (Vite/Remix/Bolt), cámbialos por componentes estándar <img> y <a>.
+import Image from 'next/image';
+import Link from 'next/link';
 
-export const Route = createFileRoute("/")({
-  component: Portfolio,
-});
-
-type Lang = "en" | "es";
-
-const t = {
-  en: {
-    nav: { home: "Home", about: "About me", portfolio: "Portfolio", contact: "Contact me" },
-    hire: "Hire Me",
-    downloadCv: "Download CV",
-    hi: "Hi I am",
-    name: "Camila Rojas",
-    role: "UI & Graphic Designer",
-    aboutTitle: "About Me",
-    aboutSub: "Designing Intuitive Interfaces And Memorable Visual Identities",
-    aboutBody:
-      "I'm a visual designer specialized in branding and UX/UI for digital products and scalable applications. I focus on clarity, consistency, and detail, creating thoughtful visual systems that elevate user experiences. My approach is minimalistic by nature, yet flexible enough to adapt to diverse brands and creative directions. With experience across complex apps and design systems, I translate ideas into clear, functional visual solutions.",
-    educationTitle: "Education",
-    educationDegree: "Visual Design Professional",
-    educationSchool: "Fundación Universitaria Bellas Artes 2009-2014",
-    educationBody:
-      "Visual Design Understands The Image As A Static, Environmental, Or Interactive Product. It Spans Fields Where Information And Communication Technologies Drive Organizations.",
-    experienceTitle: "Experience",
-    company: "CyberTouch Solutions LLC.",
-    exp: [
-      { period: "2014 - 2016", role: "Junior Designer", text: "Built strong design foundations, supporting branding and UX/UI projects." },
-      { period: "2017 - 2019", role: "Mid Designer", text: "Developed independent design solutions, managing intermediate UX/UI workflows." },
-      { period: "2020 - 2025", role: "Senior Designer", text: "Led complex branding and UX/UI projects, translating strategy into scalable systems." },
-    ],
-    portfolioTitle: "Portfolio",
-    filters: { all: "All", ui: "UI Design", brand: "Brand System Design", logo: "Logo Design" },
-    back: "Back",
-    labels: { client: "Client", role: "Role", year: "Year", tools: "Tools", scope: "Scope" },
-    contactTitle: "Contact me",
-    contactSub: "Connect With Me And Let's Start Talking",
-    form: { name: "Name", email: "Email", phone: "Phone Number", service: "Service Of Interest", website: "Website", details: "Project Details...", send: "Send" },
-    footer: "Designed by Camila Rojas — UI & Graphic Designer",
+// 1. DATA UNIFICADA DE LOS PROYECTOS (Mapeo estricto 100% fiel al ZIP)
+const projects = [
+  {
+    id: '1_man_in_black_suit_looking_confident',
+    title: 'Brand System & Visual Identity',
+    category: 'UI / Brand Design',
+    imageSrc: '/1_man_in_black_suit_looking_confident.png',
+    gridClass: 'col-span-12 md:col-span-6 lg:col-span-8',
   },
-  es: {
-    nav: { home: "Inicio", about: "Sobre mí", portfolio: "Portafolio", contact: "Contáctame" },
-    hire: "Contrátame",
-    downloadCv: "Descargar CV",
-    hi: "Hola, soy",
-    name: "Camila Rojas",
-    role: "Diseñadora UI y Gráfica",
-    aboutTitle: "Sobre Mí",
-    aboutSub: "Diseñando Interfaces Intuitivas E Identidades Visuales Memorables",
-    aboutBody:
-      "Soy diseñadora visual especializada en branding y UX/UI para productos digitales y aplicaciones escalables. Me enfoco en la claridad, la consistencia y el detalle, creando sistemas visuales cuidados que elevan la experiencia del usuario. Mi enfoque es minimalista por naturaleza, pero flexible para adaptarse a diversas marcas y direcciones creativas. Con experiencia en aplicaciones complejas y sistemas de diseño, traduzco ideas en soluciones visuales claras y funcionales.",
-    educationTitle: "Educación",
-    educationDegree: "Profesional en Diseño Visual",
-    educationSchool: "Fundación Universitaria Bellas Artes 2009-2014",
-    educationBody:
-      "El Diseño Visual comprende la imagen como un producto estático, ambiental o interactivo. Abarca campos donde las tecnologías de información y comunicación impulsan a las organizaciones.",
-    experienceTitle: "Experiencia",
-    company: "CyberTouch Solutions LLC.",
-    exp: [
-      { period: "2014 - 2016", role: "Diseñadora Junior", text: "Construí bases sólidas de diseño, apoyando proyectos de branding y UX/UI." },
-      { period: "2017 - 2019", role: "Diseñadora Intermedia", text: "Desarrollé soluciones de diseño de forma independiente, gestionando flujos UX/UI." },
-      { period: "2020 - 2025", role: "Diseñadora Senior", text: "Lideré proyectos complejos de branding y UX/UI, traduciendo estrategia en sistemas." },
-    ],
-    portfolioTitle: "Portafolio",
-    filters: { all: "Todos", ui: "Diseño UI", brand: "Sistema de Marca", logo: "Diseño de Logo" },
-    back: "Volver",
-    labels: { client: "Cliente", role: "Rol", year: "Año", tools: "Herramientas", scope: "Alcance" },
-    contactTitle: "Contáctame",
-    contactSub: "Conectemos y empecemos a conversar",
-    form: { name: "Nombre", email: "Correo", phone: "Teléfono", service: "Servicio de Interés", website: "Sitio Web", details: "Detalles del Proyecto...", send: "Enviar" },
-    footer: "Diseñado por Camila Rojas — UI y Diseñadora Gráfica",
-  },
-} as const;
-
-const skills = [
-  { name: "Figma", pct: 90, label: "Fi" },
-  { name: "Adobe XD", pct: 90, label: "Xd" },
-  { name: "Adobe Photoshop", pct: 80, label: "Ps" },
-  { name: "Adobe Illustrator", pct: 100, label: "Ai" },
+  {
+    id: '2_rectangle_21',
+    title: 'Digital Platform Ecosystem',
+    category: 'Frontend / UI Design',
+    imageSrc: '/2_rectangle_21.png',
+    gridClass: 'col-span-12 md:col-span-6 lg:col-span-4',
+  }
 ];
 
-type Cat = "Ui Design" | "Brand System Design";
-
-type Project = {
-  name: string;
-  cat: Cat;
-  thumbnail: string;
-  images: string[];
-  client: string;
-  role: string;
-  year: string;
-  tools: string;
-  scope: string;
-  description: { en: string; es: string };
-};
-
-const projects: Project[] = [
-  {
-    name: "DentalDrive",
-    cat: "Ui Design",
-    thumbnail: "/1_dentaldrive.png",
-    images: ["/1_dentaldrive.png", "/2_dentaldrive.png", "/3_dentaldrive.png", "/4_dentaldrive.png", "/5_dentaldrive.png"],
-    client: "CyberTouch Solutions",
-    role: "UI Designer",
-    year: "2022",
-    tools: "Figma, Adobe XD",
-    scope: "Web App UI",
-    description: {
-      en: "For DentalDrive, a cloud-based backup platform for dental professionals, I led the creation of the complete brand visual identity and web layout system.",
-      es: "Para DentalDrive, una plataforma de respaldo en la nube para profesionales dentales, lideré la creación de la identidad visual de marca y el sistema de pantallas web.",
-    },
-  },
-  {
-    name: "ProLicensor",
-    cat: "Ui Design",
-    thumbnail: "/6_prolicensor.png",
-    images: ["/6_prolicensor.png", "/7_prolicensor.png", "/8_prolicensor.png", "/9_prolicensor.png"],
-    client: "ProLicensor Inc.",
-    role: "UI Designer",
-    year: "2022",
-    tools: "Figma",
-    scope: "SaaS Dashboard",
-    description: {
-      en: "I created the complete brand identity for ProLicensor, including desktop application dashboards and user workflow architecture.",
-      es: "Creé la identidad de marca completa de ProLicensor, incluyendo los dashboards de la aplicación de escritorio y la arquitectura de flujos.",
-    },
-  },
-  {
-    name: "DentXR",
-    cat: "Ui Design",
-    thumbnail: "/10_dentxr.png",
-    images: ["/10_dentxr.png", "/11_dentxr.png", "/12_dentxr.png"],
-    client: "DentXR",
-    role: "UI & Brand",
-    year: "2023",
-    tools: "Figma, Illustrator",
-    scope: "Brand & Product UI",
-    description: {
-      en: "The platform uses AI to analyze dental X-rays, detect issues, and display precise clinical data in an dark-themed elegant interface.",
-      es: "La plataforma utiliza IA para analizar radiografías dentales, detectar problemas y mostrar datos clínicos precisos en una interfaz oscura y elegante.",
-    },
-  },
-  {
-    name: "uNext",
-    cat: "Ui Design",
-    thumbnail: "/13_unext.png",
-    images: ["/13_unext.png", "/14_unext.png", "/15_unext.png", "/16_unext.png"],
-    client: "uNext",
-    role: "UI Designer",
-    year: "2023",
-    tools: "Figma",
-    scope: "Mobile & Web UI",
-    description: {
-      en: "An advanced communication and productivity platform built for modern dentists. Features clean grids and minimal UI modules.",
-      es: "Una plataforma avanzada de comunicación y productividad para odontólogos modernos. Destaca por sus cuadrículas limpias y módulos UI minimalistas.",
-    },
-  },
-  {
-    name: "DDShared",
-    cat: "Ui Design",
-    thumbnail: "/17_ddshared.png",
-    images: ["/17_ddshared.png", "/18_ddshared.png", "/19_ddshared.png", "/19_ddshared_b.png"],
-    client: "DDShared",
-    role: "UI Designer",
-    year: "2023",
-    tools: "Figma",
-    scope: "Web App UI",
-    description: {
-      en: "Secure cloud platform for sharing and backing up large clinical files with encrypted components and data indicators.",
-      es: "Plataforma segura en la nube para compartir y respaldar archivos clínicos grandes con componentes encriptados e indicadores de datos.",
-    },
-  },
-  {
-    name: "DDSMag",
-    cat: "Ui Design",
-    thumbnail: "/19_ddsmag.png",
-    images: ["/19_ddsmag.png", "/19_ddsmag_2.png", "/19_ddsmag_3.png", "/19_ddsmag_4.png"],
-    client: "DDSMag",
-    role: "Brand & UI",
-    year: "2024",
-    tools: "Illustrator, Figma",
-    scope: "Editorial Brand",
-    description: {
-      en: "A multi-device digital magazine layout focused on typography hierarchy and clean structural components.",
-      es: "Diseño de revista digital multidispositivo enfocado en jerarquías tipográficas claras y componentes estructurales limpios.",
-    },
-  },
-  {
-    name: "DDSGroup",
-    cat: "Brand System Design",
-    thumbnail: "/20_1b.png",
-    images: [
-      "/20_1b.png", "/21_2b.png", "/22_3b.png", "/23_4b.png", "/24_5b.png", "/25_6b.png",
-      "/26_7b.png", "/27_8b.png", "/28_9b.png", "/29_10b.png", "/30_11b.png", "/31_12.png",
-      "/32_13b.png", "/33_14b.png", "/34_15b.png", "/35_16b.png", "/36_17b.png", "/37_18b.png",
-      "/38_19a.png", "/39_20b.png", "/40_21b.png", "/41_22b.png", "/42_23b.png", "/43_24b.png",
-    ],
-    client: "DDSGroup",
-    role: "Brand Designer",
-    year: "2024",
-    tools: "Illustrator, Photoshop",
-    scope: "Brand System",
-    description: {
-      en: "Master identity system and logofolio design for the complete ecosystem of applications and corporate sub-brands.",
-      es: "Sistema de identidad maestro y diseño de logofolio para el ecosistema completo de aplicaciones y sub-marcas corporativas.",
-    },
-  },
-  {
-    name: "DicomShare",
-    cat: "Brand System Design",
-    thumbnail: "/44_dicomshare.png",
-    images: ["/44_dicomshare.png", "/45_dicomshare.png", "/46_dicomshare.png", "/47_dicomshare.png"],
-    client: "DicomShare",
-    role: "Brand Designer",
-    year: "2024",
-    tools: "Illustrator",
-    scope: "Brand System",
-    description: {
-      en: "Visual identity and logo systems for medical imaging software platforms with asymmetric presentation grids.",
-      es: "Identidad visual y sistemas de logotipos para plataformas de software de imágenes médicas con cuadrículas de presentación asimétricas.",
-    },
-  },
-  {
-    name: "London & Paris",
-    cat: "Brand System Design",
-    thumbnail: "/48_london.png",
-    images: ["/48_london.png", "/49_london.png", "/50_london.png", "/51_london.png", "/52_london.png"],
-    client: "London & Paris",
-    role: "Brand Designer",
-    year: "2025",
-    tools: "Illustrator",
-    scope: "Fashion Brand",
-    description: {
-      en: "A refined visual layout system reflecting elegance, editorial pacing, and high-fashion minimalism.",
-      es: "Un refinado sistema de diseño visual que refleja elegancia, ritmo editorial y minimalismo de alta costura.",
-    },
-  },
-];
-
-export default function Portfolio() {
-  const [lang, setLang] = useState<Lang>("en");
-  const [filter, setFilter] = useState<"All" | Cat | "Logo Design">("All");
-  const [open, setOpen] = useState(false);
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const L = t[lang];
-
-  const nav = [
-    { key: "home", label: L.nav.home, href: "#home" },
-    { key: "about", label: L.nav.about, href: "#about" },
-    { key: "portfolio", label: L.nav.portfolio, href: "#portfolio" },
-    { key: "contact", label: L.nav.contact, href: "#contact" },
-  ];
-
-  const filterList: Array<{ id: "All" | Cat | "Logo Design"; label: string }> = [
-    { id: "All", label: L.filters.all },
-    { id: "Ui Design", label: L.filters.ui },
-    { id: "Brand System Design", label: L.filters.brand },
-    { id: "Logo Design", label: L.filters.logo },
-  ];
-
-  const visible =
-    filter === "Logo Design"
-      ? []
-      : projects.filter((p) => filter === "All" || p.cat === filter);
-
+export default function PortfolioIndexPage() {
   return (
-    <div id="home" className="min-h-screen bg-background text-foreground scroll-smooth">
-      {/* HEADER */}
-      <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/40">
-        <div className="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between">
-          <nav className="hidden md:flex items-center gap-8 text-sm">
-            {nav.map((n) => (
-              <a key={n.key} href={n.href} className="text-muted-foreground transition-colors hover:text-foreground">
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <div className="flex items-center gap-3">
-            <button onClick={() => setLang(lang === "en" ? "es" : "en")} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border border-border hover:bg-muted transition">
-              <Globe size={14} /> {lang === "en" ? "ES" : "EN"}
-            </button>
-            <a href="#contact" className="inline-flex px-5 py-2 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition">
-              {L.hire}
-            </a>
-            <button onClick={() => setOpen(!open)} className="p-2 md:hidden text-muted-foreground hover:text-foreground">
-              {open ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-        </div>
-        {open && (
-          <div className="md:hidden border-b border-border/40 bg-background px-5 py-4 space-y-3 flex flex-col text-sm">
-            {nav.map((n) => (
-              <a key={n.key} href={n.href} onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground block">
-                {n.label}
-              </a>
-            ))}
-          </div>
-        )}
-      </header>
-
-      {/* HERO SECTION */}
-      <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-24 pb-20 text-center md:text-left grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <div className="min-h-screen bg-white text-neutral-950 dark:bg-neutral-950 dark:text-neutral-50 selection:bg-neutral-200 dark:selection:bg-neutral-800">
+      
+      {/* 2. HERO SECTION */}
+      <section className="relative pt-32 pb-20 px-6 max-w-5xl mx-auto flex flex-col justify-center min-h-[70vh]">
         <div className="space-y-6">
-          <p className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.hi}</p>
-          <h1 className="text-5xl sm:text-6xl font-black tracking-tight leading-none text-foreground">{L.name}</h1>
-          <p className="text-xl sm:text-2xl font-light text-muted-foreground">{L.role}</p>
-          <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
-            <a href="#contact" className="px-6 py-3 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition">
-              {L.hire}
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-xs font-mono tracking-wider text-neutral-600 dark:text-neutral-400">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            Available for select freelance & contract roles
+          </div>
+          
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight max-w-4xl leading-[1.1]">
+            Crafting scalable design systems and high-fidelity frontend experiences.
+          </h1>
+          
+          <p className="text-lg sm:text-xl text-neutral-600 dark:text-neutral-400 max-w-2xl font-light leading-relaxed">
+            I bridge the gap between interface aesthetics and clean, functional code. Specializing in UI architecture, brand identity, and interactive web application design.
+          </p>
+          
+          <div className="pt-4 flex flex-wrap gap-4">
+            <a 
+              href="#work" 
+              className="px-6 py-3 rounded-lg bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 font-medium text-sm transition-transform active:scale-98 hover:opacity-90"
+            >
+              View Selected Work
             </a>
-            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-medium border border-border hover:bg-muted transition text-muted-foreground hover:text-foreground">
-              <Download size={16} /> {L.downloadCv}
-            </button>
-          </div>
-        </div>
-        <div className="flex justify-center md:justify-end">
-          <div className="w-72 h-72 sm:w-80 sm:h-80 rounded-full bg-gradient-brand opacity-25 blur-3xl absolute -z-10 animate-pulse" />
-          <div className="w-64 h-64 sm:w-72 sm:h-72 rounded-3xl bg-card border border-border/60 shadow-xl overflow-hidden flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-500">
-            <span className="text-xs text-muted-foreground uppercase tracking-widest font-mono">[ Avatar ]</span>
+            <a 
+              href="#about" 
+              className="px-6 py-3 rounded-lg border border-neutral-200 dark:border-neutral-800 font-medium text-sm transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-900"
+            >
+              About & Experience
+            </a>
           </div>
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
-      <section id="about" className="mx-auto max-w-6xl px-5 sm:px-8 py-20 border-t border-border/20">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          <div className="md:col-span-4 space-y-3">
-            <h2 className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.aboutTitle}</h2>
-            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground leading-snug">{L.aboutSub}</h3>
-          </div>
-          <div className="md:col-span-8">
-            <p className="text-muted-foreground font-light leading-relaxed text-justify whitespace-pre-line">{L.aboutBody}</p>
-          </div>
-        </div>
-      </section>
+      <hr className="border-neutral-100 dark:border-neutral-900 max-w-7xl mx-auto" />
 
-      {/* SKILLS SECTION */}
-      <section className="mx-auto max-w-6xl px-5 sm:px-8 py-12 bg-card/20 rounded-2xl border border-border/40 my-8">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
-          {skills.map((s) => (
-            <div key={s.name} className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center font-bold text-sm text-gradient shadow-sm">
-                {s.label}
-              </div>
-              <div>
-                <p className="text-sm font-semibold">{s.name}</p>
-                <p className="text-xs text-muted-foreground">{s.pct}% Proficiency</p>
-              </div>
+      {/* 3. PORTFOLIO GRID SECTION */}
+      <section id="work" className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="mb-12 max-w-5xl">
+          <p className="text-xs font-mono uppercase tracking-widest text-neutral-400">Selected Work</p>
+          <h2 className="text-3xl font-bold tracking-tight mt-2">Case Studies & UI Systems</h2>
+        </div>
+
+        <div className="grid grid-cols-12 gap-6 lg:gap-8">
+          {projects.map((project) => (
+            <div 
+              key={project.id} 
+              className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-100 dark:border-neutral-900 ${project.gridClass}`}
+            >
+              {/* Navegación dinámica basada en la estructura de tu enrutador */}
+              <Link href={`/case-studies/${project.id}`} className="block w-full h-full">
+                <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900">
+                  <Image
+                    src={project.imageSrc}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 66vw"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    priority={project.id === '1_man_in_black_suit_looking_confident'}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+                
+                <div className="p-6 sm:p-8">
+                  <span className="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
+                    {project.category}
+                  </span>
+                  <div className="flex items-center justify-between mt-1">
+                    <h3 className="text-xl font-medium tracking-tight text-neutral-900 dark:text-neutral-100">
+                      {project.title}
+                    </h3>
+                    <svg 
+                      className="w-5 h-5 text-neutral-400 group-hover:text-neutral-950 dark:group-hover:text-white transition-transform duration-300 transform group-hover:translate-x-1 group-hover:-translate-y-0.5" 
+                      fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </div>
+                </div>
+              </Link>
             </div>
           ))}
         </div>
       </section>
 
-      {/* EXPERIENCE SECTION */}
-      <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20 border-t border-border/20">
+      <hr className="border-neutral-100 dark:border-neutral-900 max-w-7xl mx-auto" />
+
+      {/* 4. ABOUT & EXPERIENCE SECTION */}
+      <section id="about" className="py-24 px-6 max-w-5xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          <div className="md:col-span-4 space-y-4">
-            <h2 className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.educationTitle}</h2>
-            <div className="space-y-2">
-              <h3 className="text-base font-bold text-foreground">{L.educationDegree}</h3>
-              <p className="text-xs text-muted-foreground font-medium">{L.educationSchool}</p>
-              <p className="text-xs text-muted-foreground/80 leading-relaxed pt-2 font-light">{L.educationBody}</p>
-            </div>
+          <div className="md:col-span-4">
+            <p className="text-xs font-mono uppercase tracking-widest text-neutral-400">About Me</p>
+            <h2 className="text-3xl font-bold tracking-tight mt-2">Background & Philosophy</h2>
           </div>
-          <div className="md:col-span-8 space-y-6">
-            <h2 className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.experienceTitle}</h2>
-            <div className="border-l border-border/60 pl-6 space-y-8">
-              {L.exp.map((item, idx) => (
-                <div key={idx} className="relative space-y-2">
-                  <div className="absolute -left-[31px] top-1 w-2.5 h-2.5 rounded-full bg-border border border-background" />
-                  <span className="text-xs font-mono text-muted-foreground font-semibold">{item.period}</span>
-                  <h4 className="text-lg font-bold text-foreground">{item.role} <span className="text-sm font-normal text-muted-foreground">/ {L.company}</span></h4>
-                  <p className="text-sm text-muted-foreground font-light leading-relaxed">{item.text}</p>
-                </div>
-              ))}
+          
+          <div className="md:col-span-8 space-y-6 text-neutral-600 dark:text-neutral-400 font-light leading-relaxed">
+            <p>
+              I specialize in creating systematic design structures that bridge user experience with component-driven frontend architecture. Over the past years, I have engineered cohesive visual identities and translated them into clean, interactive React ecosystems.
+            </p>
+            <p>
+              My stack revolves heavily around production-ready UI design, using tooling like <strong>Figma</strong> and advanced image workflows, alongside web development stacks utilizing <strong>Next.js, Tailwind CSS, Vercel</strong>, and modern AI-assisted environments.
+            </p>
+            
+            <div className="pt-6">
+              <h4 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-4">Core Competencies</h4>
+              <div className="flex flex-wrap gap-2">
+                {['Design Systems', 'UI/UX Architecture', 'Frontend Development', 'Brand Systems', 'Tailwind CSS', 'Next.js / React', 'Prototyping'].map((skill) => (
+                  <span 
+                    key={skill} 
+                    className="px-3 py-1 rounded-md bg-neutral-50 dark:bg-neutral-900 text-xs font-medium text-neutral-800 dark:text-neutral-200 border border-neutral-100 dark:border-neutral-800/60"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* PORTFOLIO SECTION */}
-      <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 py-20 border-t border-border/20">
-        <h2 className="text-3xl sm:text-4xl font-black text-center tracking-tight mb-8">{L.portfolioTitle}</h2>
-
-        {activeProject ? (
-          <div className="mt-8 border-t border-border/30 pt-10">
-            <div className="flex items-center justify-between gap-4 mb-12">
-              <button onClick={() => setActiveProject(null)} className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition">
-                <ArrowLeft size={14} /> {L.back}
-              </button>
-              <span className="text-xs font-semibold tracking-wider uppercase text-muted-foreground">
-                {activeProject.cat === "Ui Design" ? L.filters.ui : L.filters.brand}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-x-16 gap-y-10 items-start">
-              {/* METADATA */}
-              <dl className="space-y-6 text-xs tracking-wide">
-                <div>
-                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.client}</dt>
-                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.client}</dd>
-                </div>
-                <div className="border-t border-border/20 pt-4">
-                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.role}</dt>
-                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.role}</dd>
-                </div>
-                <div className="border-t border-border/20 pt-4">
-                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.year}</dt>
-                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.year}</dd>
-                </div>
-                <div className="border-t border-border/20 pt-4">
-                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.tools}</dt>
-                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.tools}</dd>
-                </div>
-                <div className="border-t border-border/20 pt-4">
-                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.scope}</dt>
-                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.scope}</dd>
-                </div>
-              </dl>
-
-              {/* IMAGES & CONTENT */}
-              <div className="space-y-10 w-full">
-                {/* Clean, Fail-Safe Grid for case studies */}
-                <div className="flex flex-col gap-6 w-full">
-                  {activeProject.images.map((src, idx) => (
-                    <div key={idx} className="w-full bg-card rounded-xl overflow-hidden border border-border/40">
-                      <img 
-                        src={src} 
-                        className="w-full h-auto object-contain max-h-[85vh] mx-auto block" 
-                        alt={`${activeProject.name} layout element ${idx + 1}`}
-                        onError={(e) => {
-                          // Fail-safe fallbacks if paths contain typos
-                          const target = e.currentTarget;
-                          if (!target.src.startsWith(window.location.origin)) return;
-                          console.error("Failed to load layout image:", src);
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-                <div className="max-w-3xl pt-2">
-                  <p className="text-muted-foreground leading-[1.8] text-[14px] text-justify font-light">
-                    {activeProject.description[lang]}
-                  </p>
-                </div>
-              </div>
-            </div>
+      {/* 5. FOOTER / CONTACT SECTION */}
+      <footer className="bg-neutral-50 dark:bg-neutral-900/30 border-t border-neutral-100 dark:border-neutral-900 py-16 px-6">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8">
+          <div>
+            <h3 className="text-2xl font-bold tracking-tight">Let's build something exceptional.</h3>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1 font-light">Get in touch for custom interface design or frontend integration projects.</p>
           </div>
-        ) : (
-          <>
-            <div className="flex flex-wrap justify-center gap-2">
-              {filterList.map((f) => (
-                <button key={f.id} onClick={() => setFilter(f.id)} className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${filter === f.id ? "text-white bg-gradient-brand shadow-glow" : "text-muted-foreground border border-border hover:bg-muted"}`}>
-                  {f.label}
-                </button>
-              ))}
-            </div>
-
-            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {visible.map((p) => (
-                <button key={p.name} onClick={() => { setActiveProject(p); document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" }); }} className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition">
-                  <div className="aspect-[4/3] relative overflow-hidden">
-                    <img src={p.thumbnail} alt={p.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  </div>
-                  <div className="flex items-center justify-between px-4 py-3">
-                    <p className="text-sm font-medium">{p.name}</p>
-                    <p className="text-xs text-muted-foreground">{p.cat === "Ui Design" ? L.filters.ui : L.filters.brand}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </>
-        )}
-      </section>
-
-      {/* CONTACT SECTION */}
-      <section id="contact" className="mx-auto max-w-6xl px-5 sm:px-8 py-20 border-t border-border/20">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-          <div className="md:col-span-5 space-y-6">
-            <div className="space-y-3">
-              <h2 className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.contactTitle}</h2>
-              <h3 className="text-3xl font-bold tracking-tight">{L.contactSub}</h3>
-            </div>
-            <div className="space-y-4 text-sm text-muted-foreground font-light">
-              <div className="flex items-center gap-3">
-                <Mail size={16} className="text-primary" />
-                <span>contacto@camilarojas.design</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone size={16} className="text-primary" />
-                <span>+57 300 000 0000</span>
-              </div>
-            </div>
-          </div>
-          <div className="md:col-span-7">
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input type="text" placeholder={L.form.name} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
-                <input type="email" placeholder={L.form.email} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input type="text" placeholder={L.form.phone} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
-                <input type="text" placeholder={L.form.service} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
-              </div>
-              <input type="url" placeholder={L.form.website} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
-              <textarea rows={4} placeholder={L.form.details} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring resize-none" />
-              <button type="submit" className="px-6 py-2.5 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition float-right">
-                {L.form.send}
-              </button>
-            </form>
+          
+          <div className="flex items-center gap-6 font-mono text-xs tracking-wider">
+            <a href="mailto:your-email@domain.com" className="hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+              EMAIL
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+              GITHUB
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors">
+              LINKEDIN
+            </a>
           </div>
         </div>
-      </section>
-
-      {/* FOOTER */}
-      <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground font-light">
-        <p>{L.footer}</p>
+        
+        <div className="max-w-5xl mx-auto mt-12 pt-6 border-t border-neutral-100 dark:border-neutral-900 flex justify-between items-center text-xs font-mono text-neutral-400">
+          <p>© {new Date().getFullYear()} — Built with Next.js & Tailwind CSS.</p>
+        </div>
       </footer>
+
     </div>
   );
 }
