@@ -1,16 +1,14 @@
-
-Index · TSX
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
 import camilaPng from "@/assets/camila.png";
- 
+
 export const Route = createFileRoute("/")({
   component: Portfolio,
 });
- 
+
 type Lang = "en" | "es";
- 
+
 const t = {
   en: {
     nav: { home: "Home", about: "About me", portfolio: "Portfolio", contact: "Contact me" },
@@ -132,14 +130,14 @@ const t = {
     footer: "Diseñado por Camila Rojas — UI y Diseñadora Gráfica",
   },
 } as const;
- 
+
 const skills = [
   { name: "Figma", pct: 90, label: "Fi" },
   { name: "Adobe XD", pct: 90, label: "Xd" },
   { name: "Adobe Photoshop", pct: 80, label: "Ps" },
   { name: "Adobe Illustrator", pct: 100, label: "Ai" },
 ];
- 
+
 // 24 individual logo PNGs — served directly from /public (case-sensitive on Vercel)
 const logoImages = [
   "/20_1b.png",
@@ -167,9 +165,9 @@ const logoImages = [
   "/42_23b.png",
   "/43_24b.png",
 ];
- 
+
 type Cat = "Ui Design" | "Brand System Design";
- 
+
 type Project = {
   name: string;
   cat: Cat;
@@ -187,7 +185,7 @@ type Project = {
   scope: string;
   description: { en: string; es: string };
 };
- 
+
 // UI Design: 6 projects — Brand System Design: 3 projects
 const projects: Project[] = [
   {
@@ -317,14 +315,14 @@ const projects: Project[] = [
     },
   },
 ];
- 
+
 // Renders a project's case-study images in a cascade that mirrors the Figma
 // captures: a single hero shot, an even split, a main shot with two stacked
 // supporting shots, or a main shot with a small grid — chosen automatically
 // from how many images that project lists.
 function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; alt: string; className?: string }) {
   const imgCls = "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105";
- 
+
   if (images.length <= 1) {
     return (
       <div className={`aspect-[4/3] relative overflow-hidden bg-card ${className}`}>
@@ -332,7 +330,7 @@ function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; al
       </div>
     );
   }
- 
+
   if (images.length === 2) {
     return (
       <div className={`aspect-[4/3] grid grid-cols-2 gap-0.5 bg-card ${className}`}>
@@ -344,7 +342,7 @@ function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; al
       </div>
     );
   }
- 
+
   if (images.length === 3) {
     return (
       <div className={`aspect-[4/3] grid grid-cols-3 grid-rows-2 gap-0.5 bg-card ${className}`}>
@@ -359,7 +357,7 @@ function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; al
       </div>
     );
   }
- 
+
   // 4 or more: one hero shot on top, remaining shots in a row underneath
   const rest = images.slice(1, 4);
   return (
@@ -377,35 +375,35 @@ function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; al
     </div>
   );
 }
- 
+
 function Portfolio() {
   const [lang, setLang] = useState<Lang>("en");
   const [filter, setFilter] = useState<"All" | Cat | "Logo Design">("All");
   const [open, setOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const L = t[lang];
- 
+
   const nav = [
     { key: "home", label: L.nav.home, href: "#home" },
     { key: "about", label: L.nav.about, href: "#about" },
     { key: "portfolio", label: L.nav.portfolio, href: "#portfolio" },
     { key: "contact", label: L.nav.contact, href: "#contact" },
   ];
- 
+
   const filterList: Array<{ id: "All" | Cat | "Logo Design"; label: string }> = [
     { id: "All", label: L.filters.all },
     { id: "Ui Design", label: L.filters.ui },
     { id: "Brand System Design", label: L.filters.brand },
     { id: "Logo Design", label: L.filters.logo },
   ];
- 
+
   const visible =
     filter === "Logo Design"
       ? []
       : projects.filter((p) => filter === "All" || p.cat === filter);
- 
+
   const toggleLang = () => setLang((l) => (l === "en" ? "es" : "en"));
- 
+
   const LangButton = ({ className = "" }: { className?: string }) => (
     <button
       onClick={toggleLang}
@@ -416,7 +414,7 @@ function Portfolio() {
       {lang === "en" ? "ES" : "EN"}
     </button>
   );
- 
+
   return (
     <div id="home" className="min-h-screen bg-background text-foreground font-sans antialiased">
       {/* HEADER */}
@@ -473,7 +471,7 @@ function Portfolio() {
           </div>
         )}
       </header>
- 
+
       {/* HERO */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-12 sm:pt-20 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 items-center">
@@ -517,7 +515,7 @@ function Portfolio() {
           </div>
         </div>
       </section>
- 
+
       {/* ABOUT */}
       <section id="about" className="mx-auto max-w-3xl px-5 sm:px-8 pb-20 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
@@ -534,7 +532,7 @@ function Portfolio() {
           <Download size={16} /> {L.downloadCv}
         </a>
       </section>
- 
+
       {/* EDUCATION */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.educationTitle}</h2>
@@ -546,7 +544,7 @@ function Portfolio() {
           </p>
         </div>
       </section>
- 
+
       {/* EXPERIENCE — minimalist vertical timeline: one thin rail, clean round
           nodes, generous spacing between milestones. Same layout at every
           breakpoint so it never has to switch structure on resize. */}
@@ -571,7 +569,7 @@ function Portfolio() {
           </ol>
         </div>
       </section>
- 
+
       {/* SKILLS */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -591,11 +589,11 @@ function Portfolio() {
           ))}
         </div>
       </section>
- 
+
       {/* PORTFOLIO */}
       <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.portfolioTitle}</h2>
- 
+
         {activeProject ? (
           <div className="mt-8 rounded-xl bg-card border border-border p-5 sm:p-8">
             <div className="flex items-center justify-between gap-4 mb-6">
@@ -660,7 +658,7 @@ function Portfolio() {
                 </button>
               ))}
             </div>
- 
+
             {filter === "Logo Design" ? (
               /* Clean transparent grid of individual logo PNGs */
               <div className="mt-10 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
@@ -708,7 +706,7 @@ function Portfolio() {
           </>
         )}
       </section>
- 
+
       {/* CONTACT */}
       <section id="contact" className="mx-auto max-w-3xl px-5 sm:px-8 pb-24">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.contactTitle}</h2>
@@ -752,7 +750,7 @@ function Portfolio() {
           </div>
         </form>
       </section>
- 
+
       {/* FOOTER */}
       <footer className="border-t border-border/40 py-10">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center">
@@ -778,4 +776,3 @@ function Portfolio() {
     </div>
   );
 }
- 
