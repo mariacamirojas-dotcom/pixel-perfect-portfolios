@@ -146,10 +146,14 @@ const logoImages = [
 
 type Cat = "Ui Design" | "Brand System Design";
 
+type LayoutType = "dental-drive" | "pro-licensor" | "dentxr" | "unext" | "ddshared" | "ddsmag" | "ddsgroup" | "dicomshare" | "london-paris";
+
 type Project = {
   name: string;
   cat: Cat;
-  image: string;
+  thumbnail: string;
+  layoutType: LayoutType;
+  images: string[];
   client: string;
   role: string;
   year: string;
@@ -162,7 +166,9 @@ const projects: Project[] = [
   {
     name: "DentalDrive",
     cat: "Ui Design",
-    image: "/2_rectangle_21.png",
+    thumbnail: "/2_rectangle_21.png",
+    layoutType: "dental-drive",
+    images: ["/2_rectangle_21.png", "/11_dental_2.png", "/12_dental_3.png", "/13_dental_4.png"],
     client: "CyberTouch Solutions",
     role: "UI Designer",
     year: "2022",
@@ -176,7 +182,9 @@ const projects: Project[] = [
   {
     name: "ProLicensor",
     cat: "Ui Design",
-    image: "/3_rectangle_26.png",
+    thumbnail: "/3_rectangle_26.png",
+    layoutType: "pro-licensor",
+    images: ["/3_rectangle_26.png", "/14_pro_2.png", "/15_pro_3.png", "/16_pro_4.png"],
     client: "ProLicensor Inc.",
     role: "UI Designer",
     year: "2022",
@@ -190,7 +198,9 @@ const projects: Project[] = [
   {
     name: "DentXR",
     cat: "Ui Design",
-    image: "/4_rectangle_22.png",
+    thumbnail: "/4_rectangle_22.png",
+    layoutType: "dentxr",
+    images: ["/4_rectangle_22.png", "/17_dentxr_2.png"],
     client: "DentXR",
     role: "UI & Brand",
     year: "2023",
@@ -204,7 +214,9 @@ const projects: Project[] = [
   {
     name: "uNext",
     cat: "Ui Design",
-    image: "/5_rectangle_26.png",
+    thumbnail: "/5_rectangle_26.png",
+    layoutType: "unext",
+    images: ["/5_rectangle_26.png", "/18_unext_2.png", "/19_unext_3.png", "/20_unext_4.png"],
     client: "uNext",
     role: "UI Designer",
     year: "2023",
@@ -218,7 +230,9 @@ const projects: Project[] = [
   {
     name: "DDShared",
     cat: "Ui Design",
-    image: "/6_rectangle_21.png",
+    thumbnail: "/6_rectangle_21.png",
+    layoutType: "ddshared",
+    images: ["/6_rectangle_21.png", "/21_ddshared_2.png", "/22_ddshared_3.png", "/23_ddshared_4.png"],
     client: "DDShared",
     role: "UI Designer",
     year: "2023",
@@ -232,7 +246,9 @@ const projects: Project[] = [
   {
     name: "DDSMag",
     cat: "Ui Design",
-    image: "/7_rectangle_22.png",
+    thumbnail: "/7_rectangle_22.png",
+    layoutType: "ddsmag",
+    images: ["/7_rectangle_22.png", "/24_ddsmag_2.png", "/25_ddsmag_3.png", "/26_ddsmag_4.png"],
     client: "DDSMag",
     role: "Brand & UI",
     year: "2024",
@@ -246,7 +262,9 @@ const projects: Project[] = [
   {
     name: "DDSGroup",
     cat: "Brand System Design",
-    image: "/8_rectangle_21.png",
+    thumbnail: "/8_rectangle_21.png",
+    layoutType: "ddsgroup",
+    images: logoImages, 
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -260,7 +278,9 @@ const projects: Project[] = [
   {
     name: "DicomShare",
     cat: "Brand System Design",
-    image: "/9_rectangle_22.png",
+    thumbnail: "/9_rectangle_22.png",
+    layoutType: "dicomshare",
+    images: ["/9_rectangle_22.png", "/27_dicom_2.png", "/28_dicom_3.png", "/29_dicom_4.png"],
     client: "DicomShare",
     role: "Brand Designer",
     year: "2024",
@@ -274,7 +294,9 @@ const projects: Project[] = [
   {
     name: "London & Paris",
     cat: "Brand System Design",
-    image: "/10_rectangle_26.png",
+    thumbnail: "/10_rectangle_26.png",
+    layoutType: "london-paris",
+    images: ["/10_rectangle_26.png", "/30_london_2.png", "/31_london_3.png", "/32_london_4.png"],
     client: "London & Paris",
     role: "Brand Designer",
     year: "2025",
@@ -325,6 +347,144 @@ export default function Portfolio() {
       {lang === "en" ? "ES" : "EN"}
     </button>
   );
+
+  const renderProjectGrid = (project: Project) => {
+    const imgs = project.images;
+    
+    switch (project.layoutType) {
+      case "dental-drive":
+        return (
+          <div className="grid grid-cols-2 gap-4">
+            {imgs.slice(0, 4).map((src, idx) => (
+              <div key={idx} className="aspect-square bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={src} className="w-full h-full object-cover" alt="" />
+              </div>
+            ))}
+          </div>
+        );
+      case "pro-licensor":
+        return (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="sm:col-span-2 aspect-[4/3] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+              <img src={imgs[0]} className="w-full h-full object-cover" alt="" />
+            </div>
+            <div className="flex flex-col gap-4">
+              {imgs.slice(1, 4).map((src, idx) => (
+                <div key={idx} className="flex-1 min-h-[100px] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                  <img src={src} className="w-full h-full object-cover" alt="" />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      case "dentxr":
+        return (
+          <div className="space-y-4">
+            <div className="aspect-[16/9] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+              <img src={imgs[0]} className="w-full h-full object-cover" alt="" />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="aspect-square bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={imgs[1] || imgs[0]} className="w-full h-full object-cover" alt="" />
+              </div>
+              <div className="aspect-square bg-muted/10 rounded-lg border border-border/40 overflow-hidden flex flex-col justify-end p-6 bg-gradient-to-br from-purple-950/40 via-black to-black">
+                <div className="w-10 h-10 rounded-full bg-gradient-brand opacity-60 mb-4 blur-sm" />
+                <div className="w-1/3 h-2 bg-foreground/40 rounded mb-2" />
+                <div className="w-2/3 h-2 bg-muted-foreground/20 rounded" />
+              </div>
+            </div>
+          </div>
+        );
+      case "unext":
+        return (
+          <div className="grid grid-cols-2 gap-4">
+            {imgs.slice(0, 4).map((src, idx) => (
+              <div key={idx} className="aspect-[4/3] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={src} className="w-full h-full object-cover" alt="" />
+              </div>
+            ))}
+          </div>
+        );
+      case "ddshared":
+        return (
+          <div className="grid grid-cols-2 gap-4">
+            {imgs.slice(0, 4).map((src, idx) => (
+              <div key={idx} className="aspect-square bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={src} className="w-full h-full object-cover" alt="" />
+              </div>
+            ))}
+          </div>
+        );
+      case "ddsmag":
+        return (
+          <div className="grid grid-cols-2 gap-4">
+            {imgs.slice(0, 4).map((src, idx) => (
+              <div key={idx} className="aspect-[4/3] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={src} className="w-full h-full object-cover" alt="" />
+              </div>
+            ))}
+          </div>
+        );
+      case "ddsgroup":
+        return (
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 bg-card/10 p-5 rounded-xl border border-border/40">
+            {imgs.map((src, idx) => (
+              <div key={idx} className="aspect-square flex items-center justify-center p-3 rounded-lg bg-card/60 border border-border/20 transition-all duration-300 hover:border-ring/30">
+                <img src={src} className="w-full h-full object-contain filter grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition" alt="" />
+              </div>
+            ))}
+          </div>
+        );
+      case "dicomshare":
+        return (
+          <div className="grid grid-cols-3 gap-4">
+            <div className="col-span-1 flex flex-col gap-4">
+              <div className="flex-1 aspect-[3/4] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={imgs[0]} className="w-full h-full object-cover" alt="" />
+              </div>
+              <div className="flex-1 aspect-[3/4] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={imgs[1] || imgs[0]} className="w-full h-full object-cover" alt="" />
+              </div>
+            </div>
+            <div className="col-span-2 flex flex-col gap-4">
+              <div className="flex-[2] aspect-[16/10] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={imgs[2] || imgs[0]} className="w-full h-full object-cover" alt="" />
+              </div>
+              <div className="flex-[1] aspect-[16/6] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={imgs[3] || imgs[0]} className="w-full h-full object-cover" alt="" />
+              </div>
+            </div>
+          </div>
+        );
+      case "london-paris":
+        return (
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="aspect-[16/10] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={imgs[0]} className="w-full h-full object-cover" alt="" />
+              </div>
+              <div className="aspect-[16/10] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={imgs[1] || imgs[0]} className="w-full h-full object-cover" alt="" />
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="col-span-2 aspect-[16/9] bg-muted/10 rounded-lg border border-border/40 overflow-hidden">
+                <img src={imgs[2] || imgs[0]} className="w-full h-full object-cover" alt="" />
+              </div>
+              <div className="aspect-square bg-muted/10 rounded-lg border border-border/40 overflow-hidden flex items-center justify-center bg-zinc-950">
+                <span className="text-xs font-mono tracking-widest text-muted-foreground/30">N° 10</span>
+              </div>
+            </div>
+          </div>
+        );
+      default:
+        return (
+          <div className="aspect-[16/10] rounded-lg bg-muted/10 overflow-hidden border border-border/40">
+            <img src={project.thumbnail} className="w-full h-full object-cover" alt="" />
+          </div>
+        );
+    }
+  };
 
   return (
     <div id="home" className="min-h-screen bg-background text-foreground">
@@ -459,13 +619,10 @@ export default function Portfolio() {
         <h2 className="text-2xl sm:text-3xl font-bold">{L.experienceTitle}</h2>
         <p className="mt-2 font-medium">{L.company}</p>
         <div className="mt-12 relative grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
-          {/* Horizontal connector line (desktop) */}
           <div className="hidden md:block absolute top-3 left-[16.66%] right-[16.66%] h-[3px] rounded-full bg-gradient-brand opacity-40" />
-          {/* Vertical connector line (mobile) */}
           <div className="md:hidden absolute top-3 bottom-3 left-3 w-[3px] rounded-full bg-gradient-brand opacity-40" />
           {L.exp.map((e) => (
             <div key={e.period} className="relative pl-10 md:pl-0">
-              {/* Node */}
               <div className="absolute md:relative left-0 md:left-auto top-0 md:top-0 md:mb-8 flex items-center justify-center">
                 <span className="block w-6 h-6 rounded-full bg-background ring-2 ring-border grid place-items-center">
                   <span className="block w-3 h-3 rounded-full bg-gradient-brand shadow-glow" />
@@ -499,64 +656,66 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* PORTFOLIO */}
+      {/* PORTFOLIO & CASE STUDIES */}
       <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.portfolioTitle}</h2>
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8">{L.portfolioTitle}</h2>
 
         {activeProject ? (
-          <div className="mt-8 rounded-xl bg-card border border-border p-5 sm:p-8">
-            <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="mt-8 border-t border-border/30 pt-10">
+            <div className="flex items-center justify-between gap-4 mb-12">
               <button
                 onClick={() => setActiveProject(null)}
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition"
+                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground transition"
               >
-                <ArrowLeft size={16} /> {L.back}
+                <ArrowLeft size={14} /> {L.back}
               </button>
-              <span className="text-xs px-3 py-1 rounded-md text-white bg-gradient-brand shadow-glow">
+              <span className="text-xs font-semibold tracking-wider uppercase text-muted-foreground">
                 {activeProject.cat === "Ui Design" ? L.filters.ui : L.filters.brand}
               </span>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8">
-              <dl className="space-y-4 text-sm">
+
+            <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-x-16 gap-y-10 items-start">
+              
+              {/* Columna Izquierda: Meta-data */}
+              <dl className="space-y-6 text-xs tracking-wide">
                 <div>
-                  <dt className="text-muted-foreground">{L.labels.client}</dt>
-                  <dd className="font-medium mt-1">{activeProject.client}</dd>
+                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.client}</dt>
+                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.client}</dd>
                 </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.role}</dt>
-                  <dd className="font-medium mt-1">{activeProject.role}</dd>
+                <div className="border-t border-border/20 pt-4">
+                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.role}</dt>
+                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.role}</dd>
                 </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.year}</dt>
-                  <dd className="font-medium mt-1">{activeProject.year}</dd>
+                <div className="border-t border-border/20 pt-4">
+                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.year}</dt>
+                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.year}</dd>
                 </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.tools}</dt>
-                  <dd className="font-medium mt-1">{activeProject.tools}</dd>
+                <div className="border-t border-border/20 pt-4">
+                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.tools}</dt>
+                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.tools}</dd>
                 </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.scope}</dt>
-                  <dd className="font-medium mt-1">{activeProject.scope}</dd>
+                <div className="border-t border-border/20 pt-4">
+                  <dt className="text-muted-foreground uppercase font-medium">{L.labels.scope}</dt>
+                  <dd className="font-semibold text-foreground mt-1.5 text-sm">{activeProject.scope}</dd>
                 </div>
               </dl>
-              <div>
-                <div className="aspect-[16/10] rounded-lg overflow-hidden bg-card border border-border">
-                  <img
-                    src={activeProject.image}
-                    alt={activeProject.name}
-                    className="w-full h-full object-cover"
-                  />
+
+              {/* Columna Derecha: Grid Dinámico Automatizado + Texto */}
+              <div className="space-y-8">
+                {renderProjectGrid(activeProject)}
+
+                <div className="max-w-3xl pt-2">
+                  <p className="text-muted-foreground leading-[1.8] text-[14px] text-justify font-light">
+                    {activeProject.description[lang]}
+                  </p>
                 </div>
-                <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  {activeProject.description[lang]}
-                </p>
               </div>
+
             </div>
           </div>
         ) : (
           <>
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-2">
               {filterList.map((f) => (
                 <button
                   key={f.id}
@@ -592,12 +751,15 @@ export default function Portfolio() {
                 {visible.map((p) => (
                   <button
                     key={p.name}
-                    onClick={() => setActiveProject(p)}
+                    onClick={() => {
+                      setActiveProject(p);
+                      document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" });
+                    }}
                     className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition"
                   >
                     <div className="aspect-[4/3] relative overflow-hidden bg-card">
                       <img
-                        src={p.image}
+                        src={p.thumbnail}
                         alt={p.name}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
