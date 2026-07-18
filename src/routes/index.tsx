@@ -199,7 +199,7 @@ const projects: Project[] = [
   {
     name: "ProLicensor",
     cat: "Ui Design",
-    image: "/5_rectangle_26.png",
+    image: "/3_rectangle_26.png",
     client: "ProLicensor Inc.",
     role: "UI Designer",
     year: "2022",
@@ -213,7 +213,7 @@ const projects: Project[] = [
   {
     name: "DentXR",
     cat: "Ui Design",
-    image: "/8_rectangle_21.png",
+    image: "/4_rectangle_22.png",
     client: "DentXR",
     role: "UI & Brand",
     year: "2023",
@@ -227,7 +227,7 @@ const projects: Project[] = [
   {
     name: "uNext",
     cat: "Ui Design",
-    image: "/11_rectangle_21.png",
+    image: "/5_rectangle_26.png",
     client: "uNext",
     role: "UI Designer",
     year: "2023",
@@ -241,7 +241,7 @@ const projects: Project[] = [
   {
     name: "DDShared",
     cat: "Ui Design",
-    image: "/14_rectangle_26.png",
+    image: "/6_rectangle_21.png",
     client: "DDShared",
     role: "UI Designer",
     year: "2023",
@@ -255,7 +255,7 @@ const projects: Project[] = [
   {
     name: "DDSMag",
     cat: "Ui Design",
-    image: "/17_rectangle_21.png",
+    image: "/7_rectangle_22.png",
     client: "DDSMag",
     role: "Brand & UI",
     year: "2024",
@@ -269,7 +269,7 @@ const projects: Project[] = [
   {
     name: "DDSGroup",
     cat: "Brand System Design",
-    image: "/44_dds1__4_.png",
+    image: "/8_rectangle_21.png",
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -283,7 +283,7 @@ const projects: Project[] = [
   {
     name: "DicomShare",
     cat: "Brand System Design",
-    image: "/74_rectangle_29.png",
+    image: "/9_rectangle_22.png",
     client: "DicomShare",
     role: "Brand Designer",
     year: "2024",
@@ -297,7 +297,7 @@ const projects: Project[] = [
   {
     name: "London & Paris",
     cat: "Brand System Design",
-    image: "/89_rectangle_49.png",
+    image: "/10_rectangle_26.png",
     client: "London & Paris",
     role: "Brand Designer",
     year: "2025",
