@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
-import camilaPng from "@/assets/camila.png";
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -416,7 +415,7 @@ export default function Portfolio() {
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-25 blur-2xl" />
               <img
-                src={camilaPng}
+                src="/camila.png"
                 alt="Camila Rojas"
                 width={320}
                 height={320}
