@@ -1,5 +1,3 @@
-
-Index · TSX
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
