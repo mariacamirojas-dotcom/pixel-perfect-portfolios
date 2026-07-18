@@ -1,19 +1,19 @@
 import React from 'react';
 
-// 1. DATA UNIFICADA DE LOS PROYECTOS (Mapeo estricto 100% fiel al ZIP)
+// 1. MAPEACIÓN CORRECTA: Mantiene tus IDs de ruta originales pero apunta a los archivos reales del ZIP
 const projects = [
   {
-    id: '1_man_in_black_suit_looking_confident',
+    id: 'man-in-black', // Conserva tu ruta original para /case-studies/man-in-black
     title: 'Brand System & Visual Identity',
     category: 'UI / Brand Design',
-    imageSrc: '/1_man_in_black_suit_looking_confident.png',
+    imageSrc: '/1_man_in_black_suit_looking_confident.png', // Nombre exacto de tu carpeta public
     gridClass: 'col-span-12 md:col-span-6 lg:col-span-8',
   },
   {
-    id: '2_rectangle_21',
+    id: 'rectangle-21', // Conserva tu ruta original para /case-studies/rectangle-21
     title: 'Digital Platform Ecosystem',
     category: 'Frontend / UI Design',
-    imageSrc: '/2_rectangle_21.png',
+    imageSrc: '/2_rectangle_21.png', // Nombre exacto de tu carpeta public
     gridClass: 'col-span-12 md:col-span-6 lg:col-span-4',
   }
 ];
@@ -70,14 +70,14 @@ export default function PortfolioIndexPage() {
               key={project.id} 
               className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-100 dark:border-neutral-900 ${project.gridClass}`}
             >
-              {/* Usamos etiquetas <a> estándar compatibles con tu enrutador actual */}
+              {/* Navegación multi-página limpia hacia tus archivos de casos de estudio */}
               <a href={`/case-studies/${project.id}`} className="block w-full h-full">
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900">
                   <img
                     src={project.imageSrc}
                     alt={project.title}
                     className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    loading={project.id === '1_man_in_black_suit_looking_confident' ? 'eager' : 'lazy'}
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
