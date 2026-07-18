@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
- 
+import camilaPng from "@/assets/camila.png";
+
 export const Route = createFileRoute("/")({
   component: Portfolio,
 });
- 
+
 type Lang = "en" | "es";
- 
+
 const t = {
   en: {
     nav: { home: "Home", about: "About me", portfolio: "Portfolio", contact: "Contact me" },
@@ -129,27 +130,48 @@ const t = {
     footer: "Diseñado por Camila Rojas — UI y Diseñadora Gráfica",
   },
 } as const;
- 
+
 const skills = [
   { name: "Figma", pct: 90, label: "Fi" },
   { name: "Adobe XD", pct: 90, label: "Xd" },
   { name: "Adobe Photoshop", pct: 80, label: "Ps" },
   { name: "Adobe Illustrator", pct: 100, label: "Ai" },
 ];
- 
+
+// 24 individual logo PNGs — served directly from /public (case-sensitive on Vercel)
 const logoImages = [
-  "/20_1b.png", "/21_2b.png", "/22_3b.png", "/23_4b.png", "/24_5b.png", "/25_6b.png",
-  "/26_7b.png", "/27_8b.png", "/28_9b.png", "/29_10b.png", "/30_11b.png", "/31_12.png",
-  "/32_13b.png", "/33_14b.png", "/34_15b.png", "/35_16b.png", "/36_17b.png", "/37_18b.png",
-  "/38_19a.png", "/39_20b.png", "/40_21b.png", "/41_22b.png", "/42_23b.png", "/43_24b.png",
+  "/20_1b.png",
+  "/21_2b.png",
+  "/22_3b.png",
+  "/23_4b.png",
+  "/24_5b.png",
+  "/25_6b.png",
+  "/26_7b.png",
+  "/27_8b.png",
+  "/28_9b.png",
+  "/29_10b.png",
+  "/30_11b.png",
+  "/31_12.png",
+  "/32_13b.png",
+  "/33_14b.png",
+  "/34_15b.png",
+  "/35_16b.png",
+  "/36_17b.png",
+  "/37_18b.png",
+  "/38_19a.png",
+  "/39_20b.png",
+  "/40_21b.png",
+  "/41_22b.png",
+  "/42_23b.png",
+  "/43_24b.png",
 ];
- 
+
 type Cat = "Ui Design" | "Brand System Design";
- 
+
 type Project = {
   name: string;
   cat: Cat;
-  images: string[];
+  image: string;
   client: string;
   role: string;
   year: string;
@@ -157,12 +179,13 @@ type Project = {
   scope: string;
   description: { en: string; es: string };
 };
- 
+
+// UI Design: 6 projects — Brand System Design: 3 projects
 const projects: Project[] = [
   {
     name: "DentalDrive",
     cat: "Ui Design",
-    images: ["/2_rectangle_21.png"],
+    image: "/2_rectangle_21.png",
     client: "CyberTouch Solutions",
     role: "UI Designer",
     year: "2022",
@@ -176,7 +199,7 @@ const projects: Project[] = [
   {
     name: "ProLicensor",
     cat: "Ui Design",
-    images: ["/3_rectangle_26.png"],
+    image: "/3_rectangle_26.png",
     client: "ProLicensor Inc.",
     role: "UI Designer",
     year: "2022",
@@ -190,7 +213,7 @@ const projects: Project[] = [
   {
     name: "DentXR",
     cat: "Ui Design",
-    images: ["/4_rectangle_22.png"],
+    image: "/4_rectangle_22.png",
     client: "DentXR",
     role: "UI & Brand",
     year: "2023",
@@ -204,7 +227,7 @@ const projects: Project[] = [
   {
     name: "uNext",
     cat: "Ui Design",
-    images: ["/5_rectangle_26.png"],
+    image: "/5_rectangle_26.png",
     client: "uNext",
     role: "UI Designer",
     year: "2023",
@@ -218,7 +241,7 @@ const projects: Project[] = [
   {
     name: "DDShared",
     cat: "Ui Design",
-    images: ["/6_rectangle_21.png"],
+    image: "/6_rectangle_21.png",
     client: "DDShared",
     role: "UI Designer",
     year: "2023",
@@ -232,7 +255,7 @@ const projects: Project[] = [
   {
     name: "DDSMag",
     cat: "Ui Design",
-    images: ["/7_rectangle_22.png"],
+    image: "/7_rectangle_22.png",
     client: "DDSMag",
     role: "Brand & UI",
     year: "2024",
@@ -246,7 +269,7 @@ const projects: Project[] = [
   {
     name: "DDSGroup",
     cat: "Brand System Design",
-    images: ["/8_rectangle_21.png"],
+    image: "/8_rectangle_21.png",
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -260,7 +283,7 @@ const projects: Project[] = [
   {
     name: "DicomShare",
     cat: "Brand System Design",
-    images: ["/9_rectangle_22.png"],
+    image: "/9_rectangle_22.png",
     client: "DicomShare",
     role: "Brand Designer",
     year: "2024",
@@ -274,7 +297,7 @@ const projects: Project[] = [
   {
     name: "London & Paris",
     cat: "Brand System Design",
-    images: ["/10_rectangle_26.png"],
+    image: "/10_rectangle_26.png",
     client: "London & Paris",
     role: "Brand Designer",
     year: "2025",
@@ -286,90 +309,35 @@ const projects: Project[] = [
     },
   },
 ];
- 
-function CaseStudyMosaic({ images, alt, className = "" }: { images: string[]; alt: string; className?: string }) {
-  const imgCls = "w-full h-full object-cover transition-transform duration-500 group-hover:scale-105";
- 
-  if (images.length <= 1) {
-    return (
-      <div className={`aspect-[4/3] relative overflow-hidden bg-card ${className}`}>
-        <img src={images[0]} alt={alt} loading="lazy" className={`absolute inset-0 ${imgCls}`} />
-      </div>
-    );
-  }
- 
-  if (images.length === 2) {
-    return (
-      <div className={`aspect-[4/3] grid grid-cols-2 gap-0.5 bg-card ${className}`}>
-        {images.map((src, i) => (
-          <div key={src} className="relative overflow-hidden">
-            <img src={src} alt={`${alt} ${i + 1}`} loading="lazy" className={`absolute inset-0 ${imgCls}`} />
-          </div>
-        ))}
-      </div>
-    );
-  }
- 
-  if (images.length === 3) {
-    return (
-      <div className={`aspect-[4/3] grid grid-cols-3 grid-rows-2 gap-0.5 bg-card ${className}`}>
-        <div className="relative overflow-hidden col-span-2 row-span-2">
-          <img src={images[0]} alt={`${alt} 1`} loading="lazy" className={`absolute inset-0 ${imgCls}`} />
-        </div>
-        {images.slice(1).map((src, i) => (
-          <div key={src} className="relative overflow-hidden col-span-1 row-span-1">
-            <img src={src} alt={`${alt} ${i + 2}`} loading="lazy" className={`absolute inset-0 ${imgCls}`} />
-          </div>
-        ))}
-      </div>
-    );
-  }
- 
-  const rest = images.slice(1, 4);
-  return (
-    <div className={`aspect-[4/3] grid grid-rows-[2fr_1fr] gap-0.5 bg-card ${className}`}>
-      <div className="relative overflow-hidden">
-        <img src={images[0]} alt={`${alt} 1`} loading="lazy" className={`absolute inset-0 ${imgCls}`} />
-      </div>
-      <div className="grid gap-0.5" style={{ gridTemplateColumns: `repeat(${rest.length}, 1fr)` }}>
-        {rest.map((src, i) => (
-          <div key={src} className="relative overflow-hidden">
-            <img src={src} alt={`${alt} ${i + 2}`} loading="lazy" className={`absolute inset-0 ${imgCls}`} />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
- 
-export default function Portfolio() {
+
+function Portfolio() {
   const [lang, setLang] = useState<Lang>("en");
   const [filter, setFilter] = useState<"All" | Cat | "Logo Design">("All");
   const [open, setOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const L = t[lang];
- 
+
   const nav = [
     { key: "home", label: L.nav.home, href: "#home" },
     { key: "about", label: L.nav.about, href: "#about" },
     { key: "portfolio", label: L.nav.portfolio, href: "#portfolio" },
     { key: "contact", label: L.nav.contact, href: "#contact" },
   ];
- 
+
   const filterList: Array<{ id: "All" | Cat | "Logo Design"; label: string }> = [
     { id: "All", label: L.filters.all },
     { id: "Ui Design", label: L.filters.ui },
     { id: "Brand System Design", label: L.filters.brand },
     { id: "Logo Design", label: L.filters.logo },
   ];
- 
+
   const visible =
     filter === "Logo Design"
       ? []
       : projects.filter((p) => filter === "All" || p.cat === filter);
- 
+
   const toggleLang = () => setLang((l) => (l === "en" ? "es" : "en"));
- 
+
   const LangButton = ({ className = "" }: { className?: string }) => (
     <button
       onClick={toggleLang}
@@ -380,9 +348,9 @@ export default function Portfolio() {
       {lang === "en" ? "ES" : "EN"}
     </button>
   );
- 
+
   return (
-    <div id="home" className="min-h-screen bg-background text-foreground font-sans antialiased">
+    <div id="home" className="min-h-screen bg-background text-foreground">
       {/* HEADER */}
       <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/40">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between gap-4">
@@ -437,14 +405,17 @@ export default function Portfolio() {
           </div>
         )}
       </header>
- 
+
       {/* HERO */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-12 sm:pt-20 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 items-center">
           <div className="order-2 md:order-1">
             <p className="text-muted-foreground text-lg">{L.hi}</p>
             <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
-            <h1 className="mt-4 text-4xl sm:text-5xl font-extrabold leading-[1.05] tracking-tight text-gradient">
+            <h1
+              className="mt-4 font-extrabold leading-[1.05] text-gradient md:whitespace-nowrap"
+              style={{ fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)" }}
+            >
               {L.role}
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -467,22 +438,22 @@ export default function Portfolio() {
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-25 blur-2xl" />
               <img
-                src="/camila.png"
+                src={camilaPng}
                 alt="Camila Rojas"
                 width={320}
                 height={320}
-                className="relative w-56 sm:w-72 md:w-80 aspect-square rounded-full object-cover"
+                className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover"
               />
             </div>
           </div>
         </div>
       </section>
- 
+
       {/* ABOUT */}
       <section id="about" className="mx-auto max-w-3xl px-5 sm:px-8 pb-20 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
         <p className="mt-3 text-muted-foreground text-sm">{L.aboutSub}</p>
-        <p className="mt-8 mx-auto max-w-3xl text-muted-foreground leading-[1.9] text-[15px] text-justify">
+        <p className="mt-8 text-muted-foreground leading-[1.9] text-[15px] text-justify">
           {L.aboutBody}
         </p>
         <a
@@ -493,7 +464,7 @@ export default function Portfolio() {
           <Download size={16} /> {L.downloadCv}
         </a>
       </section>
- 
+
       {/* EDUCATION */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.educationTitle}</h2>
@@ -505,30 +476,32 @@ export default function Portfolio() {
           </p>
         </div>
       </section>
- 
+
       {/* EXPERIENCE */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.experienceTitle}</h2>
         <p className="mt-2 font-medium">{L.company}</p>
-        <div className="mt-14 relative">
-          <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
-          <ol className="space-y-14">
-            {L.exp.map((e) => (
-              <li key={e.period} className="relative pl-10">
-                <span className="absolute left-0 top-1 flex items-center justify-center w-[15px] h-[15px] rounded-full bg-background ring-2 ring-ring">
-                  <span className="block w-[7px] h-[7px] rounded-full bg-gradient-brand" />
+        <div className="mt-12 relative grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
+          {/* Horizontal connector line (desktop) */}
+          <div className="hidden md:block absolute top-3 left-[16.66%] right-[16.66%] h-[3px] rounded-full bg-gradient-brand opacity-40" />
+          {/* Vertical connector line (mobile) */}
+          <div className="md:hidden absolute top-3 bottom-3 left-3 w-[3px] rounded-full bg-gradient-brand opacity-40" />
+          {L.exp.map((e) => (
+            <div key={e.period} className="relative pl-10 md:pl-0">
+              {/* Node */}
+              <div className="absolute md:relative left-0 md:left-auto top-0 md:top-0 md:mb-8 flex items-center justify-center">
+                <span className="block w-6 h-6 rounded-full bg-background ring-2 ring-border grid place-items-center">
+                  <span className="block w-3 h-3 rounded-full bg-gradient-brand shadow-glow" />
                 </span>
-                <p className="text-sm text-gradient font-semibold tracking-wide">{e.period}</p>
-                <p className="mt-2 font-semibold">{e.role}</p>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-2xl">
-                  {e.text}
-                </p>
-              </li>
-            ))}
-          </ol>
+              </div>
+              <p className="text-sm text-gradient font-semibold">{e.period}</p>
+              <p className="mt-2 font-semibold">{e.role}</p>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
+            </div>
+          ))}
         </div>
       </section>
- 
+
       {/* SKILLS */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -548,11 +521,11 @@ export default function Portfolio() {
           ))}
         </div>
       </section>
- 
+
       {/* PORTFOLIO */}
       <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.portfolioTitle}</h2>
- 
+
         {activeProject ? (
           <div className="mt-8 rounded-xl bg-card border border-border p-5 sm:p-8">
             <div className="flex items-center justify-between gap-4 mb-6">
@@ -590,8 +563,12 @@ export default function Portfolio() {
                 </div>
               </dl>
               <div>
-                <div className="rounded-lg overflow-hidden border border-border">
-                  <CaseStudyMosaic images={activeProject.images} alt={activeProject.name} />
+                <div className="aspect-[16/10] rounded-lg overflow-hidden bg-card border border-border">
+                  <img
+                    src={activeProject.image}
+                    alt={activeProject.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
@@ -617,66 +594,118 @@ export default function Portfolio() {
                 </button>
               ))}
             </div>
- 
+
             {filter === "Logo Design" ? (
-              <div className="mt-12 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6 justify-items-center opacity-85">
-                {logoImages.map((src, idx) => (
-                  <div key={idx} className="w-16 h-16 flex items-center justify-center grayscale hover:grayscale-0 transition-all duration-300">
-                    <img src={src} alt={`Logo design shot ${idx + 1}`} className="max-w-full max-h-full object-contain" loading="lazy" />
+              /* Clean transparent grid of individual logo PNGs */
+              <div className="mt-10 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                {logoImages.map((src, i) => (
+                  <div
+                    key={i}
+                    className="aspect-square flex items-center justify-center p-3 rounded-xl bg-card/40 hover:bg-card/70 transition-colors"
+                  >
+                    <img
+                      src={src}
+                      alt={`Logo design ${i + 1}`}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                 {visible.map((p) => (
-                  <div
+                  <button
                     key={p.name}
                     onClick={() => setActiveProject(p)}
-                    className="group cursor-pointer rounded-xl overflow-hidden border border-border bg-card hover:shadow-lg transition-all duration-300"
+                    className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition"
                   >
-                    <CaseStudyMosaic images={p.images} alt={p.name} />
-                    <div className="p-5">
-                      <p className="text-xs text-gradient font-medium tracking-wider uppercase">
+                    <div className="aspect-[4/3] relative overflow-hidden bg-card">
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <span className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition" />
+                    </div>
+                    <div className="flex items-center justify-between px-4 py-3">
+                      <p className="text-sm font-medium">{p.name}</p>
+                      <p className="text-xs text-muted-foreground">
                         {p.cat === "Ui Design" ? L.filters.ui : L.filters.brand}
                       </p>
-                      <h3 className="text-lg font-semibold mt-1 group-hover:text-gradient transition-colors">
-                        {p.name}
-                      </h3>
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
             )}
           </>
         )}
       </section>
- 
+
       {/* CONTACT */}
       <section id="contact" className="mx-auto max-w-3xl px-5 sm:px-8 pb-24">
-        <div className="text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold">{L.contactTitle}</h2>
-          <p className="mt-2 text-muted-foreground text-sm">{L.contactSub}</p>
-        </div>
-        <form className="mt-10 space-y-4" onSubmit={(e) => e.preventDefault()}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="text" placeholder={L.form.name} required className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
-            <input type="email" placeholder={L.form.email} required className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
+        <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.contactTitle}</h2>
+        <p className="mt-3 text-center text-sm text-muted-foreground">{L.contactSub}</p>
+        <form
+          className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <input
+            placeholder={L.form.name}
+            className="px-4 py-3 rounded-md bg-input border border-border text-sm outline-none focus:border-ring"
+          />
+          <input
+            placeholder={L.form.email}
+            type="email"
+            className="px-4 py-3 rounded-md bg-input border border-border text-sm outline-none focus:border-ring"
+          />
+          <input
+            placeholder={L.form.phone}
+            className="px-4 py-3 rounded-md bg-input border border-border text-sm outline-none focus:border-ring"
+          />
+          <select className="px-4 py-3 rounded-md bg-input border border-border text-sm outline-none focus:border-ring text-muted-foreground">
+            <option>{L.form.service}</option>
+            <option>{L.filters.ui}</option>
+            <option>{L.filters.brand}</option>
+            <option>{L.filters.logo}</option>
+          </select>
+          <input
+            placeholder={L.form.website}
+            className="px-4 py-3 rounded-md bg-input border border-border text-sm outline-none focus:border-ring"
+          />
+          <textarea
+            placeholder={L.form.details}
+            rows={5}
+            className="px-4 py-3 rounded-md bg-input border border-border text-sm outline-none focus:border-ring sm:row-span-2"
+          />
+          <div className="sm:col-span-2 flex justify-end">
+            <button className="px-8 py-2.5 rounded-md text-sm font-medium border border-border hover:bg-muted transition">
+              {L.form.send}
+            </button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <input type="tel" placeholder={L.form.phone} className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
-            <input type="text" placeholder={L.form.service} className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
-          </div>
-          <input type="url" placeholder={L.form.website} className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring" />
-          <textarea rows={5} placeholder={L.form.details} required className="w-full px-4 py-3 bg-card border border-border rounded-md text-sm font-sans focus:outline-none focus:ring-1 focus:ring-ring resize-none" />
-          <button type="submit" className="w-full py-3 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition font-sans">
-            {L.form.send}
-          </button>
         </form>
       </section>
- 
+
       {/* FOOTER */}
-      <footer className="border-t border-border/40 py-8 text-center text-xs text-muted-foreground font-sans">
-        <p>{L.footer}</p>
+      <footer className="border-t border-border/40 py-10">
+        <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center">
+          <p className="text-gradient font-bold text-lg">Camila Rojas</p>
+          <nav className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            {nav.map((n) => (
+              <a key={n.key} href={n.href} className="hover:text-foreground transition">
+                {n.label}
+              </a>
+            ))}
+          </nav>
+          <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <span className="inline-flex items-center gap-2">
+              <Mail size={14} /> mariacamirojas@gmail.com
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <Phone size={14} /> +57 3018584572
+            </span>
+          </div>
+          <p className="mt-6 text-xs text-muted-foreground">{L.footer}</p>
+        </div>
       </footer>
     </div>
   );
