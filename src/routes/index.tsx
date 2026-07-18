@@ -82,21 +82,12 @@ const skills = [
   { name: "Adobe Illustrator", pct: 100, label: "Ai" },
 ];
 
-const logoImages = [
-  "/20_1b.png", "/21_2b.png", "/22_3b.png", "/23_4b.png", "/24_5b.png", "/25_6b.png",
-  "/26_7b.png", "/27_8b.png", "/28_9b.png", "/29_10b.png", "/30_11b.png", "/31_12.png",
-  "/32_13b.png", "/33_14b.png", "/34_15b.png", "/35_16b.png", "/36_17b.png", "/37_18b.png",
-  "/38_19a.png", "/39_20b.png", "/40_21b.png", "/41_22b.png", "/42_23b.png", "/43_24b.png",
-];
-
 type Cat = "Ui Design" | "Brand System Design";
-type LayoutType = "dental-drive" | "pro-licensor" | "dentxr" | "unext" | "ddshared" | "ddsmag" | "ddsgroup" | "dicomshare" | "london-paris";
 
 type Project = {
   name: string;
   cat: Cat;
   thumbnail: string;
-  layoutType: LayoutType;
   images: string[];
   client: string;
   role: string;
@@ -106,13 +97,11 @@ type Project = {
   description: { en: string; es: string };
 };
 
-// Rutas corregidas apuntando a la raíz del directorio public
 const projects: Project[] = [
   {
     name: "DentalDrive",
     cat: "Ui Design",
     thumbnail: "/1_dentaldrive.png",
-    layoutType: "dental-drive",
     images: ["/1_dentaldrive.png", "/2_dentaldrive.png", "/3_dentaldrive.png", "/4_dentaldrive.png", "/5_dentaldrive.png"],
     client: "CyberTouch Solutions",
     role: "UI Designer",
@@ -128,7 +117,6 @@ const projects: Project[] = [
     name: "ProLicensor",
     cat: "Ui Design",
     thumbnail: "/6_prolicensor.png",
-    layoutType: "pro-licensor",
     images: ["/6_prolicensor.png", "/7_prolicensor.png", "/8_prolicensor.png", "/9_prolicensor.png"],
     client: "ProLicensor Inc.",
     role: "UI Designer",
@@ -144,7 +132,6 @@ const projects: Project[] = [
     name: "DentXR",
     cat: "Ui Design",
     thumbnail: "/10_dentxr.png",
-    layoutType: "dentxr",
     images: ["/10_dentxr.png", "/11_dentxr.png", "/12_dentxr.png"],
     client: "DentXR",
     role: "UI & Brand",
@@ -160,7 +147,6 @@ const projects: Project[] = [
     name: "uNext",
     cat: "Ui Design",
     thumbnail: "/13_unext.png",
-    layoutType: "unext",
     images: ["/13_unext.png", "/14_unext.png", "/15_unext.png", "/16_unext.png"],
     client: "uNext",
     role: "UI Designer",
@@ -176,7 +162,6 @@ const projects: Project[] = [
     name: "DDShared",
     cat: "Ui Design",
     thumbnail: "/17_ddshared.png",
-    layoutType: "ddshared",
     images: ["/17_ddshared.png", "/18_ddshared.png", "/19_ddshared.png", "/19_ddshared_b.png"],
     client: "DDShared",
     role: "UI Designer",
@@ -192,7 +177,6 @@ const projects: Project[] = [
     name: "DDSMag",
     cat: "Ui Design",
     thumbnail: "/19_ddsmag.png",
-    layoutType: "ddsmag",
     images: ["/19_ddsmag.png", "/19_ddsmag_2.png", "/19_ddsmag_3.png", "/19_ddsmag_4.png"],
     client: "DDSMag",
     role: "Brand & UI",
@@ -208,8 +192,12 @@ const projects: Project[] = [
     name: "DDSGroup",
     cat: "Brand System Design",
     thumbnail: "/20_1b.png",
-    layoutType: "ddsgroup",
-    images: logoImages,
+    images: [
+      "/20_1b.png", "/21_2b.png", "/22_3b.png", "/23_4b.png", "/24_5b.png", "/25_6b.png",
+      "/26_7b.png", "/27_8b.png", "/28_9b.png", "/29_10b.png", "/30_11b.png", "/31_12.png",
+      "/32_13b.png", "/33_14b.png", "/34_15b.png", "/35_16b.png", "/36_17b.png", "/37_18b.png",
+      "/38_19a.png", "/39_20b.png", "/40_21b.png", "/41_22b.png", "/42_23b.png", "/43_24b.png",
+    ],
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -224,7 +212,6 @@ const projects: Project[] = [
     name: "DicomShare",
     cat: "Brand System Design",
     thumbnail: "/44_dicomshare.png",
-    layoutType: "dicomshare",
     images: ["/44_dicomshare.png", "/45_dicomshare.png", "/46_dicomshare.png", "/47_dicomshare.png"],
     client: "DicomShare",
     role: "Brand Designer",
@@ -240,7 +227,6 @@ const projects: Project[] = [
     name: "London & Paris",
     cat: "Brand System Design",
     thumbnail: "/48_london.png",
-    layoutType: "london-paris",
     images: ["/48_london.png", "/49_london.png", "/50_london.png", "/51_london.png", "/52_london.png"],
     client: "London & Paris",
     role: "Brand Designer",
@@ -279,160 +265,6 @@ export default function Portfolio() {
     filter === "Logo Design"
       ? []
       : projects.filter((p) => filter === "All" || p.cat === filter);
-
-  const renderProjectGrid = (project: Project) => {
-    const imgs = project.images;
-
-    switch (project.layoutType) {
-      case "dental-drive":
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-            <div className="overflow-hidden flex items-center justify-center">
-              <img src={imgs[0]} className="w-full h-auto object-contain" alt="" />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              {imgs.slice(1, 5).map((src, idx) => (
-                <div key={idx} className="overflow-hidden">
-                  <img src={src} className="w-full h-auto object-cover" alt="" />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case "pro-licensor":
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full items-start">
-            <div className="md:col-span-5 bg-white flex items-center justify-center p-4">
-              <img src={imgs[0]} className="w-full h-auto object-contain" alt="" />
-            </div>
-            <div className="md:col-span-7 flex flex-col gap-4">
-              {imgs.slice(1, 4).map((src, idx) => (
-                <div key={idx} className="overflow-hidden">
-                  <img src={src} className="w-full h-auto object-cover" alt="" />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case "dentxr":
-        return (
-          <div className="space-y-4 w-full">
-            <div className="overflow-hidden">
-              <img src={imgs[0]} className="w-full h-auto object-cover" alt="" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="overflow-hidden">
-                <img src={imgs[1]} className="w-full h-auto object-cover" alt="" />
-              </div>
-              <div className="overflow-hidden">
-                <img src={imgs[2] || imgs[0]} className="w-full h-auto object-cover" alt="" />
-              </div>
-            </div>
-          </div>
-        );
-
-      case "unext":
-        return (
-          <div className="grid grid-cols-2 gap-4 w-full">
-            {imgs.slice(0, 4).map((src, idx) => (
-              <div key={idx} className="overflow-hidden flex items-center justify-center bg-white p-2">
-                <img src={src} className="w-full h-auto object-cover" alt="" />
-              </div>
-            ))}
-          </div>
-        );
-
-      case "ddshared":
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full items-start">
-            <div className="md:col-span-5 flex items-center justify-center">
-              <img src={imgs[0]} className="w-full h-auto object-contain" alt="" />
-            </div>
-            <div className="md:col-span-7 flex flex-col gap-4">
-              {imgs.slice(1, 4).map((src, idx) => (
-                <div key={idx} className="overflow-hidden">
-                  <img src={src} className="w-full h-auto object-cover" alt="" />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case "ddsmag":
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full items-start">
-            <div className="bg-white flex items-center justify-center p-4">
-              <img src={imgs[0]} className="w-full h-auto object-contain" alt="" />
-            </div>
-            <div className="flex flex-col gap-4">
-              {imgs.slice(1, 4).map((src, idx) => (
-                <div key={idx} className="overflow-hidden">
-                  <img src={src} className="w-full h-auto object-cover" alt="" />
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
-      case "ddsgroup":
-        return (
-          <div className="grid grid-cols-4 sm:grid-cols-6 gap-3 w-full">
-            {imgs.map((src, idx) => (
-              <div key={idx} className="flex items-center justify-center p-2 bg-neutral-900/40 border border-neutral-800/40 rounded">
-                <img src={src} className="w-full h-auto object-contain" alt="" />
-              </div>
-            ))}
-          </div>
-        );
-
-      case "dicomshare":
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full items-start">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="overflow-hidden">
-                <img src={imgs[0]} className="w-full h-auto object-cover" alt="" />
-              </div>
-              <div className="overflow-hidden">
-                <img src={imgs[1]} className="w-full h-auto object-cover" alt="" />
-              </div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="overflow-hidden">
-                <img src={imgs[2]} className="w-full h-auto object-cover" alt="" />
-              </div>
-              <div className="overflow-hidden">
-                <img src={imgs[3]} className="w-full h-auto object-cover" alt="" />
-              </div>
-            </div>
-          </div>
-        );
-
-      case "london-paris":
-        return (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full items-stretch">
-            <div className="md:col-span-8 grid grid-cols-2 gap-4">
-              {imgs.slice(0, 4).map((src, idx) => (
-                <div key={idx} className="overflow-hidden">
-                  <img src={src} className="w-full h-auto object-cover" alt="" />
-                </div>
-              ))}
-            </div>
-            <div className="md:col-span-4 bg-neutral-950 flex items-center justify-center p-2 border border-neutral-900">
-              <img src={imgs[4] || imgs[0]} className="w-full h-auto object-cover" alt="" />
-            </div>
-          </div>
-        );
-
-      default:
-        return (
-          <div className="w-full overflow-hidden">
-            <img src={project.thumbnail} className="w-full h-auto object-cover" alt="" />
-          </div>
-        );
-    }
-  };
 
   return (
     <div id="home" className="min-h-screen bg-background text-foreground scroll-smooth">
@@ -487,7 +319,7 @@ export default function Portfolio() {
         <div className="flex justify-center md:justify-end">
           <div className="w-72 h-72 sm:w-80 sm:h-80 rounded-full bg-gradient-brand opacity-25 blur-3xl absolute -z-10 animate-pulse" />
           <div className="w-64 h-64 sm:w-72 sm:h-72 rounded-3xl bg-card border border-border/60 shadow-xl overflow-hidden flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-500">
-            <span className="text-xs text-muted-foreground uppercase tracking-widest font-mono">[ Avatar Placeholder ]</span>
+            <span className="text-xs text-muted-foreground uppercase tracking-widest font-mono">[ Avatar ]</span>
           </div>
         </div>
       </section>
@@ -565,6 +397,7 @@ export default function Portfolio() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-x-16 gap-y-10 items-start">
+              {/* METADATA */}
               <dl className="space-y-6 text-xs tracking-wide">
                 <div>
                   <dt className="text-muted-foreground uppercase font-medium">{L.labels.client}</dt>
@@ -588,8 +421,26 @@ export default function Portfolio() {
                 </div>
               </dl>
 
+              {/* IMAGES & CONTENT */}
               <div className="space-y-10 w-full">
-                {renderProjectGrid(activeProject)}
+                {/* Clean, Fail-Safe Grid for case studies */}
+                <div className="flex flex-col gap-6 w-full">
+                  {activeProject.images.map((src, idx) => (
+                    <div key={idx} className="w-full bg-card rounded-xl overflow-hidden border border-border/40">
+                      <img 
+                        src={src} 
+                        className="w-full h-auto object-contain max-h-[85vh] mx-auto block" 
+                        alt={`${activeProject.name} layout element ${idx + 1}`}
+                        onError={(e) => {
+                          // Fail-safe fallbacks if paths contain typos
+                          const target = e.currentTarget;
+                          if (!target.src.startsWith(window.location.origin)) return;
+                          console.error("Failed to load layout image:", src);
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
                 <div className="max-w-3xl pt-2">
                   <p className="text-muted-foreground leading-[1.8] text-[14px] text-justify font-light">
                     {activeProject.description[lang]}
