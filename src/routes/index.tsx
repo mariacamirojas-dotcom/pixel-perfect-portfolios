@@ -72,8 +72,6 @@ const t = {
   },
 } as const;
 
-const logoImages = ["/20_1b.png", "/21_2b.png", "/22_3b.png", "/23_4b.png", "/24_5b.png", "/25_6b.png", "/26_7b.png", "/27_8b.png", "/28_9b.png", "/29_10b.png", "/30_11b.png", "/31_12.png", "/32_13b.png", "/33_14b.png", "/34_15b.png", "/35_16b.png", "/36_17b.png", "/37_18b.png", "/38_19a.png", "/39_20b.png", "/40_21b.png", "/41_22b.png", "/42_23b.png", "/43_24b.png"];
-
 type Cat = "Ui Design" | "Brand System Design";
 type Project = { name: string; cat: Cat; images: string[]; client: string; role: string; year: string; tools: string; scope: string; description: { en: string; es: string } };
 
@@ -89,28 +87,22 @@ const projects: Project[] = [
   { name: "London & Paris", cat: "Brand System Design", images: ["/10_rectangle_26.png", "/37_18b.png", "/38_19a.png", "/39_20b.png"], client: "London & Paris", role: "Brand Designer", year: "2025", tools: "Illustrator", scope: "Fashion Brand", description: { en: "London & Paris is...", es: "London & Paris es..." } },
 ];
 
-function CaseStudyMosaic({ images, alt }: { images: string[]; alt: string }) {
-  if (!images || images.length === 0) return null;
-  return (
-    <div className="aspect-[4/3] grid grid-cols-2 gap-1">
-      {images.map((src, i) => <img key={i} src={src} alt={alt} className="w-full h-full object-cover" />)}
-    </div>
-  );
-}
-
 function Portfolio() {
   const [lang, setLang] = useState<Lang>("en");
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
   const L = t[lang];
 
   return (
-    <div className="p-8">
+    <div className="min-h-screen p-8">
       <h1 className="text-4xl font-bold">{L.name}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
         {projects.map((p) => (
-          <button key={p.name} onClick={() => setActiveProject(p)} className="border p-4">
-            <p className="font-semibold">{p.name}</p>
-          </button>
+          <div key={p.name} className="border rounded-lg overflow-hidden">
+            <img src={p.images[0]} alt={p.name} className="w-full h-48 object-cover" />
+            <div className="p-4">
+              <h2 className="font-bold">{p.name}</h2>
+              <p className="text-sm text-gray-600">{p.cat}</p>
+            </div>
+          </div>
         ))}
       </div>
     </div>
