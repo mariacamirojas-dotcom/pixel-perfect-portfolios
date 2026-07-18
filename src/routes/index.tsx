@@ -1,8 +1,4 @@
 import React from 'react';
-// Nota: Si usas Next.js tradicional, mantén 'next/image' y 'next/link'. 
-// Si estás usando unbundler estándar de React (Vite/Remix/Bolt), cámbialos por componentes estándar <img> y <a>.
-import Image from 'next/image';
-import Link from 'next/link';
 
 // 1. DATA UNIFICADA DE LOS PROYECTOS (Mapeo estricto 100% fiel al ZIP)
 const projects = [
@@ -74,16 +70,14 @@ export default function PortfolioIndexPage() {
               key={project.id} 
               className={`group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-100 dark:border-neutral-900 ${project.gridClass}`}
             >
-              {/* Navegación dinámica basada en la estructura de tu enrutador */}
-              <Link href={`/case-studies/${project.id}`} className="block w-full h-full">
+              {/* Usamos etiquetas <a> estándar compatibles con tu enrutador actual */}
+              <a href={`/case-studies/${project.id}`} className="block w-full h-full">
                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-neutral-100 dark:bg-neutral-900">
-                  <Image
+                  <img
                     src={project.imageSrc}
                     alt={project.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 66vw"
-                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-                    priority={project.id === '1_man_in_black_suit_looking_confident'}
+                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                    loading={project.id === '1_man_in_black_suit_looking_confident' ? 'eager' : 'lazy'}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
@@ -104,7 +98,7 @@ export default function PortfolioIndexPage() {
                     </svg>
                   </div>
                 </div>
-              </Link>
+              </a>
             </div>
           ))}
         </div>
@@ -125,7 +119,7 @@ export default function PortfolioIndexPage() {
               I specialize in creating systematic design structures that bridge user experience with component-driven frontend architecture. Over the past years, I have engineered cohesive visual identities and translated them into clean, interactive React ecosystems.
             </p>
             <p>
-              My stack revolves heavily around production-ready UI design, using tooling like <strong>Figma</strong> and advanced image workflows, alongside web development stacks utilizing <strong>Next.js, Tailwind CSS, Vercel</strong>, and modern AI-assisted environments.
+              My stack revolves heavily around production-ready UI design, using tooling like <strong>Figma</strong> and advanced image workflows, alongside web development stacks utilizing <strong>Tailwind CSS, Vercel</strong>, and modern AI-assisted environments.
             </p>
             
             <div className="pt-6">
@@ -167,7 +161,7 @@ export default function PortfolioIndexPage() {
         </div>
         
         <div className="max-w-5xl mx-auto mt-12 pt-6 border-t border-neutral-100 dark:border-neutral-900 flex justify-between items-center text-xs font-mono text-neutral-400">
-          <p>© {new Date().getFullYear()} — Built with Next.js & Tailwind CSS.</p>
+          <p>© {new Date().getFullYear()} — Built with React & Tailwind CSS.</p>
         </div>
       </footer>
 
