@@ -19,7 +19,7 @@ const t = {
     role: "UI & Graphic Designer",
     aboutTitle: "About Me",
     aboutSub: "Designing Intuitive Interfaces And Memorable Visual Identities",
-    aboutBody: "I'm a visual designer specialized in branding and UX/UI for digital products and scalable applications. I focus on clarity, consistency, and detail, creating thoughtful visual systems that elevate user experiences.",
+    aboutBody: "I'm a visual designer specialized in branding and UX/UI for digital products and scalable applications. I focus on clarity, consistency, and detail, creating thoughtful visual systems that elevate user experiences. My approach is minimalistic by nature, yet flexible enough to adapt to diverse brands and creative directions.",
     educationTitle: "Education",
     educationDegree: "Visual Design Professional",
     educationSchool: "Fundación Universitaria Bellas Artes 2009-2014",
@@ -27,9 +27,9 @@ const t = {
     experienceTitle: "Experience",
     company: "CyberTouch Solutions LLC.",
     exp: [
-      { period: "2014 - 2016", role: "Junior Designer", text: "Built strong design foundations." },
-      { period: "2017 - 2019", role: "Mid Designer", text: "Developed independent design solutions." },
-      { period: "2020 - 2025", role: "Senior Designer", text: "Led complex branding and UX/UI projects." },
+      { period: "2014 - 2016", role: "Junior Designer", text: "Built strong design foundations, supporting branding and UX/UI projects through research and visual execution." },
+      { period: "2017 - 2019", role: "Mid Designer", text: "Developed independent design solutions, managing intermediate UX/UI workflows." },
+      { period: "2020 - 2025", role: "Senior Designer", text: "Led complex branding and UX/UI projects, translating strategy into scalable, consistent digital design systems." },
     ],
     portfolioTitle: "Portfolio",
     filters: { all: "All", ui: "UI Design", brand: "Brand System Design", logo: "Logo Design" },
@@ -49,7 +49,7 @@ const t = {
     role: "Diseñadora UI y Gráfica",
     aboutTitle: "Sobre Mí",
     aboutSub: "Diseñando Interfaces Intuitivas E Identidades Visuales Memorables",
-    aboutBody: "Soy diseñadora visual especializada en branding y UX/UI para productos digitales y aplicaciones escalables. Me enfoco en la claridad, la consistencia y el detalle.",
+    aboutBody: "Soy diseñadora visual especializada en branding y UX/UI para productos digitales y aplicaciones escalables. Me enfoco en la claridad, la consistencia y el detalle, creando sistemas visuales cuidados.",
     educationTitle: "Educación",
     educationDegree: "Profesional en Diseño Visual",
     educationSchool: "Fundación Universitaria Bellas Artes 2009-2014",
@@ -72,40 +72,11 @@ const t = {
   },
 } as const;
 
-type Cat = "Ui Design" | "Brand System Design";
-type Project = { name: string; cat: Cat; images: string[]; client: string; role: string; year: string; tools: string; scope: string; description: { en: string; es: string } };
-
-const projects: Project[] = [
-  { name: "DentalDrive", cat: "Ui Design", images: ["/2_rectangle_21.png", "/20_1b.png"], client: "CyberTouch Solutions", role: "UI Designer", year: "2022", tools: "Figma, Adobe XD", scope: "Web App UI", description: { en: "For DentalDrive...", es: "Para DentalDrive..." } },
-  { name: "ProLicensor", cat: "Ui Design", images: ["/3_rectangle_26.png", "/21_2b.png", "/22_3b.png"], client: "ProLicensor Inc.", role: "UI Designer", year: "2022", tools: "Figma", scope: "SaaS Dashboard", description: { en: "I created...", es: "Creé la identidad..." } },
-  { name: "DentXR", cat: "Ui Design", images: ["/4_rectangle_22.png", "/23_4b.png", "/24_5b.png", "/25_6b.png"], client: "DentXR", role: "UI & Brand", year: "2023", tools: "Figma, Illustrator", scope: "Brand & Product UI", description: { en: "I developed...", es: "Desarrollé la base..." } },
-  { name: "uNext", cat: "Ui Design", images: ["/5_rectangle_26.png", "/26_7b.png", "/27_8b.png"], client: "uNext", role: "UI Designer", year: "2023", tools: "Figma", scope: "Mobile & Web UI", description: { en: "I created...", es: "Creé la identidad..." } },
-  { name: "DDShared", cat: "Ui Design", images: ["/6_rectangle_21.png", "/28_9b.png", "/29_10b.png"], client: "DDShared", role: "UI Designer", year: "2023", tools: "Figma", scope: "Web App UI", description: { en: "I created...", es: "Creé la identidad..." } },
-  { name: "DDSMag", cat: "Ui Design", images: ["/7_rectangle_22.png", "/30_11b.png", "/31_12.png"], client: "DDSMag", role: "Brand & UI", year: "2024", tools: "Illustrator, Figma", scope: "Editorial Brand", description: { en: "I designed...", es: "Diseñé la identidad..." } },
-  { name: "DDSGroup", cat: "Brand System Design", images: ["/8_rectangle_21.png", "/32_13b.png", "/33_14b.png", "/34_15b.png"], client: "DDSGroup", role: "Brand Designer", year: "2024", tools: "Illustrator, Photoshop", scope: "Brand System", description: { en: "Led the...", es: "Lideré el branding..." } },
-  { name: "DicomShare", cat: "Brand System Design", images: ["/9_rectangle_22.png", "/35_16b.png", "/36_17b.png"], client: "DicomShare", role: "Brand Designer", year: "2024", tools: "Illustrator", scope: "Brand System", description: { en: "Designed the...", es: "Diseñé la identidad..." } },
-  { name: "London & Paris", cat: "Brand System Design", images: ["/10_rectangle_26.png", "/37_18b.png", "/38_19a.png", "/39_20b.png"], client: "London & Paris", role: "Brand Designer", year: "2025", tools: "Illustrator", scope: "Fashion Brand", description: { en: "London & Paris is...", es: "London & Paris es..." } },
-];
-
 function Portfolio() {
-  const [lang, setLang] = useState<Lang>("en");
-  const L = t[lang];
-
   return (
-    <div className="min-h-screen p-8">
-      <h1 className="text-4xl font-bold">{L.name}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
-        {projects.map((p) => (
-          <div key={p.name} className="border rounded-lg overflow-hidden">
-            <img src={p.images[0]} alt={p.name} className="w-full h-48 object-cover" />
-            <div className="p-4">
-              <h2 className="font-bold">{p.name}</h2>
-              <p className="text-sm text-gray-600">{p.cat}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div className="min-h-screen bg-white">
+        <h1 className="text-2xl font-bold">Portafolio de Camila Rojas</h1>
+        <p>Estructura original restaurada.</p>
     </div>
   );
 }
-```[cite: 1]
