@@ -253,6 +253,26 @@ const projects: Project[] = [
   },
 ];
 
+// Componente auxiliar para mitigar imágenes rotas durante dev
+function SafeImage({ src, alt, className }: { src: string; alt?: string; className?: string }) {
+  const [error, setError] = useState(false);
+  if (error || !src) {
+    return (
+      <div className={`w-full h-full bg-neutral-900/40 border border-neutral-800 flex items-center justify-center p-4 text-[10px] tracking-wider text-neutral-500 font-mono uppercase ${className}`}>
+        Placeholder: {alt || "UI View"}
+      </div>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={alt || ""}
+      className={className}
+      onError={() => setError(true)}
+    />
+  );
+}
+
 export default function Portfolio() {
   const [lang, setLang] = useState<Lang>("en");
   const [filter, setFilter] = useState<"All" | Cat | "Logo Design">("All");
@@ -285,14 +305,14 @@ export default function Portfolio() {
     switch (project.layoutType) {
       case "dental-drive":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
-            <div className="md:col-span-1 aspect-square md:aspect-auto rounded-xl bg-card border border-border/40 overflow-hidden flex items-center justify-center p-6">
-              <img src={imgs[0]} className="max-w-full max-h-full object-contain" alt="" />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch w-full">
+            <div className="md:col-span-5 aspect-square md:aspect-auto rounded-xl overflow-hidden bg-neutral-900/20 flex items-center justify-center p-4">
+              <SafeImage src={imgs[0]} alt="Brand Highlight" className="max-w-full max-h-full object-contain" />
             </div>
-            <div className="md:col-span-2 grid grid-cols-2 gap-4">
+            <div className="md:col-span-7 grid grid-cols-2 gap-4">
               {imgs.slice(1, 5).map((src, idx) => (
-                <div key={idx} className="aspect-[4/3] bg-card rounded-xl border border-border/40 overflow-hidden">
-                  <img src={src} className="w-full h-full object-cover" alt="" />
+                <div key={idx} className="aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900/10">
+                  <SafeImage src={src} alt={`UI State ${idx + 1}`} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
@@ -301,14 +321,14 @@ export default function Portfolio() {
 
       case "pro-licensor":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            <div className="md:col-span-2 aspect-square md:aspect-auto min-h-[250px] bg-white rounded-xl border border-border/40 overflow-hidden flex items-center justify-center p-8">
-              <img src={imgs[0]} className="max-w-full max-h-full object-contain" alt="" />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full">
+            <div className="md:col-span-5 aspect-square md:aspect-auto min-h-[260px] bg-white rounded-xl overflow-hidden flex items-center justify-center p-8 shadow-inner">
+              <SafeImage src={imgs[0]} alt="White Logo Block" className="max-w-full max-h-full object-contain filter invert-0" />
             </div>
-            <div className="md:col-span-3 flex flex-col gap-4">
+            <div className="md:col-span-7 flex flex-col gap-4">
               {imgs.slice(1, 4).map((src, idx) => (
-                <div key={idx} className="aspect-[16/6] bg-card rounded-xl border border-border/40 overflow-hidden">
-                  <img src={src} className="w-full h-full object-cover" alt="" />
+                <div key={idx} className="aspect-[16/6] rounded-xl overflow-hidden bg-neutral-900/10">
+                  <SafeImage src={src} alt={`Dashboard Screen ${idx + 1}`} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
@@ -317,16 +337,16 @@ export default function Portfolio() {
 
       case "dentxr":
         return (
-          <div className="space-y-4">
-            <div className="aspect-[21/9] bg-card rounded-xl border border-border/40 overflow-hidden">
-              <img src={imgs[0]} className="w-full h-full object-cover" alt="" />
+          <div className="space-y-4 w-full">
+            <div className="aspect-[21/9] rounded-xl overflow-hidden bg-neutral-900/20">
+              <SafeImage src={imgs[0]} alt="Hero Dashboard" className="w-full h-full object-cover" />
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="aspect-[4/3] bg-card rounded-xl border border-border/40 overflow-hidden">
-                <img src={imgs[1]} className="w-full h-full object-cover" alt="" />
+              <div className="aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900/10">
+                <SafeImage src={imgs[1]} alt="Interface Focus" className="w-full h-full object-cover" />
               </div>
-              <div className="aspect-[4/3] bg-card rounded-xl border border-border/40 overflow-hidden">
-                <img src={imgs[2] || imgs[0]} className="w-full h-full object-cover" alt="" />
+              <div className="aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900/10">
+                <SafeImage src={imgs[2] || imgs[0]} alt="Component Spec Card" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -334,10 +354,10 @@ export default function Portfolio() {
 
       case "unext":
         return (
-          <div className="grid grid-cols-2 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 gap-4 max-w-4xl mx-auto w-full">
             {imgs.slice(0, 4).map((src, idx) => (
-              <div key={idx} className="aspect-square bg-white rounded-xl border border-border/40 overflow-hidden p-2 flex items-center justify-center">
-                <img src={src} className="w-full h-full object-cover rounded-lg" alt="" />
+              <div key={idx} className="aspect-square bg-neutral-50/5 rounded-xl overflow-hidden p-3 flex items-center justify-center border border-neutral-800/20">
+                <SafeImage src={src} alt={`Grid Clean Module ${idx + 1}`} className="w-full h-full object-cover rounded-lg" />
               </div>
             ))}
           </div>
@@ -345,14 +365,14 @@ export default function Portfolio() {
 
       case "ddshared":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            <div className="md:col-span-2 aspect-square md:aspect-auto min-h-[250px] bg-card rounded-xl border border-border/40 overflow-hidden flex items-center justify-center p-6">
-              <img src={imgs[0]} className="max-w-full max-h-full object-contain" alt="" />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full">
+            <div className="md:col-span-5 aspect-square md:aspect-auto min-h-[260px] bg-neutral-900/40 rounded-xl overflow-hidden flex items-center justify-center p-6">
+              <SafeImage src={imgs[0]} alt="Encrypted Storage Logo Block" className="max-w-full max-h-full object-contain" />
             </div>
-            <div className="md:col-span-3 flex flex-col gap-4">
+            <div className="md:col-span-7 flex flex-col gap-4">
               {imgs.slice(1, 4).map((src, idx) => (
-                <div key={idx} className="aspect-[16/6] bg-card rounded-xl border border-border/40 overflow-hidden">
-                  <img src={src} className="w-full h-full object-cover" alt="" />
+                <div key={idx} className="aspect-[16/6] rounded-xl overflow-hidden bg-neutral-900/10">
+                  <SafeImage src={src} alt={`Cloud UI Screen ${idx + 1}`} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
@@ -361,14 +381,14 @@ export default function Portfolio() {
 
       case "ddsmag":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="aspect-square bg-white rounded-xl border border-border/40 overflow-hidden flex items-center justify-center p-8">
-              <img src={imgs[0]} className="max-w-full max-h-full object-contain" alt="" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <div className="aspect-square bg-white rounded-xl overflow-hidden flex items-center justify-center p-8">
+              <SafeImage src={imgs[0]} alt="Editorial Magazine Logo" className="max-w-full max-h-full object-contain" />
             </div>
             <div className="flex flex-col gap-4 justify-between">
               {imgs.slice(1, 4).map((src, idx) => (
-                <div key={idx} className="flex-1 min-h-[110px] bg-card rounded-xl border border-border/40 overflow-hidden">
-                  <img src={src} className="w-full h-full object-cover" alt="" />
+                <div key={idx} className="flex-1 min-h-[110px] rounded-xl overflow-hidden bg-neutral-900/10">
+                  <SafeImage src={src} alt={`Editorial Layout Spec ${idx + 1}`} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
@@ -377,10 +397,10 @@ export default function Portfolio() {
 
       case "ddsgroup":
         return (
-          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-6 gap-3 bg-card/20 p-6 rounded-xl border border-border/40">
+          <div className="grid grid-cols-4 sm:grid-cols-6 gap-4 bg-neutral-900/10 p-6 rounded-xl border border-neutral-800/10 w-full">
             {imgs.map((src, idx) => (
-              <div key={idx} className="aspect-square flex items-center justify-center p-2 rounded-lg bg-card border border-border/20 transition-all hover:border-ring/40">
-                <img src={src} className="w-full h-full object-contain filter grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition" alt="" />
+              <div key={idx} className="aspect-square flex items-center justify-center p-3 rounded-lg bg-neutral-950/40 border border-neutral-800/30 transition hover:border-neutral-700">
+                <SafeImage src={src} alt={`Logofolio item ${idx + 1}`} className="w-full h-full object-contain filter grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition" />
               </div>
             ))}
           </div>
@@ -388,21 +408,21 @@ export default function Portfolio() {
 
       case "dicomshare":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="aspect-[3/4] bg-card rounded-xl border border-border/40 overflow-hidden">
-                <img src={imgs[0]} className="w-full h-full object-cover" alt="" />
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full">
+            <div className="md:col-span-6 grid grid-cols-2 gap-4">
+              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-neutral-900/10">
+                <SafeImage src={imgs[0]} alt="Clinical View Portrait 1" className="w-full h-full object-cover" />
               </div>
-              <div className="aspect-[3/4] bg-card rounded-xl border border-border/40 overflow-hidden">
-                <img src={imgs[1]} className="w-full h-full object-cover" alt="" />
+              <div className="aspect-[3/4] rounded-xl overflow-hidden bg-neutral-900/10">
+                <SafeImage src={imgs[1]} alt="Clinical View Portrait 2" className="w-full h-full object-cover" />
               </div>
             </div>
-            <div className="flex flex-col gap-4">
-              <div className="flex-1 min-h-[160px] bg-card rounded-xl border border-border/40 overflow-hidden">
-                <img src={imgs[2]} className="w-full h-full object-cover" alt="" />
+            <div className="md:col-span-6 flex flex-col gap-4">
+              <div className="flex-1 min-h-[160px] rounded-xl overflow-hidden bg-neutral-900/10">
+                <SafeImage src={imgs[2]} alt="Diagnostic Interface Large" className="w-full h-full object-cover" />
               </div>
-              <div className="flex-1 min-h-[100px] bg-card rounded-xl border border-border/40 overflow-hidden">
-                <img src={imgs[3]} className="w-full h-full object-cover" alt="" />
+              <div className="flex-1 min-h-[110px] rounded-xl overflow-hidden bg-neutral-900/10">
+                <SafeImage src={imgs[3]} alt="UI Action Bar Module" className="w-full h-full object-cover" />
               </div>
             </div>
           </div>
@@ -410,63 +430,155 @@ export default function Portfolio() {
 
       case "london-paris":
         return (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-stretch">
-            <div className="md:col-span-2 grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch w-full">
+            <div className="md:col-span-8 grid grid-cols-2 gap-4">
               {imgs.slice(0, 4).map((src, idx) => (
-                <div key={idx} className="aspect-[4/3] bg-card rounded-xl border border-border/40 overflow-hidden">
-                  <img src={src} className="w-full h-full object-cover" alt="" />
+                <div key={idx} className="aspect-[4/3] rounded-xl overflow-hidden bg-neutral-900/10">
+                  <SafeImage src={src} alt={`Fashion Book Spec ${idx + 1}`} className="w-full h-full object-cover" />
                 </div>
               ))}
             </div>
-            <div className="md:col-span-1 aspect-square md:aspect-auto rounded-xl bg-neutral-950 border border-border/40 overflow-hidden flex items-center justify-center p-4">
-              <img src={imgs[4] || imgs[0]} className="w-full h-full object-cover rounded-lg" alt="" />
+            <div className="md:col-span-4 aspect-square md:aspect-auto rounded-xl bg-neutral-950 overflow-hidden flex items-center justify-center p-1 border border-neutral-900">
+              <SafeImage src={imgs[4] || imgs[0]} alt="Editorial Identity Poster" className="w-full h-full object-cover rounded-lg" />
             </div>
           </div>
         );
 
       default:
         return (
-          <div className="aspect-[16/10] rounded-xl bg-card overflow-hidden border border-border/40">
-            <img src={project.thumbnail} className="w-full h-full object-cover" alt="" />
+          <div className="aspect-[16/10] rounded-xl overflow-hidden bg-neutral-900/10 w-full">
+            <SafeImage src={project.thumbnail} alt={project.name} className="w-full h-full object-cover" />
           </div>
         );
     }
   };
 
   return (
-    <div id="home" className="min-h-screen bg-background text-foreground">
+    <div id="home" className="min-h-screen bg-background text-foreground scroll-smooth">
       {/* HEADER */}
       <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border/40">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 h-16 flex items-center justify-between">
           <nav className="hidden md:flex items-center gap-8 text-sm">
-            {nav.map((n, i) => (
-              <a key={n.key} href={n.href} className={`transition-colors hover:opacity-80 ${i === 0 ? "text-gradient font-semibold" : "text-muted-foreground"}`}>
+            {nav.map((n) => (
+              <a key={n.key} href={n.href} className="text-muted-foreground transition-colors hover:text-foreground">
                 {n.label}
               </a>
             ))}
           </nav>
-          <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <button onClick={() => setLang(lang === "en" ? "es" : "en")} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border border-border hover:bg-muted transition">
               <Globe size={14} /> {lang === "en" ? "ES" : "EN"}
             </button>
             <a href="#contact" className="inline-flex px-5 py-2 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition">
               {L.hire}
             </a>
+            <button onClick={() => setOpen(!open)} className="p-2 md:hidden text-muted-foreground hover:text-foreground">
+              {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
           </div>
         </div>
+        {open && (
+          <div className="md:hidden border-b border-border/40 bg-background px-5 py-4 space-y-3 flex flex-col text-sm">
+            {nav.map((n) => (
+              <a key={n.key} href={n.href} onClick={() => setOpen(false)} className="text-muted-foreground hover:text-foreground block">
+                {n.label}
+              </a>
+            ))}
+          </div>
+        )}
       </header>
 
+      {/* HERO SECTION */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-24 pb-20 text-center md:text-left grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="space-y-6">
+          <p className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.hi}</p>
+          <h1 className="text-5xl sm:text-6xl font-black tracking-tight leading-none text-foreground">{L.name}</h1>
+          <p className="text-xl sm:text-2xl font-light text-muted-foreground">{L.role}</p>
+          <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-2">
+            <a href="#contact" className="px-6 py-3 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition">
+              {L.hire}
+            </a>
+            <button className="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-medium border border-border hover:bg-muted transition text-muted-foreground hover:text-foreground">
+              <Download size={16} /> {L.downloadCv}
+            </button>
+          </div>
+        </div>
+        <div className="flex justify-center md:justify-end">
+          <div className="w-72 h-72 sm:w-80 sm:h-80 rounded-full bg-gradient-brand opacity-25 blur-3xl absolute -z-10 animate-pulse" />
+          <div className="w-64 h-64 sm:w-72 sm:h-72 rounded-3xl bg-card border border-border/60 shadow-xl overflow-hidden flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-500">
+            <span className="text-xs text-muted-foreground uppercase tracking-widest font-mono">[ Avatar Placeholder ]</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT SECTION */}
+      <section id="about" className="mx-auto max-w-6xl px-5 sm:px-8 py-20 border-t border-border/20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div className="md:col-span-4 space-y-3">
+            <h2 className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.aboutTitle}</h2>
+            <h3 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground leading-snug">{L.aboutSub}</h3>
+          </div>
+          <div className="md:col-span-8">
+            <p className="text-muted-foreground font-light leading-relaxed text-justify whitespace-pre-line">{L.aboutBody}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SKILLS SECTION */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 py-12 bg-card/20 rounded-2xl border border-border/40 my-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+          {skills.map((s) => (
+            <div key={s.name} className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-xl bg-card border border-border flex items-center justify-center font-bold text-sm text-gradient shadow-sm">
+                {s.label}
+              </div>
+              <div>
+                <p className="text-sm font-semibold">{s.name}</p>
+                <p className="text-xs text-muted-foreground">{s.pct}% Proficiency</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* EXPERIENCE SECTION */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 py-20 border-t border-border/20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div className="md:col-span-4 space-y-4">
+            <h2 className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.educationTitle}</h2>
+            <div className="space-y-2">
+              <h3 className="text-base font-bold text-foreground">{L.educationDegree}</h3>
+              <p className="text-xs text-muted-foreground font-medium">{L.educationSchool}</p>
+              <p className="text-xs text-muted-foreground/80 leading-relaxed pt-2 font-light">{L.educationBody}</p>
+            </div>
+          </div>
+          <div className="md:col-span-8 space-y-6">
+            <h2 className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.experienceTitle}</h2>
+            <div className="border-l border-border/60 pl-6 space-y-8">
+              {L.exp.map((item, idx) => (
+                <div key={idx} className="relative space-y-2">
+                  <div className="absolute -left-[31px] top-1 w-2.5 h-2.5 rounded-full bg-border border border-background" />
+                  <span className="text-xs font-mono text-muted-foreground font-semibold">{item.period}</span>
+                  <h4 className="text-lg font-bold text-foreground">{item.role} <span className="text-sm font-normal text-muted-foreground">/ {L.company}</span></h4>
+                  <p className="text-sm text-muted-foreground font-light leading-relaxed">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* PORTFOLIO SECTION */}
-      <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 py-16">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8">{L.portfolioTitle}</h2>
+      <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 py-20 border-t border-border/20">
+        <h2 className="text-3xl sm:text-4xl font-black text-center tracking-tight mb-8">{L.portfolioTitle}</h2>
 
         {activeProject ? (
-          <div className="mt-8 border-t border-border/30 pt-10">
+          <div className="mt-8 border-t border-border/30 pt-10 animate-fadeIn">
             <div className="flex items-center justify-between gap-4 mb-12">
-              <button onClick={() => setActiveProject(null)} className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-muted-foreground hover:text-foreground transition">
+              <button onClick={() => setActiveProject(null)} className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition">
                 <ArrowLeft size={14} /> {L.back}
               </button>
-              <span className="text-xs font-semibold tracking-wider uppercase text-muted-foreground">
+              <span className="text-xs font-semibold tracking-wider uppercase text-muted-foreground bg-neutral-900/40 px-3 py-1 rounded-full border border-neutral-800/40">
                 {activeProject.cat === "Ui Design" ? L.filters.ui : L.filters.brand}
               </span>
             </div>
@@ -495,9 +607,9 @@ export default function Portfolio() {
                 </div>
               </dl>
 
-              <div className="space-y-8">
+              <div className="space-y-10 w-full">
                 {renderProjectGrid(activeProject)}
-                <div className="max-w-3xl pt-2">
+                <div className="max-w-3xl pt-2 border-t border-neutral-900">
                   <p className="text-muted-foreground leading-[1.8] text-[14px] text-justify font-light">
                     {activeProject.description[lang]}
                   </p>
@@ -509,7 +621,7 @@ export default function Portfolio() {
           <>
             <div className="flex flex-wrap justify-center gap-2">
               {filterList.map((f) => (
-                <button key={f.id} onClick={() => setFilter(f.id)} className={`px-4 py-1.5 rounded-md text-sm transition ${filter === f.id ? "text-white bg-gradient-brand shadow-glow" : "text-muted-foreground border border-border hover:bg-muted"}`}>
+                <button key={f.id} onClick={() => setFilter(f.id)} className={`px-4 py-1.5 rounded-md text-sm font-medium transition ${filter === f.id ? "text-white bg-gradient-brand shadow-glow" : "text-muted-foreground border border-border hover:bg-muted"}`}>
                   {f.label}
                 </button>
               ))}
@@ -517,11 +629,11 @@ export default function Portfolio() {
 
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {visible.map((p) => (
-                <button key={p.name} onClick={() => { setActiveProject(p); document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" }); }} className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition">
-                  <div className="aspect-[4/3] relative overflow-hidden bg-card">
-                    <img src={p.thumbnail} alt={p.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <button key={p.name} onClick={() => { setActiveProject(p); document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" }); }} className="group text-left rounded-xl overflow-hidden bg-card border border-border hover:border-ring/60 transition duration-300">
+                  <div className="aspect-[4/3] relative overflow-hidden bg-neutral-900/20">
+                    <SafeImage src={p.thumbnail} alt={p.name} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
-                  <div className="flex items-center justify-between px-4 py-3">
+                  <div className="flex items-center justify-between px-4 py-3 bg-neutral-950/20">
                     <p className="text-sm font-medium">{p.name}</p>
                     <p className="text-xs text-muted-foreground">{p.cat === "Ui Design" ? L.filters.ui : L.filters.brand}</p>
                   </div>
@@ -531,6 +643,50 @@ export default function Portfolio() {
           </>
         )}
       </section>
+
+      {/* CONTACT SECTION */}
+      <section id="contact" className="mx-auto max-w-6xl px-5 sm:px-8 py-20 border-t border-border/20">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
+          <div className="md:col-span-5 space-y-6">
+            <div className="space-y-3">
+              <h2 className="text-xs uppercase tracking-widest font-semibold text-gradient">{L.contactTitle}</h2>
+              <h3 className="text-3xl font-bold tracking-tight">{L.contactSub}</h3>
+            </div>
+            <div className="space-y-4 text-sm text-muted-foreground font-light">
+              <div className="flex items-center gap-3">
+                <Mail size={16} className="text-primary" />
+                <span>contacto@camilarojas.design</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Phone size={16} className="text-primary" />
+                <span>+57 300 000 0000</span>
+              </div>
+            </div>
+          </div>
+          <div className="md:col-span-7">
+            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input type="text" placeholder={L.form.name} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
+                <input type="email" placeholder={L.form.email} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <input type="text" placeholder={L.form.phone} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
+                <input type="text" placeholder={L.form.service} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
+              </div>
+              <input type="url" placeholder={L.form.website} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring" />
+              <textarea rows={4} placeholder={L.form.details} className="w-full bg-card border border-border/60 rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-ring resize-none" />
+              <button type="submit" className="px-6 py-2.5 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition float-right">
+                {L.form.send}
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="border-t border-border/40 py-8 bg-neutral-950/20 text-center text-xs text-muted-foreground font-light">
+        <p>{L.footer}</p>
+      </footer>
     </div>
   );
 }
