@@ -1,16 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
-import headshotAsset from "@/assets/portfolio/headshot.png.asset.json";
-import dentalDriveAsset from "@/assets/portfolio/dentaldrive.png.asset.json";
-import proficensorAsset from "@/assets/portfolio/proficensor.png.asset.json";
-import dentxrAsset from "@/assets/portfolio/dentxr.png.asset.json";
-import unextAsset from "@/assets/portfolio/unext.png.asset.json";
-import ddsharedAsset from "@/assets/portfolio/ddshared.png.asset.json";
-import ddsmagAsset from "@/assets/portfolio/ddsmag.png.asset.json";
-import ddsfixAsset from "@/assets/portfolio/ddsfix.png.asset.json";
-import dicomshareAsset from "@/assets/portfolio/dicomshare.png.asset.json";
-import londonParisAsset from "@/assets/portfolio/londonparis.png.asset.json";
+import camilaJpg from "@/assets/camila.jpg";
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -147,32 +138,32 @@ const skills = [
   { name: "Adobe Illustrator", pct: 100, label: "Ai" },
 ];
 
-// Individual logo PNG files from the public figma-assets directory (24 logos)
+// 24 individual logo PNGs — served directly from /public (case-sensitive on Vercel)
 const logoImages = [
-  "/figma-assets-1784265156269/20_1b.png",
-  "/figma-assets-1784265156269/21_2b.png",
-  "/figma-assets-1784265156269/22_3b.png",
-  "/figma-assets-1784265156269/23_4b.png",
-  "/figma-assets-1784265156269/24_5b.png",
-  "/figma-assets-1784265156269/25_6b.png",
-  "/figma-assets-1784265156269/26_7b.png",
-  "/figma-assets-1784265156269/27_8b.png",
-  "/figma-assets-1784265156269/28_9b.png",
-  "/figma-assets-1784265156269/29_10b.png",
-  "/figma-assets-1784265156269/30_11b.png",
-  "/figma-assets-1784265156269/31_12.png",
-  "/figma-assets-1784265156269/32_13b.png",
-  "/figma-assets-1784265156269/33_14b.png",
-  "/figma-assets-1784265156269/34_15b.png",
-  "/figma-assets-1784265156269/35_16b.png",
-  "/figma-assets-1784265156269/36_17b.png",
-  "/figma-assets-1784265156269/37_18b.png",
-  "/figma-assets-1784265156269/38_19a.png",
-  "/figma-assets-1784265156269/39_20b.png",
-  "/figma-assets-1784265156269/40_21b.png",
-  "/figma-assets-1784265156269/41_22b.png",
-  "/figma-assets-1784265156269/42_23b.png",
-  "/figma-assets-1784265156269/43_24b.png",
+  "/20_1b.png",
+  "/21_2b.png",
+  "/22_3b.png",
+  "/23_4b.png",
+  "/24_5b.png",
+  "/25_6b.png",
+  "/26_7b.png",
+  "/27_8b.png",
+  "/28_9b.png",
+  "/29_10b.png",
+  "/30_11b.png",
+  "/31_12.png",
+  "/32_13b.png",
+  "/33_14b.png",
+  "/34_15b.png",
+  "/35_16b.png",
+  "/36_17b.png",
+  "/37_18b.png",
+  "/38_19a.png",
+  "/39_20b.png",
+  "/40_21b.png",
+  "/41_22b.png",
+  "/42_23b.png",
+  "/43_24b.png",
 ];
 
 type Cat = "Ui Design" | "Brand System Design";
@@ -194,7 +185,7 @@ const projects: Project[] = [
   {
     name: "DentalDrive",
     cat: "Ui Design",
-    image: dentalDriveAsset.url,
+    image: "/2_rectangle_21.png",
     client: "CyberTouch Solutions",
     role: "UI Designer",
     year: "2022",
@@ -208,7 +199,7 @@ const projects: Project[] = [
   {
     name: "ProLicensor",
     cat: "Ui Design",
-    image: proficensorAsset.url,
+    image: "/5_rectangle_26.png",
     client: "ProLicensor Inc.",
     role: "UI Designer",
     year: "2022",
@@ -222,7 +213,7 @@ const projects: Project[] = [
   {
     name: "DentXR",
     cat: "Ui Design",
-    image: dentxrAsset.url,
+    image: "/8_rectangle_21.png",
     client: "DentXR",
     role: "UI & Brand",
     year: "2023",
@@ -236,7 +227,7 @@ const projects: Project[] = [
   {
     name: "uNext",
     cat: "Ui Design",
-    image: unextAsset.url,
+    image: "/11_rectangle_21.png",
     client: "uNext",
     role: "UI Designer",
     year: "2023",
@@ -250,7 +241,7 @@ const projects: Project[] = [
   {
     name: "DDShared",
     cat: "Ui Design",
-    image: ddsharedAsset.url,
+    image: "/14_rectangle_26.png",
     client: "DDShared",
     role: "UI Designer",
     year: "2023",
@@ -264,7 +255,7 @@ const projects: Project[] = [
   {
     name: "DDSMag",
     cat: "Ui Design",
-    image: ddsmagAsset.url,
+    image: "/17_rectangle_21.png",
     client: "DDSMag",
     role: "Brand & UI",
     year: "2024",
@@ -278,7 +269,7 @@ const projects: Project[] = [
   {
     name: "DDSGroup",
     cat: "Brand System Design",
-    image: ddsfixAsset.url,
+    image: "/44_dds1__4_.png",
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -292,7 +283,7 @@ const projects: Project[] = [
   {
     name: "DicomShare",
     cat: "Brand System Design",
-    image: dicomshareAsset.url,
+    image: "/74_rectangle_29.png",
     client: "DicomShare",
     role: "Brand Designer",
     year: "2024",
@@ -306,7 +297,7 @@ const projects: Project[] = [
   {
     name: "London & Paris",
     cat: "Brand System Design",
-    image: londonParisAsset.url,
+    image: "/89_rectangle_49.png",
     client: "London & Paris",
     role: "Brand Designer",
     year: "2025",
@@ -444,7 +435,7 @@ function Portfolio() {
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
-                src={headshotAsset.url}
+                src={camilaJpg}
                 alt="Camila Rojas"
                 width={320}
                 height={320}
