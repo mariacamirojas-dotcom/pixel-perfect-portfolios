@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
-import camilaPng from "@/assets/camila.png";
+import camilaJpg from "@/assets/camila.jpg";
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -199,7 +199,7 @@ const projects: Project[] = [
   {
     name: "ProLicensor",
     cat: "Ui Design",
-    image: "/3_rectangle_26.png",
+    image: "/5_rectangle_26.png",
     client: "ProLicensor Inc.",
     role: "UI Designer",
     year: "2022",
@@ -213,7 +213,7 @@ const projects: Project[] = [
   {
     name: "DentXR",
     cat: "Ui Design",
-    image: "/4_rectangle_22.png",
+    image: "/8_rectangle_21.png",
     client: "DentXR",
     role: "UI & Brand",
     year: "2023",
@@ -227,7 +227,7 @@ const projects: Project[] = [
   {
     name: "uNext",
     cat: "Ui Design",
-    image: "/5_rectangle_26.png",
+    image: "/11_rectangle_21.png",
     client: "uNext",
     role: "UI Designer",
     year: "2023",
@@ -241,7 +241,7 @@ const projects: Project[] = [
   {
     name: "DDShared",
     cat: "Ui Design",
-    image: "/6_rectangle_21.png",
+    image: "/14_rectangle_26.png",
     client: "DDShared",
     role: "UI Designer",
     year: "2023",
@@ -255,7 +255,7 @@ const projects: Project[] = [
   {
     name: "DDSMag",
     cat: "Ui Design",
-    image: "/7_rectangle_22.png",
+    image: "/17_rectangle_21.png",
     client: "DDSMag",
     role: "Brand & UI",
     year: "2024",
@@ -269,7 +269,7 @@ const projects: Project[] = [
   {
     name: "DDSGroup",
     cat: "Brand System Design",
-    image: "/8_rectangle_21.png",
+    image: "/44_dds1__4_.png",
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -283,7 +283,7 @@ const projects: Project[] = [
   {
     name: "DicomShare",
     cat: "Brand System Design",
-    image: "/9_rectangle_22.png",
+    image: "/74_rectangle_29.png",
     client: "DicomShare",
     role: "Brand Designer",
     year: "2024",
@@ -297,7 +297,7 @@ const projects: Project[] = [
   {
     name: "London & Paris",
     cat: "Brand System Design",
-    image: "/10_rectangle_26.png",
+    image: "/89_rectangle_49.png",
     client: "London & Paris",
     role: "Brand Designer",
     year: "2025",
@@ -412,10 +412,7 @@ function Portfolio() {
           <div className="order-2 md:order-1">
             <p className="text-muted-foreground text-lg">{L.hi}</p>
             <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
-            <h1
-              className="mt-4 font-extrabold leading-[1.05] text-gradient md:whitespace-nowrap"
-              style={{ fontSize: "clamp(1.75rem, 3.4vw, 2.75rem)" }}
-            >
+            <h1 className="mt-4 text-4xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] text-gradient">
               {L.role}
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -436,13 +433,13 @@ function Portfolio() {
           </div>
           <div className="order-1 md:order-2 justify-self-center md:justify-self-end">
             <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-25 blur-2xl" />
+              <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
-                src={camilaPng}
+                src={camilaJpg}
                 alt="Camila Rojas"
                 width={320}
                 height={320}
-                className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover"
+                className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover border border-border"
               />
             </div>
           </div>
@@ -481,19 +478,11 @@ function Portfolio() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.experienceTitle}</h2>
         <p className="mt-2 font-medium">{L.company}</p>
-        <div className="mt-12 relative grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-12">
-          {/* Horizontal connector line (desktop) */}
-          <div className="hidden md:block absolute top-3 left-[16.66%] right-[16.66%] h-[3px] rounded-full bg-gradient-brand opacity-40" />
-          {/* Vertical connector line (mobile) */}
-          <div className="md:hidden absolute top-3 bottom-3 left-3 w-[3px] rounded-full bg-gradient-brand opacity-40" />
+        <div className="mt-10 relative grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="hidden md:block absolute top-2 left-[8%] right-[8%] h-px bg-border" />
           {L.exp.map((e) => (
-            <div key={e.period} className="relative pl-10 md:pl-0">
-              {/* Node */}
-              <div className="absolute md:relative left-0 md:left-auto top-0 md:top-0 md:mb-8 flex items-center justify-center">
-                <span className="block w-6 h-6 rounded-full bg-background ring-2 ring-border grid place-items-center">
-                  <span className="block w-3 h-3 rounded-full bg-gradient-brand shadow-glow" />
-                </span>
-              </div>
+            <div key={e.period} className="relative">
+              <div className="w-4 h-4 rounded-full bg-gradient-brand shadow-glow mb-6" />
               <p className="text-sm text-gradient font-semibold">{e.period}</p>
               <p className="mt-2 font-semibold">{e.role}</p>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
