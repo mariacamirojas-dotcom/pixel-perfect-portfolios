@@ -596,18 +596,24 @@ function Portfolio() {
                 </div>
               </dl>
               <div>
-                <div className="aspect-[16/10] rounded-lg overflow-hidden bg-card border border-border">
-                  <img
-                    src={activeProject.image}
-                    alt={activeProject.name}
-                    className="w-full h-full object-cover"
-                  />
+                <div className="grid grid-cols-2 gap-3">
+                  {activeProject.images.map((src, i) => (
+                    <div
+                      key={i}
+                      className={`overflow-hidden rounded-lg bg-card border border-border ${
+                        i === 0 ? "col-span-2 aspect-[16/9]" : "aspect-square"
+                      }`}
+                    >
+                      <img src={src} alt={`${activeProject.name} ${i + 1}`} className="w-full h-full object-cover" />
+                    </div>
+                  ))}
                 </div>
                 <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                   {activeProject.description[lang]}
                 </p>
               </div>
+
             </div>
           </div>
         ) : (
