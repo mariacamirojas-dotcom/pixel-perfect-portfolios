@@ -451,9 +451,9 @@ function Portfolio() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-12 sm:pt-20 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 items-center">
           <div className="order-2 md:order-1">
-            <p className="text-muted-foreground text-lg">{L.hi}</p>
+            <p className="text-muted-foreground text-lg font-light">{L.hi}</p>
             <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
-            <h1 className="mt-4 text-4xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] text-gradient">
+            <h1 className="mt-4 text-[2rem] sm:text-5xl md:text-[3.75rem] font-extrabold leading-[1.05] text-gradient whitespace-nowrap">
               {L.role}
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -476,7 +476,7 @@ function Portfolio() {
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
-                src={camilaJpg}
+                src={camilaImg}
                 alt="Camila Rojas"
                 width={320}
                 height={320}
@@ -488,9 +488,11 @@ function Portfolio() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="mx-auto max-w-3xl px-5 sm:px-8 pb-20 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
-        <p className="mt-3 text-muted-foreground text-sm">{L.aboutSub}</p>
+      <section id="about" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
+        <div className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
+          <p className="mt-3 text-muted-foreground text-sm">{L.aboutSub}</p>
+        </div>
         <p className="mt-8 text-muted-foreground leading-[1.9] text-[15px] text-justify">
           {L.aboutBody}
         </p>
@@ -502,6 +504,7 @@ function Portfolio() {
           <Download size={16} /> {L.downloadCv}
         </a>
       </section>
+
 
       {/* EDUCATION */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
