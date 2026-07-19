@@ -660,7 +660,7 @@ function Portfolio() {
                   >
                     <div className="aspect-[4/3] relative overflow-hidden bg-card">
                       <img
-                        src={p.image}
+                        src={p.images[0]}
                         alt={p.name}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
