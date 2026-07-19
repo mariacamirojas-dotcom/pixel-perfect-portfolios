@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
-import camilaJpg from "@/assets/camila.jpg";
+
+const camilaImg = "/camila.png";
+
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -171,7 +173,7 @@ type Cat = "Ui Design" | "Brand System Design";
 type Project = {
   name: string;
   cat: Cat;
-  image: string;
+  images: string[];
   client: string;
   role: string;
   year: string;
@@ -185,7 +187,11 @@ const projects: Project[] = [
   {
     name: "DentalDrive",
     cat: "Ui Design",
-    image: "/2_rectangle_21.png",
+    images: [
+      "/2_rectangle_21.png",
+      "/3_rectangle_26.png",
+      "/4_rectangle_22.png",
+    ],
     client: "CyberTouch Solutions",
     role: "UI Designer",
     year: "2022",
@@ -199,7 +205,11 @@ const projects: Project[] = [
   {
     name: "ProLicensor",
     cat: "Ui Design",
-    image: "/5_rectangle_26.png",
+    images: [
+      "/5_rectangle_26.png",
+      "/6_rectangle_21.png",
+      "/7_rectangle_22.png",
+    ],
     client: "ProLicensor Inc.",
     role: "UI Designer",
     year: "2022",
@@ -213,7 +223,11 @@ const projects: Project[] = [
   {
     name: "DentXR",
     cat: "Ui Design",
-    image: "/8_rectangle_21.png",
+    images: [
+      "/8_rectangle_21.png",
+      "/9_rectangle_22.png",
+      "/10_rectangle_26.png",
+    ],
     client: "DentXR",
     role: "UI & Brand",
     year: "2023",
@@ -227,7 +241,11 @@ const projects: Project[] = [
   {
     name: "uNext",
     cat: "Ui Design",
-    image: "/11_rectangle_21.png",
+    images: [
+      "/11_rectangle_21.png",
+      "/12_rectangle_26.png",
+      "/13_rectangle_22.png",
+    ],
     client: "uNext",
     role: "UI Designer",
     year: "2023",
@@ -241,7 +259,11 @@ const projects: Project[] = [
   {
     name: "DDShared",
     cat: "Ui Design",
-    image: "/14_rectangle_26.png",
+    images: [
+      "/14_rectangle_26.png",
+      "/15_rectangle_21.png",
+      "/16_rectangle_22.png",
+    ],
     client: "DDShared",
     role: "UI Designer",
     year: "2023",
@@ -255,7 +277,11 @@ const projects: Project[] = [
   {
     name: "DDSMag",
     cat: "Ui Design",
-    image: "/17_rectangle_21.png",
+    images: [
+      "/17_rectangle_21.png",
+      "/18_rectangle_22.png",
+      "/19_rectangle_26.png",
+    ],
     client: "DDSMag",
     role: "Brand & UI",
     year: "2024",
@@ -269,7 +295,13 @@ const projects: Project[] = [
   {
     name: "DDSGroup",
     cat: "Brand System Design",
-    image: "/44_dds1__4_.png",
+    images: [
+      "/44_dds1__4_.png","/45_image_5.png","/46_ddslogo__1_.png",
+      "/47_teko__2_.png","/48_image_3.png","/49_dds1__4_.png",
+      "/50_teko__2_.png","/51_image_4.png","/52_image_3.png",
+      "/53_dds1__4_.png","/54_image_5.png","/55_ddslogo__1_.png",
+      "/56_teko__2_.png","/57_image_3.png","/58_image_4.png",
+    ],
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -283,7 +315,11 @@ const projects: Project[] = [
   {
     name: "DicomShare",
     cat: "Brand System Design",
-    image: "/74_rectangle_29.png",
+    images: [
+      "/74_rectangle_29.png","/75_rectangle_38.png","/76_rectangle_34.png",
+      "/77_rectangle_35.png","/78_rectangle_36.png","/79_rectangle_37.png",
+      "/80_rectangle_30.png","/81_rectangle_39.png",
+    ],
     client: "DicomShare",
     role: "Brand Designer",
     year: "2024",
@@ -297,7 +333,11 @@ const projects: Project[] = [
   {
     name: "London & Paris",
     cat: "Brand System Design",
-    image: "/89_rectangle_49.png",
+    images: [
+      "/89_rectangle_49.png","/90_rectangle_45.png","/91_rectangle_46.png",
+      "/92_rectangle_47.png","/93_rectangle_48.png","/94_rectangle_72.png",
+      "/95_rectangle_67.png","/96_rectangle_68.png",
+    ],
     client: "London & Paris",
     role: "Brand Designer",
     year: "2025",
@@ -309,6 +349,7 @@ const projects: Project[] = [
     },
   },
 ];
+
 
 function Portfolio() {
   const [lang, setLang] = useState<Lang>("en");
@@ -410,9 +451,9 @@ function Portfolio() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-12 sm:pt-20 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 items-center">
           <div className="order-2 md:order-1">
-            <p className="text-muted-foreground text-lg">{L.hi}</p>
+            <p className="text-muted-foreground text-lg font-light">{L.hi}</p>
             <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
-            <h1 className="mt-4 text-4xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] text-gradient">
+            <h1 className="mt-4 text-[2rem] sm:text-5xl md:text-[3.75rem] font-extrabold leading-[1.05] text-gradient whitespace-nowrap">
               {L.role}
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -435,7 +476,7 @@ function Portfolio() {
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
-                src={camilaJpg}
+                src={camilaImg}
                 alt="Camila Rojas"
                 width={320}
                 height={320}
@@ -447,9 +488,11 @@ function Portfolio() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="mx-auto max-w-3xl px-5 sm:px-8 pb-20 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
-        <p className="mt-3 text-muted-foreground text-sm">{L.aboutSub}</p>
+      <section id="about" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
+        <div className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
+          <p className="mt-3 text-muted-foreground text-sm">{L.aboutSub}</p>
+        </div>
         <p className="mt-8 text-muted-foreground leading-[1.9] text-[15px] text-justify">
           {L.aboutBody}
         </p>
@@ -461,6 +504,7 @@ function Portfolio() {
           <Download size={16} /> {L.downloadCv}
         </a>
       </section>
+
 
       {/* EDUCATION */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
@@ -552,18 +596,24 @@ function Portfolio() {
                 </div>
               </dl>
               <div>
-                <div className="aspect-[16/10] rounded-lg overflow-hidden bg-card border border-border">
-                  <img
-                    src={activeProject.image}
-                    alt={activeProject.name}
-                    className="w-full h-full object-cover"
-                  />
+                <div className="grid grid-cols-2 gap-3">
+                  {activeProject.images.map((src, i) => (
+                    <div
+                      key={i}
+                      className={`overflow-hidden rounded-lg bg-card border border-border ${
+                        i === 0 ? "col-span-2 aspect-[16/9]" : "aspect-square"
+                      }`}
+                    >
+                      <img src={src} alt={`${activeProject.name} ${i + 1}`} className="w-full h-full object-cover" />
+                    </div>
+                  ))}
                 </div>
                 <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
                   {activeProject.description[lang]}
                 </p>
               </div>
+
             </div>
           </div>
         ) : (
@@ -610,7 +660,7 @@ function Portfolio() {
                   >
                     <div className="aspect-[4/3] relative overflow-hidden bg-card">
                       <img
-                        src={p.image}
+                        src={p.images[0]}
                         alt={p.name}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
