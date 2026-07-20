@@ -803,8 +803,11 @@ function Portfolio() {
 
       {/* FOOTER */}
       <footer className="border-t border-border/40 py-10">
+        <GradientDefs />
         <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center">
-          <p className="text-gradient font-bold text-lg">Camila Rojas</p>
+          <p className="text-gradient text-2xl" style={{ fontFamily: '"K2D", sans-serif', fontWeight: 700 }}>
+            Camila Rojas
+          </p>
           <nav className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             {nav.map((n) => (
               <a key={n.key} href={n.href} className="hover:text-foreground transition">
@@ -814,10 +817,10 @@ function Portfolio() {
           </nav>
           <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">
-              <Mail size={14} /> mariacamirojas@gmail.com
+              <MailIcon size={16} /> mariacamirojas@gmail.com
             </span>
             <span className="inline-flex items-center gap-2">
-              <Phone size={14} /> +57 3018584572
+              <PhoneIcon size={16} /> +57 3018584572
             </span>
           </div>
           <p className="mt-6 text-xs text-muted-foreground">{L.footer}</p>
