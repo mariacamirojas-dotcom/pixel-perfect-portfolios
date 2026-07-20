@@ -22,8 +22,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-display: "Lato", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
   --gradient-brand: linear-gradient(90deg, var(--accent-violet), var(--accent-cyan));
   --shadow-glow: 0 10px 40px -10px color-mix(in oklab, var(--accent-violet) 45%, transparent);
 }
