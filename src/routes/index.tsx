@@ -138,7 +138,7 @@ const skills = [
   { name: "Adobe Illustrator", pct: 100, label: "Ai" },
 ];
 
-// 24 individual logo PNGs — served directly from /public
+// 24 individual logo PNGs — served directly from /public (case-sensitive on Vercel)
 const logoImages = [
   "/20_1b.png",
   "/21_2b.png",
@@ -406,62 +406,41 @@ function Portfolio() {
         )}
       </header>
 
-      {/* HERO — matches Figma: hi / name / role / buttons | circular photo with purple glow */}
-      <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-16 sm:pt-24 pb-20 sm:pb-28">
+      {/* HERO */}
+      <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-12 sm:pt-20 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 items-center">
-          {/* Text column */}
           <div className="order-2 md:order-1">
-            <p className="text-muted-foreground text-base">{L.hi}</p>
-            <h2 className="text-2xl sm:text-3xl font-light text-foreground/80 mt-1 tracking-wide">
-              {L.name}
-            </h2>
-            <h1 className="mt-3 text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] text-gradient">
+            <p className="text-muted-foreground text-lg">{L.hi}</p>
+            <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
+            <h1 className="mt-4 text-4xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] text-gradient">
               {L.role}
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#contact"
-                className="px-6 py-2.5 rounded-md text-sm font-semibold text-white bg-gradient-brand shadow-glow hover:opacity-90 transition"
+                className="px-6 py-2.5 rounded-md text-sm font-medium text-white bg-gradient-brand shadow-glow hover:opacity-90 transition"
               >
                 {L.hire}
               </a>
               <a
                 href="/CV-CamilaRojas.pdf"
                 download
-                className="px-6 py-2.5 rounded-md text-sm font-medium border border-border text-foreground hover:bg-muted transition"
+                className="px-6 py-2.5 rounded-md text-sm font-medium border border-border hover:bg-muted transition"
               >
                 {L.downloadCv}
               </a>
             </div>
           </div>
-
-          {/* Photo column */}
           <div className="order-1 md:order-2 justify-self-center md:justify-self-end">
             <div className="relative">
-              {/* Purple glow behind photo */}
-              <div
-                className="absolute rounded-full pointer-events-none"
-                style={{
-                  inset: "-32px",
-                  background: "radial-gradient(ellipse at center, rgba(109,40,217,0.35) 0%, rgba(6,182,212,0.1) 60%, transparent 80%)",
-                  filter: "blur(8px)",
-                }}
+              <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
+              <img
+                src={camilaJpg}
+                alt="Camila Rojas"
+                width={320}
+                height={320}
+                className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover border border-border"
               />
-              {/* Photo with subtle tint */}
-              <div className="relative w-52 h-52 sm:w-68 sm:h-68 md:w-76 md:h-76 rounded-full overflow-hidden"
-                style={{ width: "clamp(208px, 24vw, 304px)", height: "clamp(208px, 24vw, 304px)" }}>
-                <img
-                  src={camilaJpg}
-                  alt="Camila Rojas"
-                  className="w-full h-full object-cover"
-                  style={{ filter: "contrast(1.05) saturate(0.9)" }}
-                />
-                {/* Subtle purple color overlay */}
-                <div
-                  className="absolute inset-0"
-                  style={{ background: "rgba(91,33,182,0.18)", mixBlendMode: "multiply" }}
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -495,59 +474,20 @@ function Portfolio() {
         </div>
       </section>
 
-      {/* EXPERIENCE — timeline matching Figma */}
+      {/* EXPERIENCE */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.experienceTitle}</h2>
-
-        {/* Company name with dashed border */}
-        <p className="mt-3 font-medium text-foreground/80 inline-block border border-dashed border-border px-3 py-1 rounded-sm text-sm">
-          {L.company}
-        </p>
-
-        {/* Timeline */}
-        <div className="mt-10 relative">
-          {/* Horizontal connecting line — centered on the dots (dot height 18px, center at 9px) */}
-          <div className="hidden md:block absolute top-[9px] left-0 right-0 h-[1.5px] bg-border" />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {L.exp.map((e) => (
-              <div key={e.period} className="relative">
-                {/* Gradient ring dot */}
-                <div className="relative z-10 w-[18px] h-[18px] mb-8">
-                  {/* Soft glow behind dot */}
-                  <div
-                    className="absolute rounded-full pointer-events-none"
-                    style={{
-                      inset: "-6px",
-                      background: "radial-gradient(circle, rgba(139,92,246,0.35) 0%, transparent 70%)",
-                      filter: "blur(4px)",
-                    }}
-                  />
-                  {/* Outer gradient ring */}
-                  <div
-                    className="relative w-full h-full rounded-full p-[2px]"
-                    style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)" }}
-                  >
-                    {/* Inner dark background */}
-                    <div
-                      className="w-full h-full rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: "hsl(222 18% 8%)" }}
-                    >
-                      {/* Center dot */}
-                      <div
-                        className="w-[6px] h-[6px] rounded-full"
-                        style={{ background: "linear-gradient(135deg, #a78bfa 0%, #67e8f9 100%)" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-sm text-gradient font-semibold">{e.period}</p>
-                <p className="mt-2 font-semibold text-foreground">{e.role}</p>
-                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
-              </div>
-            ))}
-          </div>
+        <p className="mt-2 font-medium">{L.company}</p>
+        <div className="mt-10 relative grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="hidden md:block absolute top-2 left-[8%] right-[8%] h-px bg-border" />
+          {L.exp.map((e) => (
+            <div key={e.period} className="relative">
+              <div className="w-4 h-4 rounded-full bg-gradient-brand shadow-glow mb-6" />
+              <p className="text-sm text-gradient font-semibold">{e.period}</p>
+              <p className="mt-2 font-semibold">{e.role}</p>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -645,6 +585,7 @@ function Portfolio() {
             </div>
 
             {filter === "Logo Design" ? (
+              /* Clean transparent grid of individual logo PNGs */
               <div className="mt-10 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
                 {logoImages.map((src, i) => (
                   <div
@@ -736,8 +677,7 @@ function Portfolio() {
       {/* FOOTER */}
       <footer className="border-t border-border/40 py-10">
         <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center">
-          {/* K2D Bold for Camila Rojas */}
-          <p className="font-k2d text-gradient text-lg">Camila Rojas</p>
+          <p className="text-gradient font-bold text-lg">Camila Rojas</p>
           <nav className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             {nav.map((n) => (
               <a key={n.key} href={n.href} className="hover:text-foreground transition">
