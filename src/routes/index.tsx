@@ -174,6 +174,8 @@ type Project = {
   name: string;
   cat: Cat;
   images: string[];
+  /** Tailwind classes per image tile (col-span-*, row-span-*, aspect-*) on a 6-col grid */
+  layout?: string[];
   client: string;
   role: string;
   year: string;
@@ -181,6 +183,16 @@ type Project = {
   scope: string;
   description: { en: string; es: string };
 };
+
+// Default 5-tile layout used by the UI Design case studies (matches Figma pattern:
+// square logo + wide laptop on top row; portrait phone + two landscape mockups below)
+const uiLayout = [
+  "col-span-3 md:col-span-3 aspect-square",
+  "col-span-3 md:col-span-3 aspect-square",
+  "col-span-2 md:col-span-2 aspect-[3/4] row-span-1",
+  "col-span-4 md:col-span-4 aspect-[16/10]",
+  "col-span-6 md:col-span-6 aspect-[21/9]",
+];
 
 // UI Design: 6 projects — Brand System Design: 3 projects
 const projects: Project[] = [
