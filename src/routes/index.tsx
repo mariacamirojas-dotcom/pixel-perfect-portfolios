@@ -505,7 +505,7 @@ function Portfolio() {
           <div className="order-2 md:order-1">
             <p className="text-muted-foreground text-lg font-light">{L.hi}</p>
             <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
-            <h1 className="mt-4 text-[2rem] sm:text-5xl md:text-[3.75rem] font-extrabold leading-[1.05] text-gradient whitespace-nowrap">
+            <h1 className="mt-4 text-[1.75rem] sm:text-4xl md:text-5xl font-extrabold leading-[1.05] text-gradient whitespace-nowrap">
               {L.role}
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -525,14 +525,12 @@ function Portfolio() {
             </div>
           </div>
           <div className="order-1 md:order-2 justify-self-center md:justify-self-end">
-            <div className="relative">
+            <div className="relative w-56 sm:w-72 md:w-80 aspect-square">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
                 src={camilaImg}
                 alt="Camila Rojas"
-                width={320}
-                height={320}
-                className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover border border-border"
+                className="relative w-full h-full rounded-full object-cover object-top border border-border"
               />
             </div>
           </div>
