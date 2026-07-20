@@ -1,7 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
-import camilaJpg from "@/assets/camila.jpg";
+import { Menu, X, Download, ArrowLeft, Globe } from "lucide-react";
+
+// Mail & Phone icons with brand gradient stroke
+const GradientDefs = () => (
+  <svg width="0" height="0" className="absolute" aria-hidden>
+    <defs>
+      <linearGradient id="brandGradient" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#a855f7" />
+        <stop offset="100%" stopColor="#22d3ee" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+const MailIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="url(#brandGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="m22 7-10 5L2 7" />
+  </svg>
+);
+const PhoneIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="url(#brandGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
+const camilaImg = "/camila.png";
+
 
 export const Route = createFileRoute("/")({
   component: Portfolio,
@@ -171,7 +196,9 @@ type Cat = "Ui Design" | "Brand System Design";
 type Project = {
   name: string;
   cat: Cat;
-  image: string;
+  images: string[];
+  /** Tailwind classes per image tile (col-span-*, row-span-*, aspect-*) on a 6-col grid */
+  layout?: string[];
   client: string;
   role: string;
   year: string;
@@ -180,12 +207,29 @@ type Project = {
   description: { en: string; es: string };
 };
 
+// Default 5-tile layout used by the UI Design case studies (matches Figma pattern:
+// square logo + wide laptop on top row; portrait phone + two landscape mockups below)
+const uiLayout = [
+  "col-span-3 md:col-span-3 aspect-square",
+  "col-span-3 md:col-span-3 aspect-square",
+  "col-span-2 md:col-span-2 aspect-[3/4] row-span-1",
+  "col-span-4 md:col-span-4 aspect-[16/10]",
+  "col-span-6 md:col-span-6 aspect-[21/9]",
+];
+
 // UI Design: 6 projects — Brand System Design: 3 projects
 const projects: Project[] = [
   {
     name: "DentalDrive",
     cat: "Ui Design",
-    image: "/2_rectangle_21.png",
+    images: [
+      "/2_rectangle_21.png",
+      "/44_dds1__4_.png",
+      "/48_image_3.png",
+      "/45_image_5.png",
+      "/46_ddslogo__1_.png",
+      "/47_teko__2_.png",
+    ],
     client: "CyberTouch Solutions",
     role: "UI Designer",
     year: "2022",
@@ -199,7 +243,13 @@ const projects: Project[] = [
   {
     name: "ProLicensor",
     cat: "Ui Design",
-    image: "/5_rectangle_26.png",
+    images: [
+      "/3_rectangle_26.png",
+      "/49_dds1__4_.png",
+      "/52_image_3.png",
+      "/51_image_4.png",
+      "/50_teko__2_.png",
+    ],
     client: "ProLicensor Inc.",
     role: "UI Designer",
     year: "2022",
@@ -213,7 +263,13 @@ const projects: Project[] = [
   {
     name: "DentXR",
     cat: "Ui Design",
-    image: "/8_rectangle_21.png",
+    images: [
+      "/4_rectangle_22.png",
+      "/53_dds1__4_.png",
+      "/57_image_3.png",
+      "/58_image_4.png",
+      "/56_teko__2_.png",
+    ],
     client: "DentXR",
     role: "UI & Brand",
     year: "2023",
@@ -227,7 +283,14 @@ const projects: Project[] = [
   {
     name: "uNext",
     cat: "Ui Design",
-    image: "/11_rectangle_21.png",
+    images: [
+      "/5_rectangle_26.png",
+      "/59_dds1__4_.png",
+      "/63_image_3.png",
+      "/60_image_5.png",
+      "/61_ddslogo__1_.png",
+      "/62_teko__2_.png",
+    ],
     client: "uNext",
     role: "UI Designer",
     year: "2023",
@@ -241,7 +304,14 @@ const projects: Project[] = [
   {
     name: "DDShared",
     cat: "Ui Design",
-    image: "/14_rectangle_26.png",
+    images: [
+      "/6_rectangle_21.png",
+      "/64_dds1__4_.png",
+      "/68_image_3.png",
+      "/65_image_5.png",
+      "/66_ddslogo__1_.png",
+      "/67_teko__2_.png",
+    ],
     client: "DDShared",
     role: "UI Designer",
     year: "2023",
@@ -255,7 +325,14 @@ const projects: Project[] = [
   {
     name: "DDSMag",
     cat: "Ui Design",
-    image: "/17_rectangle_21.png",
+    images: [
+      "/7_rectangle_22.png",
+      "/69_dds1__4_.png",
+      "/73_image_3.png",
+      "/70_image_5.png",
+      "/71_ddslogo__1_.png",
+      "/72_teko__2_.png",
+    ],
     client: "DDSMag",
     role: "Brand & UI",
     year: "2024",
@@ -269,7 +346,14 @@ const projects: Project[] = [
   {
     name: "DDSGroup",
     cat: "Brand System Design",
-    image: "/44_dds1__4_.png",
+    images: [
+      "/8_rectangle_21.png",
+      "/74_rectangle_29.png","/75_rectangle_38.png","/80_rectangle_30.png",
+      "/85_rectangle_31.png","/86_rectangle_32.png","/87_rectangle_33.png",
+      "/76_rectangle_34.png","/77_rectangle_35.png","/78_rectangle_36.png",
+      "/79_rectangle_37.png","/81_rectangle_39.png","/82_rectangle_40.png",
+      "/83_rectangle_41.png","/84_rectangle_42.png",
+    ],
     client: "DDSGroup",
     role: "Brand Designer",
     year: "2024",
@@ -283,7 +367,11 @@ const projects: Project[] = [
   {
     name: "DicomShare",
     cat: "Brand System Design",
-    image: "/74_rectangle_29.png",
+    images: [
+      "/9_rectangle_22.png",
+      "/89_rectangle_49.png","/88_rectangle_43.png","/92_rectangle_47.png",
+      "/90_rectangle_45.png","/91_rectangle_46.png","/93_rectangle_48.png",
+    ],
     client: "DicomShare",
     role: "Brand Designer",
     year: "2024",
@@ -297,7 +385,11 @@ const projects: Project[] = [
   {
     name: "London & Paris",
     cat: "Brand System Design",
-    image: "/89_rectangle_49.png",
+    images: [
+      "/10_rectangle_26.png",
+      "/94_rectangle_72.png","/96_rectangle_68.png","/97_rectangle_69.png",
+      "/95_rectangle_67.png","/98_rectangle_70.png","/99_rectangle_71.png",
+    ],
     client: "London & Paris",
     role: "Brand Designer",
     year: "2025",
@@ -309,6 +401,7 @@ const projects: Project[] = [
     },
   },
 ];
+
 
 function Portfolio() {
   const [lang, setLang] = useState<Lang>("en");
@@ -410,9 +503,9 @@ function Portfolio() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pt-12 sm:pt-20 pb-16 sm:pb-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8 items-center">
           <div className="order-2 md:order-1">
-            <p className="text-muted-foreground text-lg">{L.hi}</p>
+            <p className="text-muted-foreground text-lg font-light">{L.hi}</p>
             <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
-            <h1 className="mt-4 text-4xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] text-gradient">
+            <h1 className="mt-4 text-[1.75rem] sm:text-4xl md:text-5xl font-extrabold leading-[1.05] text-gradient whitespace-nowrap">
               {L.role}
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -432,14 +525,12 @@ function Portfolio() {
             </div>
           </div>
           <div className="order-1 md:order-2 justify-self-center md:justify-self-end">
-            <div className="relative">
+            <div className="relative w-56 sm:w-72 md:w-80 aspect-square">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
-                src={camilaJpg}
+                src={camilaImg}
                 alt="Camila Rojas"
-                width={320}
-                height={320}
-                className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover border border-border"
+                className="relative w-full h-full rounded-full object-cover object-top border border-border"
               />
             </div>
           </div>
@@ -447,9 +538,11 @@ function Portfolio() {
       </section>
 
       {/* ABOUT */}
-      <section id="about" className="mx-auto max-w-3xl px-5 sm:px-8 pb-20 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
-        <p className="mt-3 text-muted-foreground text-sm">{L.aboutSub}</p>
+      <section id="about" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
+        <div className="text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold">{L.aboutTitle}</h2>
+          <p className="mt-3 text-muted-foreground text-sm">{L.aboutSub}</p>
+        </div>
         <p className="mt-8 text-muted-foreground leading-[1.9] text-[15px] text-justify">
           {L.aboutBody}
         </p>
@@ -461,6 +554,7 @@ function Portfolio() {
           <Download size={16} /> {L.downloadCv}
         </a>
       </section>
+
 
       {/* EDUCATION */}
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
@@ -478,16 +572,28 @@ function Portfolio() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.experienceTitle}</h2>
         <p className="mt-2 font-medium">{L.company}</p>
-        <div className="mt-10 relative grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div className="hidden md:block absolute top-2 left-[8%] right-[8%] h-px bg-border" />
-          {L.exp.map((e) => (
-            <div key={e.period} className="relative">
-              <div className="w-4 h-4 rounded-full bg-gradient-brand shadow-glow mb-6" />
-              <p className="text-sm text-gradient font-semibold">{e.period}</p>
-              <p className="mt-2 font-semibold">{e.role}</p>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
-            </div>
-          ))}
+        <div className="mt-10">
+          {/* Timeline row: dots connected by thick gradient line */}
+          <div className="hidden md:flex items-center">
+            {L.exp.map((e, i) => (
+              <div key={e.period} className="flex items-center" style={{ flex: i === L.exp.length - 1 ? "0 0 auto" : "1 1 0" }}>
+                <div className="w-5 h-5 rounded-full bg-gradient-brand shadow-glow shrink-0" />
+                {i < L.exp.length - 1 && <div className="flex-1 h-[3px] bg-gradient-brand" />}
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+            {L.exp.map((e, i) => (
+              <div key={e.period} className="relative">
+                <div className="md:hidden w-4 h-4 rounded-full bg-gradient-brand shadow-glow mb-6" />
+                <p className="text-sm text-gradient font-semibold">{e.period}</p>
+                <p className="mt-2 font-semibold">{e.role}</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
+                {/* spacing pad so last column doesn't visually offset */}
+                {i === -1 && null}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -515,75 +621,95 @@ function Portfolio() {
       <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.portfolioTitle}</h2>
 
+        {/* Category tabs — always visible (kept in case-study view too) */}
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
+          {filterList.map((f) => (
+            <button
+              key={f.id}
+              onClick={() => {
+                setFilter(f.id);
+                setActiveProject(null);
+              }}
+              className={`px-5 py-2 rounded-lg text-sm transition ${
+                filter === f.id
+                  ? "text-white bg-gradient-brand shadow-glow"
+                  : "text-muted-foreground bg-card/60 hover:bg-card"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
         {activeProject ? (
-          <div className="mt-8 rounded-xl bg-card border border-border p-5 sm:p-8">
-            <div className="flex items-center justify-between gap-4 mb-6">
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 md:gap-12">
+            {/* Left category navigation — list of project names in this category */}
+            <aside className="md:sticky md:top-24 md:self-start">
+              <ul className="flex md:flex-col gap-4 md:gap-8 overflow-x-auto md:overflow-visible">
+                {projects
+                  .filter((p) => p.cat === activeProject.cat)
+                  .map((p) => {
+                    const active = p.name === activeProject.name;
+                    return (
+                      <li key={p.name}>
+                        <button
+                          onClick={() => setActiveProject(p)}
+                          className={`text-left text-lg md:text-xl font-semibold whitespace-nowrap transition ${
+                            active
+                              ? "text-gradient"
+                              : "text-muted-foreground/40 hover:text-muted-foreground"
+                          }`}
+                        >
+                          {p.name}
+                        </button>
+                      </li>
+                    );
+                  })}
+              </ul>
               <button
                 onClick={() => setActiveProject(null)}
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition"
+                className="hidden md:inline-flex mt-10 items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition"
+              >
+                <ArrowLeft size={14} /> {L.back}
+              </button>
+            </aside>
+
+            {/* Right column — image grid + description */}
+            <div>
+              <div className="grid grid-cols-6 gap-3 sm:gap-4 auto-rows-auto">
+                {activeProject.images.map((src, i) => {
+                  const cls =
+                    activeProject.layout?.[i] ??
+                    (activeProject.cat === "Ui Design"
+                      ? uiLayout[i] ?? "col-span-3 aspect-square"
+                      : "col-span-2 aspect-square");
+                  return (
+                    <div
+                      key={i}
+                      className={`overflow-hidden rounded-lg bg-card border border-border/40 ${cls}`}
+                    >
+                      <img
+                        src={src}
+                        alt={`${activeProject.name} ${i + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="mt-8 text-muted-foreground leading-[1.9] text-[15px] text-justify">
+                {activeProject.description[lang]}
+              </p>
+              <button
+                onClick={() => setActiveProject(null)}
+                className="md:hidden mt-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition"
               >
                 <ArrowLeft size={16} /> {L.back}
               </button>
-              <span className="text-xs px-3 py-1 rounded-md text-white bg-gradient-brand shadow-glow">
-                {activeProject.cat === "Ui Design" ? L.filters.ui : L.filters.brand}
-              </span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8">
-              <dl className="space-y-4 text-sm">
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.client}</dt>
-                  <dd className="font-medium mt-1">{activeProject.client}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.role}</dt>
-                  <dd className="font-medium mt-1">{activeProject.role}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.year}</dt>
-                  <dd className="font-medium mt-1">{activeProject.year}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.tools}</dt>
-                  <dd className="font-medium mt-1">{activeProject.tools}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.scope}</dt>
-                  <dd className="font-medium mt-1">{activeProject.scope}</dd>
-                </div>
-              </dl>
-              <div>
-                <div className="aspect-[16/10] rounded-lg overflow-hidden bg-card border border-border">
-                  <img
-                    src={activeProject.image}
-                    alt={activeProject.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  {activeProject.description[lang]}
-                </p>
-              </div>
             </div>
           </div>
         ) : (
           <>
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
-              {filterList.map((f) => (
-                <button
-                  key={f.id}
-                  onClick={() => setFilter(f.id)}
-                  className={`px-4 py-1.5 rounded-md text-sm transition ${
-                    filter === f.id
-                      ? "text-white bg-gradient-brand shadow-glow"
-                      : "text-muted-foreground border border-border hover:bg-muted"
-                  }`}
-                >
-                  {f.label}
-                </button>
-              ))}
-            </div>
-
             {filter === "Logo Design" ? (
               /* Clean transparent grid of individual logo PNGs */
               <div className="mt-10 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
@@ -610,7 +736,7 @@ function Portfolio() {
                   >
                     <div className="aspect-[4/3] relative overflow-hidden bg-card">
                       <img
-                        src={p.image}
+                        src={p.images[0]}
                         alt={p.name}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
@@ -629,6 +755,7 @@ function Portfolio() {
           </>
         )}
       </section>
+
 
       {/* CONTACT */}
       <section id="contact" className="mx-auto max-w-3xl px-5 sm:px-8 pb-24">
@@ -676,8 +803,11 @@ function Portfolio() {
 
       {/* FOOTER */}
       <footer className="border-t border-border/40 py-10">
+        <GradientDefs />
         <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center">
-          <p className="text-gradient font-bold text-lg">Camila Rojas</p>
+          <p className="text-gradient text-2xl" style={{ fontFamily: '"K2D", sans-serif', fontWeight: 700 }}>
+            Camila Rojas
+          </p>
           <nav className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             {nav.map((n) => (
               <a key={n.key} href={n.href} className="hover:text-foreground transition">
@@ -687,10 +817,10 @@ function Portfolio() {
           </nav>
           <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">
-              <Mail size={14} /> mariacamirojas@gmail.com
+              <MailIcon size={16} /> mariacamirojas@gmail.com
             </span>
             <span className="inline-flex items-center gap-2">
-              <Phone size={14} /> +57 3018584572
+              <PhoneIcon size={16} /> +57 3018584572
             </span>
           </div>
           <p className="mt-6 text-xs text-muted-foreground">{L.footer}</p>
