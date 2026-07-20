@@ -598,71 +598,99 @@ function Portfolio() {
                 <ArrowLeft size={16} /> {L.back}
               </button>
               <span className="text-xs px-3 py-1 rounded-md text-white bg-gradient-brand shadow-glow">
-                {activeProject.cat === "Ui Design" ? L.filters.ui : L.filters.brand}
-              </span>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-8">
-              <dl className="space-y-4 text-sm">
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.client}</dt>
-                  <dd className="font-medium mt-1">{activeProject.client}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.role}</dt>
-                  <dd className="font-medium mt-1">{activeProject.role}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.year}</dt>
-                  <dd className="font-medium mt-1">{activeProject.year}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.tools}</dt>
-                  <dd className="font-medium mt-1">{activeProject.tools}</dd>
-                </div>
-                <div>
-                  <dt className="text-muted-foreground">{L.labels.scope}</dt>
-                  <dd className="font-medium mt-1">{activeProject.scope}</dd>
-                </div>
-              </dl>
-              <div>
-                <div className="grid grid-cols-2 gap-3">
-                  {activeProject.images.map((src, i) => (
+      {/* PORTFOLIO */}
+      <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.portfolioTitle}</h2>
+
+        {/* Category tabs — always visible (kept in case-study view too) */}
+        <div className="mt-8 flex flex-wrap justify-center gap-2">
+          {filterList.map((f) => (
+            <button
+              key={f.id}
+              onClick={() => {
+                setFilter(f.id);
+                setActiveProject(null);
+              }}
+              className={`px-5 py-2 rounded-lg text-sm transition ${
+                filter === f.id
+                  ? "text-white bg-gradient-brand shadow-glow"
+                  : "text-muted-foreground bg-card/60 hover:bg-card"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        {activeProject ? (
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-[200px_1fr] gap-8 md:gap-12">
+            {/* Left category navigation — list of project names in this category */}
+            <aside className="md:sticky md:top-24 md:self-start">
+              <ul className="flex md:flex-col gap-4 md:gap-8 overflow-x-auto md:overflow-visible">
+                {projects
+                  .filter((p) => p.cat === activeProject.cat)
+                  .map((p) => {
+                    const active = p.name === activeProject.name;
+                    return (
+                      <li key={p.name}>
+                        <button
+                          onClick={() => setActiveProject(p)}
+                          className={`text-left text-lg md:text-xl font-semibold whitespace-nowrap transition ${
+                            active
+                              ? "text-foreground"
+                              : "text-muted-foreground/40 hover:text-muted-foreground"
+                          }`}
+                        >
+                          {p.name}
+                        </button>
+                      </li>
+                    );
+                  })}
+              </ul>
+              <button
+                onClick={() => setActiveProject(null)}
+                className="hidden md:inline-flex mt-10 items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition"
+              >
+                <ArrowLeft size={14} /> {L.back}
+              </button>
+            </aside>
+
+            {/* Right column — image grid + description */}
+            <div>
+              <div className="grid grid-cols-6 gap-3 sm:gap-4 auto-rows-auto">
+                {activeProject.images.map((src, i) => {
+                  const cls =
+                    activeProject.layout?.[i] ??
+                    (activeProject.cat === "Ui Design"
+                      ? uiLayout[i] ?? "col-span-3 aspect-square"
+                      : "col-span-2 aspect-square");
+                  return (
                     <div
                       key={i}
-                      className={`overflow-hidden rounded-lg bg-card border border-border ${
-                        i === 0 ? "col-span-2 aspect-[16/9]" : "aspect-square"
-                      }`}
+                      className={`overflow-hidden rounded-lg bg-card border border-border/40 ${cls}`}
                     >
-                      <img src={src} alt={`${activeProject.name} ${i + 1}`} className="w-full h-full object-cover" />
+                      <img
+                        src={src}
+                        alt={`${activeProject.name} ${i + 1}`}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  ))}
-                </div>
-                <h3 className="mt-6 text-xl font-semibold">{activeProject.name}</h3>
-                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                  {activeProject.description[lang]}
-                </p>
+                  );
+                })}
               </div>
-
+              <p className="mt-8 text-muted-foreground leading-[1.9] text-[15px] text-justify">
+                {activeProject.description[lang]}
+              </p>
+              <button
+                onClick={() => setActiveProject(null)}
+                className="md:hidden mt-6 inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition"
+              >
+                <ArrowLeft size={16} /> {L.back}
+              </button>
             </div>
           </div>
         ) : (
           <>
-            <div className="mt-8 flex flex-wrap justify-center gap-2">
-              {filterList.map((f) => (
-                <button
-                  key={f.id}
-                  onClick={() => setFilter(f.id)}
-                  className={`px-4 py-1.5 rounded-md text-sm transition ${
-                    filter === f.id
-                      ? "text-white bg-gradient-brand shadow-glow"
-                      : "text-muted-foreground border border-border hover:bg-muted"
-                  }`}
-                >
-                  {f.label}
-                </button>
-              ))}
-            </div>
-
             {filter === "Logo Design" ? (
               /* Clean transparent grid of individual logo PNGs */
               <div className="mt-10 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
@@ -708,6 +736,7 @@ function Portfolio() {
           </>
         )}
       </section>
+
 
       {/* CONTACT */}
       <section id="contact" className="mx-auto max-w-3xl px-5 sm:px-8 pb-24">
