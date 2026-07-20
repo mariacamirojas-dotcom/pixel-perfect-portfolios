@@ -572,16 +572,28 @@ function Portfolio() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.experienceTitle}</h2>
         <p className="mt-2 font-medium">{L.company}</p>
-        <div className="mt-10 relative grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div className="hidden md:block absolute top-2 left-[8%] right-[8%] h-px bg-border" />
-          {L.exp.map((e) => (
-            <div key={e.period} className="relative">
-              <div className="w-4 h-4 rounded-full bg-gradient-brand shadow-glow mb-6" />
-              <p className="text-sm text-gradient font-semibold">{e.period}</p>
-              <p className="mt-2 font-semibold">{e.role}</p>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
-            </div>
-          ))}
+        <div className="mt-10">
+          {/* Timeline row: dots connected by thick gradient line */}
+          <div className="hidden md:flex items-center">
+            {L.exp.map((e, i) => (
+              <div key={e.period} className="flex items-center" style={{ flex: i === L.exp.length - 1 ? "0 0 auto" : "1 1 0" }}>
+                <div className="w-5 h-5 rounded-full bg-gradient-brand shadow-glow shrink-0" />
+                {i < L.exp.length - 1 && <div className="flex-1 h-[3px] bg-gradient-brand" />}
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+            {L.exp.map((e, i) => (
+              <div key={e.period} className="relative">
+                <div className="md:hidden w-4 h-4 rounded-full bg-gradient-brand shadow-glow mb-6" />
+                <p className="text-sm text-gradient font-semibold">{e.period}</p>
+                <p className="mt-2 font-semibold">{e.role}</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
+                {/* spacing pad so last column doesn't visually offset */}
+                {i === -1 && null}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
