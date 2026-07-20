@@ -1,6 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, Mail, Phone, Download, ArrowLeft, Globe } from "lucide-react";
+import { Menu, X, Download, ArrowLeft, Globe } from "lucide-react";
+
+// Mail & Phone icons with brand gradient stroke
+const GradientDefs = () => (
+  <svg width="0" height="0" className="absolute" aria-hidden>
+    <defs>
+      <linearGradient id="brandGradient" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stopColor="#a855f7" />
+        <stop offset="100%" stopColor="#22d3ee" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+const MailIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="url(#brandGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2" />
+    <path d="m22 7-10 5L2 7" />
+  </svg>
+);
+const PhoneIcon = ({ size = 16 }: { size?: number }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="url(#brandGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
 
 const camilaImg = "/camila.png";
 
@@ -482,7 +505,7 @@ function Portfolio() {
           <div className="order-2 md:order-1">
             <p className="text-muted-foreground text-lg font-light">{L.hi}</p>
             <h2 className="text-3xl sm:text-4xl font-semibold mt-1">{L.name}</h2>
-            <h1 className="mt-4 text-[2rem] sm:text-5xl md:text-[3.75rem] font-extrabold leading-[1.05] text-gradient whitespace-nowrap">
+            <h1 className="mt-4 text-[1.75rem] sm:text-4xl md:text-5xl font-extrabold leading-[1.05] text-gradient whitespace-nowrap">
               {L.role}
             </h1>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -502,14 +525,12 @@ function Portfolio() {
             </div>
           </div>
           <div className="order-1 md:order-2 justify-self-center md:justify-self-end">
-            <div className="relative">
+            <div className="relative w-56 sm:w-72 md:w-80 aspect-square">
               <div className="absolute -inset-1 rounded-full bg-gradient-brand opacity-30 blur-2xl" />
               <img
                 src={camilaImg}
                 alt="Camila Rojas"
-                width={320}
-                height={320}
-                className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-80 md:h-80 rounded-full object-cover border border-border"
+                className="relative w-full h-full rounded-full object-cover object-top border border-border"
               />
             </div>
           </div>
@@ -551,16 +572,28 @@ function Portfolio() {
       <section className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-2xl sm:text-3xl font-bold">{L.experienceTitle}</h2>
         <p className="mt-2 font-medium">{L.company}</p>
-        <div className="mt-10 relative grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div className="hidden md:block absolute top-2 left-[8%] right-[8%] h-px bg-border" />
-          {L.exp.map((e) => (
-            <div key={e.period} className="relative">
-              <div className="w-4 h-4 rounded-full bg-gradient-brand shadow-glow mb-6" />
-              <p className="text-sm text-gradient font-semibold">{e.period}</p>
-              <p className="mt-2 font-semibold">{e.role}</p>
-              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
-            </div>
-          ))}
+        <div className="mt-10">
+          {/* Timeline row: dots connected by thick gradient line */}
+          <div className="hidden md:flex items-center">
+            {L.exp.map((e, i) => (
+              <div key={e.period} className="flex items-center" style={{ flex: i === L.exp.length - 1 ? "0 0 auto" : "1 1 0" }}>
+                <div className="w-5 h-5 rounded-full bg-gradient-brand shadow-glow shrink-0" />
+                {i < L.exp.length - 1 && <div className="flex-1 h-[3px] bg-gradient-brand" />}
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-10">
+            {L.exp.map((e, i) => (
+              <div key={e.period} className="relative">
+                <div className="md:hidden w-4 h-4 rounded-full bg-gradient-brand shadow-glow mb-6" />
+                <p className="text-sm text-gradient font-semibold">{e.period}</p>
+                <p className="mt-2 font-semibold">{e.role}</p>
+                <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{e.text}</p>
+                {/* spacing pad so last column doesn't visually offset */}
+                {i === -1 && null}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -623,7 +656,7 @@ function Portfolio() {
                           onClick={() => setActiveProject(p)}
                           className={`text-left text-lg md:text-xl font-semibold whitespace-nowrap transition ${
                             active
-                              ? "text-foreground"
+                              ? "text-gradient"
                               : "text-muted-foreground/40 hover:text-muted-foreground"
                           }`}
                         >
@@ -770,8 +803,11 @@ function Portfolio() {
 
       {/* FOOTER */}
       <footer className="border-t border-border/40 py-10">
+        <GradientDefs />
         <div className="mx-auto max-w-6xl px-5 sm:px-8 text-center">
-          <p className="text-gradient font-bold text-lg">Camila Rojas</p>
+          <p className="text-gradient text-2xl" style={{ fontFamily: '"K2D", sans-serif', fontWeight: 700 }}>
+            Camila Rojas
+          </p>
           <nav className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             {nav.map((n) => (
               <a key={n.key} href={n.href} className="hover:text-foreground transition">
@@ -781,10 +817,10 @@ function Portfolio() {
           </nav>
           <div className="mt-4 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
             <span className="inline-flex items-center gap-2">
-              <Mail size={14} /> mariacamirojas@gmail.com
+              <MailIcon size={16} /> mariacamirojas@gmail.com
             </span>
             <span className="inline-flex items-center gap-2">
-              <Phone size={14} /> +57 3018584572
+              <PhoneIcon size={16} /> +57 3018584572
             </span>
           </div>
           <p className="mt-6 text-xs text-muted-foreground">{L.footer}</p>
