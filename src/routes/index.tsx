@@ -588,20 +588,6 @@ function Portfolio() {
       <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
         <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.portfolioTitle}</h2>
 
-        {activeProject ? (
-          <div className="mt-8 rounded-xl bg-card border border-border p-5 sm:p-8">
-            <div className="flex items-center justify-between gap-4 mb-6">
-              <button
-                onClick={() => setActiveProject(null)}
-                className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition"
-              >
-                <ArrowLeft size={16} /> {L.back}
-              </button>
-              <span className="text-xs px-3 py-1 rounded-md text-white bg-gradient-brand shadow-glow">
-      {/* PORTFOLIO */}
-      <section id="portfolio" className="mx-auto max-w-6xl px-5 sm:px-8 pb-20">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center">{L.portfolioTitle}</h2>
-
         {/* Category tabs — always visible (kept in case-study view too) */}
         <div className="mt-8 flex flex-wrap justify-center gap-2">
           {filterList.map((f) => (
