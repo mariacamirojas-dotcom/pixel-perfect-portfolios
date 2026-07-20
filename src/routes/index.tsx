@@ -656,7 +656,7 @@ function Portfolio() {
                           onClick={() => setActiveProject(p)}
                           className={`text-left text-lg md:text-xl font-semibold whitespace-nowrap transition ${
                             active
-                              ? "text-foreground"
+                              ? "text-gradient"
                               : "text-muted-foreground/40 hover:text-muted-foreground"
                           }`}
                         >
